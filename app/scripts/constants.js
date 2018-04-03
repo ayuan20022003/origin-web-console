@@ -299,15 +299,15 @@ angular.extend(window.OPENSHIFT_CONSTANTS, {
               label: gettext("Quota"),
               href: "/quota"
             },
-            {
-              label: gettext("Membership"),
-              href: "/membership",
-              // supports: {resource: '', verb: '', group: '' }
-              canI: {
-                resource: 'rolebindings',
-                verb: 'list'
-              }
-            },
+            // {
+            //   label: gettext("Membership"),
+            //   href: "/membership",
+            //   // supports: {resource: '', verb: '', group: '' }
+            //   canI: {
+            //     resource: 'rolebindings',
+            //     verb: 'list'
+            //   }
+            // },
             {
               label: gettext("Config Maps"),
               href: "/browse/config-maps",

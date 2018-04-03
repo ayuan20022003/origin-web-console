@@ -753,13 +753,6 @@ items:[ {
 label:gettext("Quota"),
 href:"/quota"
 }, {
-label:gettext("Membership"),
-href:"/membership",
-canI:{
-resource:"rolebindings",
-verb:"list"
-}
-}, {
 label:gettext("Config Maps"),
 href:"/browse/config-maps",
 prefixes:[ "/browse/config-maps/" ]
