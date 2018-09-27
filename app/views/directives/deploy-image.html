@@ -156,15 +156,9 @@
               Name can't have more than 24 characters.
             </div>
           </div>
-          <div class="has-error" ng-show="nameTaken">
-            <span class="help-block" translate>This name is already in use within the project. Please choose a different name.</span>
-          </div>
-          <div class="has-error" ng-show="nameTaken">
-            <span class="help-block">This name is already in use within the project. Please choose a different name.</span>
-          </div>
         </div>
         <div class="has-error" ng-show="nameTaken">
-          <span class="help-block">This name is already in use within the project. Please choose a different name.</span>
+          <span class="help-block" translate>This name is already in use within the project. Please choose a different name.</span>
         </div>
         <osc-form-section
           header="{{'Environment Variables'|translate}}"
