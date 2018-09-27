@@ -18,7 +18,7 @@
       <div class="results-message">
         <h1 class="h3">
           <span ng-if="$ctrl.kind">{{$ctrl.kind | humanizeKind | upperFirst}}</span>
-          <strong>{{$ctrl.name}}</strong> failed to be {{$ctrl.actionLabel}}<span ng-if="$ctrl.showProjectName && $ctrl.projectName"> in <strong>{{$ctrl.projectName}}</strong></span>.
+          <strong>{{$ctrl.name}}</strong> <translate>failed to be</translate> {{$ctrl.actionLabel | translate}}<span ng-if="$ctrl.showProjectName && $ctrl.projectName"> in <strong>{{$ctrl.projectName}}</strong></span>.
         </h1>
       </div>
     </div>
@@ -31,7 +31,7 @@
       <div class="results-message">
         <h1 class="h3">
           <span ng-if="$ctrl.kind">{{$ctrl.kind | humanizeKind | upperFirst}}</span>
-          <strong>{{$ctrl.name}}</strong> has been {{$ctrl.actionLabel}}<span ng-if="$ctrl.showProjectName && $ctrl.projectName"> in <strong>{{$ctrl.projectName}}</strong> successfully</span>.
+          <strong>{{$ctrl.name}}</strong> <translate>has been</translate> {{$ctrl.actionLabel | translate}}<span ng-if="$ctrl.showProjectName && $ctrl.projectName"> in <strong>{{$ctrl.projectName}}</strong> successfully</span>.
         </h1>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <div class="results-message">
         <h1 class="h3">
           <span ng-if="$ctrl.kind">{{$ctrl.kind | humanizeKind | upperFirst}}</span>
-          <strong>{{$ctrl.name}}</strong> has been {{$ctrl.actionLabel}}<span ng-if="$ctrl.showProjectName && $ctrl.projectName"> in <strong>{{$ctrl.projectName}}</strong> successfully</span>.
+          <strong>{{$ctrl.name}}</strong> <translate>has been</translate> {{$ctrl.actionLabel | translate}}<span ng-if="$ctrl.showProjectName && $ctrl.projectName"> in <strong>{{$ctrl.projectName}}</strong> successfully</span>.
         </h1>
       </div>
     </div>
@@ -95,7 +95,7 @@
 
 <div ng-if="$ctrl.parameters.all.length">
   <h2 class="h3" translate>Applied Parameter Values</h2>
-  <p>These parameters often include things like passwords. If you will need to reference these values later, copy them to a safe location.
+  <p translate>These parameters often include things like passwords. If you will need to reference these values later, copy them to a safe location.
     <span ng-if="$ctrl.parameters.generated.length > 1">Parameters <span ng-repeat="paramName in $ctrl.parameters.generated">{{paramName}}<span ng-if="!$last">, </span></span> were generated automatically.</span>
     <span ng-if="$ctrl.parameters.generated.length === 1">Parameter {{$ctrl.parameters.generated[0]}} was generated automatically.</span>
   </p>

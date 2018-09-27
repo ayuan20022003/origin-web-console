@@ -18722,7 +18722,7 @@ angular.module('patternfly.wizard').component('pfWizardSubstep', {
 
 
   $templateCache.put('filters/filter-panel/filter-panel.html',
-    "<div class=\"filter-pf inline-filter-pf\"><span class=\"dropdown primary-action\" uib-dropdown><button class=\"btn btn-default dropdown-toggle\" uib-dropdown-toggle type=button>Filter <span class=caret></span></button><div ng-transclude class=dropdown-menu ng-click=$event.stopPropagation()></div></span><pf-filter-panel-results config=$ctrl.config></pf-filter-panel-results></div>"
+    "<div class=\"filter-pf inline-filter-pf\"><span class=\"dropdown primary-action\" uib-dropdown><button class=\"btn btn-default dropdown-toggle\" uib-dropdown-toggle type=button><translate>Filter</translate> <span class=caret></span></button><div ng-transclude class=dropdown-menu ng-click=$event.stopPropagation()></div></span><pf-filter-panel-results config=$ctrl.config></pf-filter-panel-results></div>"
   );
 
 

@@ -37,6 +37,7 @@ function Noop() {
   gettext('Cores');
   gettext('CPU (Limit)');
   gettext('CPU (Request)');
+  gettext('created');
   gettext('Create Project');
   gettext('Custom');
   gettext('daemon set');

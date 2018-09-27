@@ -5055,7 +5055,7 @@ angular.module('openshiftConsoleTemplates', []).run(['$templateCache', function(
     "</div>\n" +
     "</osc-form-section>\n" +
     "\n" +
-    "<label-editor labels=\"labelArray\" expand=\"true\" can-toggle=\"false\" help-text=\"Each label is applied to each created resource.\">\n" +
+    "<label-editor labels=\"labelArray\" expand=\"true\" can-toggle=\"false\" help-text=\"{{'Each label is applied to each created resource.'|translate}}\">\n" +
     "</label-editor>\n" +
     "</div>\n" +
     "<div class=\"mar-top-md\">\n" +
@@ -6509,15 +6509,9 @@ angular.module('openshiftConsoleTemplates', []).run(['$templateCache', function(
     "Name can't have more than 24 characters.\n" +
     "</div>\n" +
     "</div>\n" +
+    "</div>\n" +
     "<div class=\"has-error\" ng-show=\"nameTaken\">\n" +
     "<span class=\"help-block\" translate>This name is already in use within the project. Please choose a different name.</span>\n" +
-    "</div>\n" +
-    "<div class=\"has-error\" ng-show=\"nameTaken\">\n" +
-    "<span class=\"help-block\">This name is already in use within the project. Please choose a different name.</span>\n" +
-    "</div>\n" +
-    "</div>\n" +
-    "<div class=\"has-error\" ng-show=\"nameTaken\">\n" +
-    "<span class=\"help-block\">This name is already in use within the project. Please choose a different name.</span>\n" +
     "</div>\n" +
     "<osc-form-section header=\"{{'Environment Variables'|translate}}\" about-title=\"Environment Variables\" about=\"Environment variables are used to configure and pass information to running containers.\" expand=\"true\" can-toggle=\"false\" class=\"first-section\">\n" +
     "<key-value-editor entries=\"env\" key-placeholder=\"{{'Name'|translate}}\" key-validator=\"[A-Za-z_][A-Za-z0-9_]*\" key-validator-error=\"A valid environment variable name is an alphanumeric (a-z and 0-9) string beginning with a letter that may contain underscores.\" value-placeholder=\"{{'Value'|translate}}\" value-from-selector-options=\"input.selectedProject.metadata.uid && valueFromNamespace[input.selectedProject.metadata.name]\" add-row-link=\"{{'Add Value'|translate}}\" add-row-with-selectors-link=\"{{'Add Value from Config Map or Secret'|translate}}\"></key-value-editor>\n" +
@@ -7874,7 +7868,7 @@ angular.module('openshiftConsoleTemplates', []).run(['$templateCache', function(
     "<div class=\"results-message\">\n" +
     "<h1 class=\"h3\">\n" +
     "<span ng-if=\"$ctrl.kind\">{{$ctrl.kind | humanizeKind | upperFirst}}</span>\n" +
-    "<strong>{{$ctrl.name}}</strong> failed to be {{$ctrl.actionLabel}}<span ng-if=\"$ctrl.showProjectName && $ctrl.projectName\"> in <strong>{{$ctrl.projectName}}</strong></span>.\n" +
+    "<strong>{{$ctrl.name}}</strong> <translate>failed to be</translate> {{$ctrl.actionLabel | translate}}<span ng-if=\"$ctrl.showProjectName && $ctrl.projectName\"> in <strong>{{$ctrl.projectName}}</strong></span>.\n" +
     "</h1>\n" +
     "</div>\n" +
     "</div>\n" +
@@ -7887,7 +7881,7 @@ angular.module('openshiftConsoleTemplates', []).run(['$templateCache', function(
     "<div class=\"results-message\">\n" +
     "<h1 class=\"h3\">\n" +
     "<span ng-if=\"$ctrl.kind\">{{$ctrl.kind | humanizeKind | upperFirst}}</span>\n" +
-    "<strong>{{$ctrl.name}}</strong> has been {{$ctrl.actionLabel}}<span ng-if=\"$ctrl.showProjectName && $ctrl.projectName\"> in <strong>{{$ctrl.projectName}}</strong> successfully</span>.\n" +
+    "<strong>{{$ctrl.name}}</strong> <translate>has been</translate> {{$ctrl.actionLabel | translate}}<span ng-if=\"$ctrl.showProjectName && $ctrl.projectName\"> in <strong>{{$ctrl.projectName}}</strong> successfully</span>.\n" +
     "</h1>\n" +
     "</div>\n" +
     "</div>\n" +
@@ -7899,7 +7893,7 @@ angular.module('openshiftConsoleTemplates', []).run(['$templateCache', function(
     "<div class=\"results-message\">\n" +
     "<h1 class=\"h3\">\n" +
     "<span ng-if=\"$ctrl.kind\">{{$ctrl.kind | humanizeKind | upperFirst}}</span>\n" +
-    "<strong>{{$ctrl.name}}</strong> has been {{$ctrl.actionLabel}}<span ng-if=\"$ctrl.showProjectName && $ctrl.projectName\"> in <strong>{{$ctrl.projectName}}</strong> successfully</span>.\n" +
+    "<strong>{{$ctrl.name}}</strong> <translate>has been</translate> {{$ctrl.actionLabel | translate}}<span ng-if=\"$ctrl.showProjectName && $ctrl.projectName\"> in <strong>{{$ctrl.projectName}}</strong> successfully</span>.\n" +
     "</h1>\n" +
     "</div>\n" +
     "</div>\n" +
@@ -7945,7 +7939,7 @@ angular.module('openshiftConsoleTemplates', []).run(['$templateCache', function(
     "</div>\n" +
     "<div ng-if=\"$ctrl.parameters.all.length\">\n" +
     "<h2 class=\"h3\" translate>Applied Parameter Values</h2>\n" +
-    "<p>These parameters often include things like passwords. If you will need to reference these values later, copy them to a safe location.\n" +
+    "<p translate>These parameters often include things like passwords. If you will need to reference these values later, copy them to a safe location.\n" +
     "<span ng-if=\"$ctrl.parameters.generated.length > 1\">Parameters <span ng-repeat=\"paramName in $ctrl.parameters.generated\">{{paramName}}<span ng-if=\"!$last\">, </span></span> were generated automatically.</span>\n" +
     "<span ng-if=\"$ctrl.parameters.generated.length === 1\">Parameter {{$ctrl.parameters.generated[0]}} was generated automatically.</span>\n" +
     "</p>\n" +
@@ -9202,7 +9196,7 @@ angular.module('openshiftConsoleTemplates', []).run(['$templateCache', function(
     "<span ng-show=\"!$ctrl.noProjectsCantCreate\">\n" +
     "<template-options is-dialog=\"$ctrl.isDialog\" parameters=\"$ctrl.template.parameters\" expand=\"true\" can-toggle=\"false\">\n" +
     "</template-options>\n" +
-    "<label-editor labels=\"$ctrl.labels\" expand=\"true\" can-toggle=\"false\" help-text=\"Each label is applied to each created resource.\">\n" +
+    "<label-editor labels=\"$ctrl.labels\" expand=\"true\" can-toggle=\"false\" help-text=\"{{'Each label is applied to each created resource.'|translate}}\">\n" +
     "</label-editor>\n" +
     "<div ng-if=\"!$ctrl.isDialog\" class=\"buttons gutter-top-bottom\">\n" +
     "<button class=\"btn btn-primary btn-lg\" ng-click=\"$ctrl.createFromTemplate()\" ng-disabled=\"$ctrl.templateForm.$invalid || $ctrl.disableInputs\" translate>Create</button>\n" +
