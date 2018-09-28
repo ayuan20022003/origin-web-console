@@ -9,7 +9,9 @@ angular.module("openshiftConsole")
                                     APIService,
                                     Constants,
                                     DataService,
-                                    EventsService,
+                                    EventsService, 
+                                    gettext, 
+                                    gettextCatalog,
                                     Logger,
                                     NotificationsService) {
 
@@ -329,7 +331,7 @@ angular.module("openshiftConsole")
               showInDrawer: true,
               actions: [
                 {
-                  name: 'View Quotas',
+                  name: gettextCatalog.getString(gettext('View Quotas')),
                   title: 'View project quotas',
                   onClick: function() {
                     $location.url("/project/" + $routeParams.project + "/quota");
@@ -337,7 +339,7 @@ angular.module("openshiftConsole")
                   }
                 },
                 {
-                  name: "Don't Show Me Again",
+                  name: gettextCatalog.getString(gettext("Don't Show Me Again")),
                   title: 'Permenantly hide this notificaiton until quota limit changes',
                   onClick: function(notification) {
                     NotificationsService.permanentlyHideNotification(notification.uid, notification.namespace);
@@ -345,7 +347,7 @@ angular.module("openshiftConsole")
                   }
                 },
                 {
-                  name: "Clear",
+                  name:  gettextCatalog.getString(gettext("Clear")),
                   title: 'Clear this notificaiton',
                   onClick: function(notification) {
                     $rootScope.$emit('NotificationDrawerWrapper.clear', notification);
