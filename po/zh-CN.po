@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-27 14:56+0800\n"
+"PO-Revision-Date: 2018-09-28 11:46+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -1181,7 +1181,7 @@ msgstr "无法创建{{kind}} \"{{name}}\"."
 
 #: app/views/storage.html:54
 msgid "Capacity"
-msgstr "能力"
+msgstr "容量"
 
 #: app/views/_volume-claim-templates.html:24
 #: app/views/browse/persistent-volume-claim.html:60
