@@ -22,6 +22,7 @@ function Noop() {
   gettext("can't be created in project");
   gettext("Can't create resource in different projects.");
   gettext('CI/CD');
+  gettext("Clear");
   gettext('Clear All');
   gettext('Clear Filters');
   gettext('Clear Search Input');
@@ -44,6 +45,7 @@ function Noop() {
   gettext('Databases');
   gettext('deployment config');
   gettext('Deployment Config');
+  gettext("Don't Show Me Again");
   gettext('Failed');
   gettext('Filter by Keyword');
   gettext('Filter by label');
@@ -125,6 +127,7 @@ function Noop() {
   gettext('Update ');
   gettext('View all');
   gettext('View the result for Keyword:');
+  gettext('View Quotas');
 }
 Noop();
 

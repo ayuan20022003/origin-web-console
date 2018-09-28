@@ -1,10 +1,10 @@
 "use strict";
 
 function Noop() {
-gettext("< Back"), gettext("Abort"), gettext("Active"), gettext("Add "), gettext("Bound"), gettext("Build Config"), gettext("Cancelled"), gettext("can't be created in project"), gettext("Can't create resource in different projects."), gettext("CI/CD"), gettext("Clear All"), gettext("Clear Filters"), gettext("Clear Search Input"), gettext("Client state could not be verified"), gettext("Complete"), gettext("complete"), gettext("Completed"), gettext("config-map"), gettext("Config Map"), gettext("Collapse"), gettext("Config map"), gettext("Configuration File"), gettext("Cores"), gettext("CPU (Limit)"), gettext("CPU (Request)"), gettext("created"), gettext("Create Project"), gettext("Custom"), gettext("daemon set"), gettext("Databases"), gettext("deployment config"), gettext("Deployment Config"), gettext("Failed"), gettext("Filter by Keyword"), gettext("Filter by label"), gettext("From"), gettext("Generic"), gettext("group"), gettext("Group"), gettext("horizontal pod autoscaler"), gettext("Identifier"), 
-gettext("Ignore"), gettext("Image count"), gettext("Image Registry Credentials"), gettext("is paused"), gettext("Items"), gettext("Last Updated"), gettext("Manual"), gettext("manual change"), gettext("Mark All Read"), gettext("matching(...)"), gettext("Memory (Limit)"), gettext("Memory (Request)"), gettext("Mid"), gettext("Middleware"), gettext("Name must consist of lower-case letters, numbers, periods, and hyphens. It must start and end with a letter or a number."), gettext("No catalog items have been loaded."), gettext("No items."), gettext("No results found for Keyword:"), gettext("No results match."), gettext("openshift.io/imagestreams"), gettext("Post"), gettext("Pre"), gettext("Publisher"), gettext("pull"), gettext("Pull"), gettext("Pulling repository"), gettext("push"), gettext("Read-Only-Many"), gettext("Read-Write-Many"), gettext("Read-Write-Once"), gettext("Recreate"), gettext("replication controller"), gettext("Replication Controller"), gettext("results for Keyword:"), gettext("Resume Rollouts"), 
-gettext("Retry"), gettext("Rolling"), gettext("Route"), gettext("running"), gettext("Running"), gettext("Save "), gettext("Search Catalog"), gettext("secret"), gettext("Secret"), gettext("See All"), gettext("Select an application"), gettext("Secret reference key must consist of lower-case, upper-case letters, numbers, dash, and underscore."), gettext("service account"), gettext("Service Account"), gettext("Storage (Request)"), gettext("system group"), gettext("System Group"), gettext("system user"), gettext("System User"), gettext("Terminating"), gettext("template"), gettext("the container is allowed to use when running."), gettext("the container is guaranteed."), gettext("The active filters are hiding all catalog items."), gettext("The maximum amount of"), gettext("The minimum amount of"), gettext("There are no applications in this project"), gettext("There are no notifications to display."), gettext("This filter will only apply to items which contain publisher information. Items that do not have a publisher will not be shown in the filter results."), 
-gettext("This will stop any new rollouts or triggers from running until resumed."), gettext("To pull this image"), gettext("To push an image to this image stream:"), gettext("user"), gettext("User"), gettext("Update "), gettext("View all"), gettext("View the result for Keyword:");
+gettext("< Back"), gettext("Abort"), gettext("Active"), gettext("Add "), gettext("Bound"), gettext("Build Config"), gettext("Cancelled"), gettext("can't be created in project"), gettext("Can't create resource in different projects."), gettext("CI/CD"), gettext("Clear"), gettext("Clear All"), gettext("Clear Filters"), gettext("Clear Search Input"), gettext("Client state could not be verified"), gettext("Complete"), gettext("complete"), gettext("Completed"), gettext("config-map"), gettext("Config Map"), gettext("Collapse"), gettext("Config map"), gettext("Configuration File"), gettext("Cores"), gettext("CPU (Limit)"), gettext("CPU (Request)"), gettext("created"), gettext("Create Project"), gettext("Custom"), gettext("daemon set"), gettext("Databases"), gettext("deployment config"), gettext("Deployment Config"), gettext("Don't Show Me Again"), gettext("Failed"), gettext("Filter by Keyword"), gettext("Filter by label"), gettext("From"), gettext("Generic"), gettext("group"), gettext("Group"), 
+gettext("horizontal pod autoscaler"), gettext("Identifier"), gettext("Ignore"), gettext("Image count"), gettext("Image Registry Credentials"), gettext("is paused"), gettext("Items"), gettext("Last Updated"), gettext("Manual"), gettext("manual change"), gettext("Mark All Read"), gettext("matching(...)"), gettext("Memory (Limit)"), gettext("Memory (Request)"), gettext("Mid"), gettext("Middleware"), gettext("Name must consist of lower-case letters, numbers, periods, and hyphens. It must start and end with a letter or a number."), gettext("No catalog items have been loaded."), gettext("No items."), gettext("No results found for Keyword:"), gettext("No results match."), gettext("openshift.io/imagestreams"), gettext("Post"), gettext("Pre"), gettext("Publisher"), gettext("pull"), gettext("Pull"), gettext("Pulling repository"), gettext("push"), gettext("Read-Only-Many"), gettext("Read-Write-Many"), gettext("Read-Write-Once"), gettext("Recreate"), gettext("replication controller"), gettext("Replication Controller"), 
+gettext("results for Keyword:"), gettext("Resume Rollouts"), gettext("Retry"), gettext("Rolling"), gettext("Route"), gettext("running"), gettext("Running"), gettext("Save "), gettext("Search Catalog"), gettext("secret"), gettext("Secret"), gettext("See All"), gettext("Select an application"), gettext("Secret reference key must consist of lower-case, upper-case letters, numbers, dash, and underscore."), gettext("service account"), gettext("Service Account"), gettext("Storage (Request)"), gettext("system group"), gettext("System Group"), gettext("system user"), gettext("System User"), gettext("Terminating"), gettext("template"), gettext("the container is allowed to use when running."), gettext("the container is guaranteed."), gettext("The active filters are hiding all catalog items."), gettext("The maximum amount of"), gettext("The minimum amount of"), gettext("There are no applications in this project"), gettext("There are no notifications to display."), gettext("This filter will only apply to items which contain publisher information. Items that do not have a publisher will not be shown in the filter results."), 
+gettext("This will stop any new rollouts or triggers from running until resumed."), gettext("To pull this image"), gettext("To push an image to this image stream:"), gettext("user"), gettext("User"), gettext("Update "), gettext("View all"), gettext("View the result for Keyword:"), gettext("View Quotas");
 }
 
 function OverviewController(e, t, n, r, a, o, i, s, c, l, u, d, m, p, g, f, v, h, y, b, S, C, w, P, j, k, I, R, E, T, N, A, D) {
@@ -3734,20 +3734,20 @@ getBreadcrumbs: function(e) {
 return (e = e || {}).object ? c(e.object, e) : e.kind && e.name && e.namespace ? i(e.name, e.kind, e.namespace, e) : [];
 }
 };
-} ]), angular.module("openshiftConsole").factory("QuotaService", [ "$filter", "$location", "$rootScope", "$routeParams", "$q", "APIService", "Constants", "DataService", "EventsService", "Logger", "NotificationsService", function(e, t, n, r, a, o, i, s, c, l, u) {
-var d = o.getPreferredVersion("resourcequotas"), m = o.getPreferredVersion("appliedclusterresourcequotas"), p = e("isNil"), g = e("usageValue"), f = e("usageWithUnits"), v = e("percent"), h = function(e) {
+} ]), angular.module("openshiftConsole").factory("QuotaService", [ "$filter", "$location", "$rootScope", "$routeParams", "$q", "APIService", "Constants", "DataService", "EventsService", "gettext", "gettextCatalog", "Logger", "NotificationsService", function(e, t, n, r, a, o, i, s, c, l, u, d, m) {
+var p = o.getPreferredVersion("resourcequotas"), g = o.getPreferredVersion("appliedclusterresourcequotas"), f = e("isNil"), v = e("usageValue"), h = e("usageWithUnits"), y = e("percent"), b = function(e) {
 return _.every(e.spec.containers, function(e) {
 var t = _.some(_.get(e, "resources.requests"), function(e) {
-return !p(e) && 0 !== g(e);
+return !f(e) && 0 !== v(e);
 }), n = _.some(_.get(e, "resources.limits"), function(e) {
-return !p(e) && 0 !== g(e);
+return !f(e) && 0 !== v(e);
 });
 return !t && !n;
 });
-}, y = function(e) {
+}, S = function(e) {
 return _.has(e, "spec.activeDeadlineSeconds");
-}, b = function(e, t) {
-var n = h(e), r = y(e);
+}, C = function(e, t) {
+var n = b(e), r = S(e);
 return _.filter(t, function(e) {
 var t = e.spec.quota ? e.spec.quota.scopes : e.spec.scopes;
 return _.every(t, function(e) {
@@ -3767,13 +3767,13 @@ return !n;
 return !0;
 });
 });
-}, S = function(e, t) {
-return e ? "Pod" === e.kind ? b(e, t) : _.has(e, "spec.template") ? b(e.spec.template, t) : t : t;
-}, C = e("humanizeQuotaResource"), w = e("humanizeKind"), P = function(e, t, n) {
+}, w = function(e, t) {
+return e ? "Pod" === e.kind ? C(e, t) : _.has(e, "spec.template") ? C(e.spec.template, t) : t : t;
+}, P = e("humanizeQuotaResource"), j = e("humanizeKind"), k = function(e, t, n) {
 var r = e.status.total || e.status;
-if (g(r.hard[n]) <= g(r.used[n])) {
+if (v(r.hard[n]) <= v(r.used[n])) {
 var a, o;
-return a = "Pod" === t.kind ? "You will not be able to create the " + w(t.kind) + " '" + t.metadata.name + "'." : "You can still create " + w(t.kind) + " '" + t.metadata.name + "' but no pods will be created until resources are freed.", o = "pods" === n ? "You are at your quota for pods." : "You are at your quota for " + C(n) + " on pods.", {
+return a = "Pod" === t.kind ? "You will not be able to create the " + j(t.kind) + " '" + t.metadata.name + "'." : "You can still create " + j(t.kind) + " '" + t.metadata.name + "' but no pods will be created until resources are freed.", o = "pods" === n ? "You are at your quota for pods." : "You are at your quota for " + P(n) + " on pods.", {
 type: "Pod" === t.kind ? "error" : "warning",
 message: o,
 details: a,
@@ -3785,7 +3785,7 @@ target: "_blank"
 };
 }
 return null;
-}, j = {
+}, I = {
 cpu: "resources.requests.cpu",
 "requests.cpu": "resources.requests.cpu",
 "limits.cpu": "resources.limits.cpu",
@@ -3794,16 +3794,16 @@ memory: "resources.requests.memory",
 "limits.memory": "resources.limits.memory",
 persistentvolumeclaims: "resources.limits.persistentvolumeclaims",
 "requests.storage": "resources.request.storage"
-}, k = function(e, t, n, r) {
-var a = e.status.total || e.status, o = j[r], i = 0;
+}, R = function(e, t, n, r) {
+var a = e.status.total || e.status, o = I[r], i = 0;
 if (_.each(n.spec.containers, function(e) {
 var t = _.get(e, o);
-t && (i += g(t));
-}), g(a.hard[r]) < g(a.used[r]) + i) {
+t && (i += v(t));
+}), v(a.hard[r]) < v(a.used[r]) + i) {
 var s;
-return s = "Pod" === t.kind ? "You may not be able to create the " + w(t.kind) + " '" + t.metadata.name + "'." : "You can still create " + w(t.kind) + " '" + t.metadata.name + "' but you may not have pods created until resources are freed.", {
+return s = "Pod" === t.kind ? "You may not be able to create the " + j(t.kind) + " '" + t.metadata.name + "'." : "You can still create " + j(t.kind) + " '" + t.metadata.name + "' but you may not have pods created until resources are freed.", {
 type: "warning",
-message: "You are close to your quota for " + C(r) + " on pods.",
+message: "You are close to your quota for " + P(r) + " on pods.",
 details: s,
 links: [ {
 href: "project/" + e.metadata.namespace + "/quota",
@@ -3812,28 +3812,28 @@ target: "_blank"
 } ]
 };
 }
-}, I = function(e, t) {
+}, E = function(e, t) {
 var n = [], r = "Pod" === e.kind ? e : _.get(e, "spec.template");
 return r ? (_.each([ "cpu", "memory", "requests.cpu", "requests.memory", "limits.cpu", "limits.memory", "pods" ], function(a) {
 var o = t.status.total || t.status;
 if (("Pod" !== e.kind || "pods" !== a) && _.has(o, [ "hard", a ]) && _.has(o, [ "used", a ])) {
-var i = P(t, e, a);
+var i = k(t, e, a);
 if (i) n.push(i); else if ("pods" !== a) {
-var s = k(t, e, r, a);
+var s = R(t, e, r, a);
 s && n.push(s);
 }
 }
 }), n) : n;
-}, R = function(e, t, n) {
+}, T = function(e, t, n) {
 var r = [];
 return e && t ? (_.each(e, function(e) {
-var a = S(e, t), i = S(e, n), s = o.objectToResourceGroupVersion(e);
+var a = w(e, t), i = w(e, n), s = o.objectToResourceGroupVersion(e);
 if (s) {
-var c = o.kindToResource(e.kind, !0), l = w(e.kind), u = "";
+var c = o.kindToResource(e.kind, !0), l = j(e.kind), u = "";
 s.group && (u = s.group + "/"), u += s.resource;
 var d = function(t) {
 var n = t.status.total || t.status;
-!p(n.hard[u]) && g(n.hard[u]) <= g(n.used[u]) && r.push({
+!f(n.hard[u]) && v(n.hard[u]) <= v(n.used[u]) && r.push({
 type: "error",
 message: "You are at your quota of " + n.hard[u] + " " + ("1" === n.hard[u] ? l : c) + " in this project.",
 details: "You will not be able to create the " + l + " '" + e.metadata.name + "'.",
@@ -3842,22 +3842,22 @@ href: "project/" + t.metadata.namespace + "/quota",
 label: "View Quota",
 target: "_blank"
 } ]
-}), r = r.concat(I(e, t));
+}), r = r.concat(E(e, t));
 };
 _.each(a, d), _.each(i, d);
 }
 }), r) : r;
-}, E = [ "cpu", "requests.cpu", "memory", "requests.memory", "limits.cpu", "limits.memory" ], T = function(e, t, n, r, a) {
+}, N = [ "cpu", "requests.cpu", "memory", "requests.memory", "limits.cpu", "limits.memory" ], A = function(e, t, n, r, a) {
 var o, s = "Your project is " + (r < t ? "over" : "at") + " quota. ";
-return o = _.includes(E, a) ? s + "It is using " + v(t / r, 0) + " of " + f(n, a) + " " + C(a) + "." : s + "It is using " + t + " of " + r + " " + C(a) + ".", o = _.escape(o), i.QUOTA_NOTIFICATION_MESSAGE && i.QUOTA_NOTIFICATION_MESSAGE[a] && (o += " " + i.QUOTA_NOTIFICATION_MESSAGE[a]), o;
-}, N = function(e, t, n) {
+return o = _.includes(N, a) ? s + "It is using " + y(t / r, 0) + " of " + h(n, a) + " " + P(a) + "." : s + "It is using " + t + " of " + r + " " + P(a) + ".", o = _.escape(o), i.QUOTA_NOTIFICATION_MESSAGE && i.QUOTA_NOTIFICATION_MESSAGE[a] && (o += " " + i.QUOTA_NOTIFICATION_MESSAGE[a]), o;
+}, D = function(e, t, n) {
 var r = function(e) {
 var t = e.status.total || e.status;
 return _.some(t.hard, function(e, r) {
 if ("resourcequotas" === r) return !1;
 if (!n || _.includes(n, r)) {
-if (!(e = g(e))) return !1;
-var a = g(_.get(t, [ "used", r ]));
+if (!(e = v(e))) return !1;
+var a = v(_.get(t, [ "used", r ]));
 return !!a && e <= a;
 }
 });
@@ -3865,34 +3865,34 @@ return !!a && e <= a;
 return _.some(e, r) || _.some(t, r);
 };
 return {
-filterQuotasForResource: S,
-isBestEffortPod: h,
-isTerminatingPod: y,
-getResourceLimitAlerts: I,
-getQuotaAlerts: R,
+filterQuotasForResource: w,
+isBestEffortPod: b,
+isTerminatingPod: S,
+getResourceLimitAlerts: E,
+getQuotaAlerts: T,
 getLatestQuotaAlerts: function(e, t) {
 var n, r, o = [];
-return o.push(s.list(d, t).then(function(e) {
-n = e.by("metadata.name"), l.log("quotas", n);
-})), o.push(s.list(m, t).then(function(e) {
-r = e.by("metadata.name"), l.log("cluster quotas", r);
+return o.push(s.list(p, t).then(function(e) {
+n = e.by("metadata.name"), d.log("quotas", n);
+})), o.push(s.list(g, t).then(function(e) {
+r = e.by("metadata.name"), d.log("cluster quotas", r);
 })), a.all(o).then(function() {
 return {
-quotaAlerts: R(e, n, r)
+quotaAlerts: T(e, n, r)
 };
 });
 },
-isAnyQuotaExceeded: N,
+isAnyQuotaExceeded: D,
 isAnyStorageQuotaExceeded: function(e, t) {
-return N(e, t, [ "requests.storage", "persistentvolumeclaims" ]);
+return D(e, t, [ "requests.storage", "persistentvolumeclaims" ]);
 },
 willRequestExceedQuota: function(e, t, n, r) {
 var a = function(e) {
-var t = e.status.total || e.status, a = g(r);
+var t = e.status.total || e.status, a = v(r);
 if (!n) return !1;
 var o = _.get(t.hard, n);
-if (!(o = g(o))) return !1;
-var i = g(_.get(t, [ "used", n ]));
+if (!(o = v(o))) return !1;
+var i = v(_.get(t, [ "used", n ]));
 return i ? o < i + a : o < a;
 };
 return _.some(e, a) || _.some(t, a);
@@ -3901,29 +3901,29 @@ getQuotaNotifications: function(e, a, o) {
 var i = [], s = function(e) {
 var a = e.status.total || e.status;
 _.each(a.hard, function(e, s) {
-var c = g(e), l = _.get(a, [ "used", s ]), d = g(l);
-"resourcequotas" !== s && c && d && c <= d && i.push({
+var c = v(e), d = _.get(a, [ "used", s ]), p = v(d);
+"resourcequotas" !== s && c && p && c <= p && i.push({
 id: "quota-limit-reached-" + s,
 namespace: o,
-type: c < d ? "warning" : "info",
-message: T(0, d, e, c, s),
+type: c < p ? "warning" : "info",
+message: A(0, p, e, c, s),
 isHTML: !0,
 skipToast: !0,
 showInDrawer: !0,
 actions: [ {
-name: "View Quotas",
+name: u.getString(l("View Quotas")),
 title: "View project quotas",
 onClick: function() {
 t.url("/project/" + r.project + "/quota"), n.$emit("NotificationDrawerWrapper.hide");
 }
 }, {
-name: "Don't Show Me Again",
+name: u.getString(l("Don't Show Me Again")),
 title: "Permenantly hide this notificaiton until quota limit changes",
 onClick: function(e) {
-u.permanentlyHideNotification(e.uid, e.namespace), n.$emit("NotificationDrawerWrapper.clear", e);
+m.permanentlyHideNotification(e.uid, e.namespace), n.$emit("NotificationDrawerWrapper.clear", e);
 }
 }, {
-name: "Clear",
+name: u.getString(l("Clear")),
 title: "Clear this notificaiton",
 onClick: function(e) {
 n.$emit("NotificationDrawerWrapper.clear", e);
