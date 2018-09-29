@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-28 15:13+0800\n"
+"PO-Revision-Date: 2018-09-29 16:44+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -5698,6 +5698,10 @@ msgid ""
 "The percentage of the CPU request that each pod should ideally be using."
 msgstr "理想情况下，每个pod应该使用的CPU请求的百分比."
 
+#: app/scripts/controllers/pod.js:309
+msgid "The pod details could not be loaded."
+msgstr "无法加载pod详情。"
+
 #: app/views/edit/deployment-config.html:30
 msgid ""
 "The recreate strategy has basic rollout behavior and supports lifecycle "
@@ -5907,6 +5911,10 @@ msgstr ""
 msgid "This pipeline is not associated with any deployments."
 msgstr "这条管道与任何部署都没有关联。"
 
+#: app/scripts/controllers/pod.js:276
+msgid "This pod has been deleted."
+msgstr "该pod已经被删除。"
+
 #: app/views/modals/delete-resource.html:71
 msgid "This resource has an autoscaler associated with it."
 msgstr "此资源具有与之相关联的自动扩缩器。"
@@ -5945,6 +5953,12 @@ msgid ""
 "        will be available for one hour and will be deleted when the terminal "
 "window is closed."
 msgstr "终端窗口关闭后，Pod将可用1小时，然后被删除。"
+
+#: app/scripts/controllers/pod.js:50
+msgid ""
+"This terminal has been disconnected. If you reconnect, your terminal history "
+"will be lost."
+msgstr "这个终端已经断开连接。如果您重新连接，您的终端历史将丢失。"
 
 #: app/views/modals/delete-project.html:10
 msgid ""
