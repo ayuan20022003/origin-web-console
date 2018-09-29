@@ -16,6 +16,8 @@ angular.module('openshiftConsole')
                                          APIService,
                                          DataService,
                                          FullscreenService,
+                                         gettext,
+                                         gettextCatalog,
                                          ImageStreamResolver,
                                          Logger,
                                          MetricsService,
@@ -45,7 +47,7 @@ angular.module('openshiftConsole')
     ];
     $scope.terminalDisconnectAlert["disconnect"] = {
       type: "warning",
-      message: "This terminal has been disconnected. If you reconnect, your terminal history will be lost."
+      message: gettextCatalog.getString(gettext('This terminal has been disconnected. If you reconnect, your terminal history will be lost.'))
     };
 
     $scope.noContainersYet = true;
@@ -271,7 +273,7 @@ angular.module('openshiftConsole')
       if (action === "DELETED") {
         $scope.alerts["deleted"] = {
           type: "warning",
-          message: "This pod has been deleted."
+          message: gettextCatalog.getString(gettext("This pod has been deleted."))
         };
       }
     };
@@ -304,7 +306,7 @@ angular.module('openshiftConsole')
             $scope.loaded = true;
             $scope.alerts["load"] = {
               type: "error",
-              message: "The pod details could not be loaded.",
+              message: gettextCatalog.getString(gettext("The pod details could not be loaded.")),
               details: $filter('getErrorDetails')(e)
             };
           });

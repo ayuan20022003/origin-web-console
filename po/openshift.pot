@@ -5513,6 +5513,10 @@ msgstr ""
 msgid "The percentage of the CPU request that each pod should ideally be using."
 msgstr ""
 
+#: app/scripts/controllers/pod.js:309
+msgid "The pod details could not be loaded."
+msgstr ""
+
 #: app/views/edit/deployment-config.html:30
 msgid "The recreate strategy has basic rollout behavior and supports lifecycle hooks for injecting code into the deployment process."
 msgstr ""
@@ -5678,6 +5682,10 @@ msgstr ""
 msgid "This pipeline is not associated with any deployments."
 msgstr ""
 
+#: app/scripts/controllers/pod.js:276
+msgid "This pod has been deleted."
+msgstr ""
+
 #: app/views/modals/delete-resource.html:71
 msgid "This resource has an autoscaler associated with it."
 msgstr ""
@@ -5711,6 +5719,10 @@ msgstr ""
 msgid ""
 "This temporary pod has a modified entrypoint command to debug a failing container. The pod\n"
 "        will be available for one hour and will be deleted when the terminal window is closed."
+msgstr ""
+
+#: app/scripts/controllers/pod.js:50
+msgid "This terminal has been disconnected. If you reconnect, your terminal history will be lost."
 msgstr ""
 
 #: app/views/modals/delete-project.html:10

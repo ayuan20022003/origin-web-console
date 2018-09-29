@@ -4895,7 +4895,7 @@ n.pods = e.select(n.unfilteredPods), r();
 a.unwatchAll(l);
 });
 }));
-} ]), angular.module("openshiftConsole").controller("PodController", [ "$filter", "$rootScope", "$routeParams", "$scope", "$timeout", "$uibModal", "APIService", "DataService", "FullscreenService", "ImageStreamResolver", "Logger", "MetricsService", "OwnerReferencesService", "PodsService", "ProjectsService", function(e, t, n, r, a, o, i, s, c, l, u, d, m, p, g) {
+} ]), angular.module("openshiftConsole").controller("PodController", [ "$filter", "$rootScope", "$routeParams", "$scope", "$timeout", "$uibModal", "APIService", "DataService", "FullscreenService", "gettext", "gettextCatalog", "ImageStreamResolver", "Logger", "MetricsService", "OwnerReferencesService", "PodsService", "ProjectsService", function(e, t, n, r, a, o, i, s, c, l, u, d, m, p, g, f, v) {
 r.projectName = n.project, r.pod = null, r.imageStreams = {}, r.imagesByDockerReference = {}, r.imageStreamImageRefByDockerReference = {}, r.builds = {}, r.alerts = {}, r.terminalDisconnectAlert = {}, r.renderOptions = r.renderOptions || {}, r.renderOptions.hideFilterWidget = !0, r.logOptions = {}, r.terminalTabWasSelected = !1, r.breadcrumbs = [ {
 title: "Pods",
 link: "project/" + n.project + "/browse/pods"
@@ -4903,15 +4903,15 @@ link: "project/" + n.project + "/browse/pods"
 title: n.pod
 } ], r.terminalDisconnectAlert.disconnect = {
 type: "warning",
-message: "This terminal has been disconnected. If you reconnect, your terminal history will be lost."
+message: u.getString(l("This terminal has been disconnected. If you reconnect, your terminal history will be lost."))
 }, r.noContainersYet = !0, r.selectedTab = {};
-var f = i.getPreferredVersion("imagestreams"), v = i.getPreferredVersion("builds");
+var h = i.getPreferredVersion("imagestreams"), y = i.getPreferredVersion("builds");
 r.podsVersion = i.getPreferredVersion("pods"), r.podsLogVersion = i.getPreferredVersion("pods/log"), r.eventsVersion = i.getPreferredVersion("events"), r.deploymentConfigsVersion = i.getPreferredVersion("deploymentconfigs");
-var h = [], y = null, b = null;
-d.isAvailable().then(function(e) {
+var b = [], S = null, C = null;
+p.isAvailable().then(function(e) {
 r.metricsAvailable = e;
 });
-var S = function() {
+var w = function() {
 if (r.pod) {
 var e = _.find(r.pod.status.containerStatuses, {
 name: r.logOptions.container
@@ -4928,7 +4928,7 @@ containerStartTime: _.get(t, [ n, "startedAt" ]),
 containerEndTime: _.get(t, [ n, "finishedAt" ])
 });
 }
-}, C = function() {
+}, P = function() {
 var e = $("<span>").css({
 position: "absolute",
 top: "-100px"
@@ -4937,44 +4937,44 @@ width: e.width() / 10,
 height: e.height()
 };
 return e.remove(), t;
-}(), w = $(window), P = function(e) {
-e || (e = 0), C.height && C.width && r.selectedTab.terminal && !(e > 10) && r.$evalAsync(function() {
+}(), j = $(window), k = function(e) {
+e || (e = 0), P.height && P.width && r.selectedTab.terminal && !(e > 10) && r.$evalAsync(function() {
 var t = $(".container-terminal-wrapper").get(0);
 if (t) {
 var n = t.getBoundingClientRect();
 if (0 !== n.left || 0 !== n.top || 0 !== n.width || 0 !== n.height) {
-var o = w.height(), i = n.width - 17, s = o - n.top - 36;
-r.terminalCols = Math.max(_.floor(i / C.width), 80), r.terminalRows = Math.max(_.floor(s / C.height), 24);
+var o = j.height(), i = n.width - 17, s = o - n.top - 36;
+r.terminalCols = Math.max(_.floor(i / P.width), 80), r.terminalRows = Math.max(_.floor(s / P.height), 24);
 } else a(function() {
-P(e + 1);
+k(e + 1);
 }, 50);
 } else a(function() {
-P(e + 1);
+k(e + 1);
 }, 50);
 });
-}, j = function() {
-$(window).on("resize.terminalsize", _.debounce(P, 100)), y || (y = t.$on("oscHeader.toggleNav", function() {
-setTimeout(P, 150);
+}, I = function() {
+$(window).on("resize.terminalsize", _.debounce(k, 100)), S || (S = t.$on("oscHeader.toggleNav", function() {
+setTimeout(k, 150);
 }));
-}, k = function() {
-$(window).off("resize.terminalsize"), y && (y(), y = null);
+}, R = function() {
+$(window).off("resize.terminalsize"), S && (S(), S = null);
 };
 r.$watch("selectedTab.terminal", function(e) {
-e ? (C.height && C.width ? j() : u.warn("Unable to calculate the bounding box for a character.  Terminal will not be able to resize."), a(P, 0)) : k();
+e ? (P.height && P.width ? I() : m.warn("Unable to calculate the bounding box for a character.  Terminal will not be able to resize."), a(k, 0)) : R();
 }), r.onTerminalSelectChange = function(e) {
 _.each(r.containerTerminals, function(e) {
 e.isVisible = !1;
 }), e.isVisible = !0, e.isUsed = !0, r.selectedTerminalContainer = e;
 };
-var I = function(e) {
+var E = function(e) {
 var t = _.get(e, "state", {});
 return _.head(_.keys(t));
-}, R = function() {
+}, T = function() {
 var e = [];
 _.each(r.pod.spec.containers, function(t) {
 var n = _.find(r.pod.status.containerStatuses, {
 name: t.name
-}), a = I(n);
+}), a = E(n);
 e.push({
 containerName: t.name,
 isVisible: !1,
@@ -4984,50 +4984,50 @@ containerState: a
 });
 var t = _.head(e);
 return t.isVisible = !0, t.isUsed = !0, r.selectedTerminalContainer = t, e;
-}, E = function(e) {
+}, N = function(e) {
 r.noContainersYet && (r.noContainersYet = 0 === r.containersRunning(e.status.containerStatuses));
-}, T = function(e) {
+}, A = function(e) {
 _.each(e, function(e) {
 var t = _.find(r.pod.status.containerStatuses, {
 name: e.containerName
-}), n = I(t);
+}), n = E(t);
 e.containerState = n;
 });
-}, N = e("annotation"), A = function(e, t) {
-if (r.loaded = !0, r.pod = e, r.dcName = N(e, "deploymentConfig"), r.rcName = N(e, "deployment"), r.deploymentVersion = N(e, "deploymentVersion"), r.logCanRun = !_.includes([ "New", "Pending", "Unknown" ], e.status.phase), S(), delete r.controllerRef, !r.dcName) {
-var n = m.getControllerReferences(e);
+}, D = e("annotation"), B = function(e, t) {
+if (r.loaded = !0, r.pod = e, r.dcName = D(e, "deploymentConfig"), r.rcName = D(e, "deployment"), r.deploymentVersion = D(e, "deploymentVersion"), r.logCanRun = !_.includes([ "New", "Pending", "Unknown" ], e.status.phase), w(), delete r.controllerRef, !r.dcName) {
+var n = g.getControllerReferences(e);
 r.controllerRef = _.find(n, function(e) {
 return "ReplicationController" === e.kind || "ReplicaSet" === e.kind || "Build" === e.kind || "StatefulSet" === e.kind;
 });
 }
 "DELETED" === t && (r.alerts.deleted = {
 type: "warning",
-message: "This pod has been deleted."
+message: u.getString(l("This pod has been deleted."))
 });
 };
-g.get(n.project).then(_.spread(function(t, a) {
-b = a, r.project = t, r.projectContext = a, s.get(r.podsVersion, n.pod, a, {
+v.get(n.project).then(_.spread(function(t, a) {
+C = a, r.project = t, r.projectContext = a, s.get(r.podsVersion, n.pod, a, {
 errorNotification: !1
 }).then(function(e) {
-A(e);
+B(e);
 var t = {};
-t[e.metadata.name] = e, r.logOptions.container = n.container || e.spec.containers[0].name, r.containerTerminals = R(), E(e), l.fetchReferencedImageStreamImages(t, r.imagesByDockerReference, r.imageStreamImageRefByDockerReference, b), h.push(s.watchObject(r.podsVersion, n.pod, a, function(e, t) {
-A(e, t), T(r.containerTerminals), E(e);
+t[e.metadata.name] = e, r.logOptions.container = n.container || e.spec.containers[0].name, r.containerTerminals = T(), N(e), d.fetchReferencedImageStreamImages(t, r.imagesByDockerReference, r.imageStreamImageRefByDockerReference, C), b.push(s.watchObject(r.podsVersion, n.pod, a, function(e, t) {
+B(e, t), A(r.containerTerminals), N(e);
 }));
 }, function(t) {
 r.loaded = !0, r.alerts.load = {
 type: "error",
-message: "The pod details could not be loaded.",
+message: u.getString(l("The pod details could not be loaded.")),
 details: e("getErrorDetails")(t)
 };
-}), r.$watch("logOptions.container", S), h.push(s.watch(f, a, function(e) {
-r.imageStreams = e.by("metadata.name"), l.buildDockerRefMapForImageStreams(r.imageStreams, r.imageStreamImageRefByDockerReference), l.fetchReferencedImageStreamImages(r.pods, r.imagesByDockerReference, r.imageStreamImageRefByDockerReference, a), u.log("imagestreams (subscribe)", r.imageStreams);
-})), h.push(s.watch(v, a, function(e) {
-r.builds = e.by("metadata.name"), u.log("builds (subscribe)", r.builds);
+}), r.$watch("logOptions.container", w), b.push(s.watch(h, a, function(e) {
+r.imageStreams = e.by("metadata.name"), d.buildDockerRefMapForImageStreams(r.imageStreams, r.imageStreamImageRefByDockerReference), d.fetchReferencedImageStreamImages(r.pods, r.imagesByDockerReference, r.imageStreamImageRefByDockerReference, a), m.log("imagestreams (subscribe)", r.imageStreams);
+})), b.push(s.watch(y, a, function(e) {
+r.builds = e.by("metadata.name"), m.log("builds (subscribe)", r.builds);
 }));
-var d, m = function() {
+var p, g = function() {
 var t = r.debugPod;
-d && (s.unwatch(d), d = null), $(window).off("beforeunload.debugPod"), t && (s.delete(r.podsVersion, t.metadata.name, a, {
+p && (s.unwatch(p), p = null), $(window).off("beforeunload.debugPod"), t && (s.delete(r.podsVersion, t.metadata.name, a, {
 gracePeriodSeconds: 0
 }).then(_.noop, function(n) {
 r.alerts["debug-container-error"] = {
@@ -5036,22 +5036,22 @@ message: "Could not delete pod " + t.metadata.name,
 details: e("getErrorDetails")(n)
 };
 }), r.debugPod = null);
-}, g = function() {
+}, v = function() {
 $(".terminal:visible").focus();
 };
 r.hasFullscreen = c.hasFullscreen(!0), r.fullscreenTerminal = function() {
-c.requestFullscreen("#container-terminal-wrapper"), setTimeout(g);
+c.requestFullscreen("#container-terminal-wrapper"), setTimeout(v);
 }, r.exitFullscreen = function() {
 c.exitFullscreen();
 }, r.debugTerminal = function(t) {
-var n = p.generateDebugPod(r.pod, t);
+var n = f.generateDebugPod(r.pod, t);
 n ? s.create(i.objectToResourceGroupVersion(n), null, n, a).then(function(e) {
 var i = _.find(r.pod.spec.containers, {
 name: t
 });
 r.debugPod = e, $(window).on("beforeunload.debugPod", function() {
 return "Are you sure you want to leave with the debug terminal open? The debug pod will not be deleted unless you close the dialog.";
-}), d = s.watchObject(r.podsVersion, n.metadata.name, a, function(e) {
+}), p = s.watchObject(r.podsVersion, n.metadata.name, a, function(e) {
 r.debugPod = e;
 }), o.open({
 templateUrl: "views/modals/debug-terminal.html",
@@ -5065,7 +5065,7 @@ image: function() {
 return _.get(r, [ "imagesByDockerReference", i.image ]);
 }
 }
-}).result.then(m);
+}).result.then(g);
 }, function(n) {
 r.alerts["debug-container-error"] = {
 type: "error",
@@ -5082,7 +5082,7 @@ return e && e.forEach(function(e) {
 e.state && e.state.running && t++;
 }), t;
 }, r.$on("$destroy", function() {
-s.unwatchAll(h), m(), k();
+s.unwatchAll(b), g(), R();
 });
 }));
 } ]), angular.module("openshiftConsole").controller("OverviewController", [ "$scope", "$filter", "$q", "$location", "$routeParams", "AlertMessageService", "APIService", "AppsService", "BindingService", "BuildsService", "CatalogService", "Constants", "DataService", "DeploymentsService", "HomePagePreferenceService", "HPAService", "HTMLService", "ImageStreamResolver", "KeywordService", "LabelFilter", "Logger", "MetricsService", "Navigate", "OwnerReferencesService", "PodsService", "ProjectsService", "PromiseUtils", "ResourceAlertsService", "RoutesService", "ServiceInstancesService", "gettext", "gettextCatalog", "KubevirtVersions", OverviewController ]), angular.module("openshiftConsole").controller("QuotaController", [ "$filter", "$routeParams", "$scope", "APIService", "DataService", "Logger", "gettextCatalog", "gettext", "ProjectsService", function(e, t, n, r, a, o, i, s, c) {
