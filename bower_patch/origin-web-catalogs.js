@@ -2139,7 +2139,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 title: this.gettextCatalog.getString("No items."),
                 info: this.gettextCatalog.getString("No catalog items have been loaded."),
                 helpLink: {
-                    urlLabel: "See Loading the Default Image Streams and Templates",
+                    urlLabel: "",
                     url: "https://docs.openshift.org/latest/install_config/imagestreams_templates.html"
                 }
             }, this.ctrl.keywordFilter && this.setKeywordFilter(this.ctrl.keywordFilter);

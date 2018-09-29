@@ -81387,7 +81387,7 @@ urlAction: this.clearAppliedFilters
 title: "No items.",
 info: "No catalog items have been loaded.",
 helpLink: {
-urlLabel: "See Loading the Default Image Streams and Templates",
+urlLabel: "",
 url: "https://docs.openshift.org/latest/install_config/imagestreams_templates.html"
 }
 }, this.ctrl.keywordFilter && this.setKeywordFilter(this.ctrl.keywordFilter);
