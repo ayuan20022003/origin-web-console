@@ -22786,10 +22786,13 @@ e.each(n, function(r, l) {
 });
 }
 function a(e) {
-var t = qe.defaults.oLanguage, n = e.sZeroRecords;
-!e.sEmptyTable && n && "No data available in table" === t.sEmptyTable && Fe(e, e, "sZeroRecords", "sEmptyTable"), !e.sLoadingRecords && n && "Loading..." === t.sLoadingRecords && Fe(e, e, "sZeroRecords", "sLoadingRecords"), e.sInfoThousands && (e.sThousands = e.sInfoThousands);
-var i = e.sDecimal;
-i && je(i);
+var t = qe.defaults.oLanguage, n = t.sDecimal;
+if (n && je(n), e) {
+var i = e.sZeroRecords;
+!e.sEmptyTable && i && "No data available in table" === t.sEmptyTable && Fe(e, e, "sZeroRecords", "sEmptyTable"), !e.sLoadingRecords && i && "Loading..." === t.sLoadingRecords && Fe(e, e, "sZeroRecords", "sLoadingRecords"), e.sInfoThousands && (e.sThousands = e.sInfoThousands);
+var r = e.sDecimal;
+r && n !== r && je(r);
+}
 }
 function s(e) {
 ht(e, "ordering", "bSort"), ht(e, "orderMulti", "bSortMulti"), ht(e, "orderClasses", "bSortClasses"), ht(e, "orderCellsTop", "bSortCellsTop"), ht(e, "order", "aaSorting"), ht(e, "orderFixed", "aaSortingFixed"), ht(e, "paging", "bPaginate"), ht(e, "pagingType", "sPaginationType"), ht(e, "pageLength", "iDisplayLength"), ht(e, "searching", "bFilter"), "boolean" == typeof e.sScrollX && (e.sScrollX = e.sScrollX ? "100%" : ""), "boolean" == typeof e.scrollX && (e.scrollX = e.scrollX ? "100%" : "");
@@ -23078,7 +23081,7 @@ for (a = r || n.createElement("tr"), d.nTr = a, d.anCells = f, a._DT_RowIndex = 
 row: i,
 column: c
 }, f.push(s), r && !l.mRender && l.mData === c || e.isPlainObject(l.mData) && l.mData._ === c + ".display" || (s.innerHTML = x(t, i, c, "display")), l.sClass && (s.className += " " + l.sClass), l.bVisible && !r ? a.appendChild(s) : !l.bVisible && r && s.parentNode.removeChild(s), l.fnCreatedCell && l.fnCreatedCell.call(t.oInstance, s, x(t, i, c), h, i, c);
-Le(t, "aoRowCreatedCallback", null, [ a, h, i ]);
+Le(t, "aoRowCreatedCallback", null, [ a, h, i, f ]);
 }
 d.nTr.setAttribute("role", "row");
 }
@@ -23138,7 +23141,7 @@ if (0 !== s) {
 var _ = a[o % s];
 y._sRowStripe != _ && (e(w).removeClass(y._sRowStripe).addClass(_), y._sRowStripe = _);
 }
-Le(t, "aoRowCallback", null, [ w, y._aData, o, v ]), r.push(w), o++;
+Le(t, "aoRowCallback", null, [ w, y._aData, o, v, b ]), r.push(w), o++;
 } else {
 var x = l.sZeroRecords;
 1 == t.iDraw && "ajax" == Ne(t) ? x = l.sLoadingRecords : l.sEmptyTable && 0 === t.fnRecordsTotal() && (x = l.sEmptyTable), r[0] = e("<tr/>", {
@@ -23221,9 +23224,8 @@ var a, s = t.ajax, l = t.oInstance, c = function(e) {
 Le(t, null, "xhr", [ t, e, t.jqXHR ]), i(e);
 };
 if (e.isPlainObject(s) && s.data) {
-a = s.data;
-var u = e.isFunction(a) ? a(n, t) : a;
-n = e.isFunction(a) && u ? u : e.extend(!0, n, u), delete s.data;
+var u = "function" == typeof (a = s.data) ? a(n, t) : a;
+n = "function" == typeof a && u ? u : e.extend(!0, n, u), delete s.data;
 }
 var d = {
 data: n,
@@ -23246,7 +23248,7 @@ value: e
 };
 }), c, t) : t.sAjaxSource || "string" == typeof s ? t.jqXHR = e.ajax(e.extend(d, {
 url: s || t.sAjaxSource
-})) : e.isFunction(s) ? t.jqXHR = s.call(l, n, c, t) : (t.jqXHR = e.ajax(e.extend(d, s)), s.data = a);
+})) : "function" == typeof s ? t.jqXHR = s.call(l, n, c, t) : (t.jqXHR = e.ajax(e.extend(d, s)), s.data = a);
 }
 function H(e) {
 return !e.bAjaxDataGet || (e.iDraw++, de(e, !0), V(e, U(e), function(t) {
@@ -23550,9 +23552,9 @@ V.push(t.innerHTML), N.push(ye(e(t).css("width")));
 }, a), pe(function(e, t) {
 e.style.width = N[t];
 }, r), e(a).height(0)), pe(function(e, t) {
-e.innerHTML = '<div class="dataTables_sizing" style="height:0;overflow:hidden;">' + B[t] + "</div>", e.style.width = R[t];
+e.innerHTML = '<div class="dataTables_sizing">' + B[t] + "</div>", e.childNodes[0].style.height = "0", e.childNodes[0].style.overflow = "hidden", e.style.width = R[t];
 }, o), I && pe(function(e, t) {
-e.innerHTML = '<div class="dataTables_sizing" style="height:0;overflow:hidden;">' + V[t] + "</div>", e.style.width = N[t];
+e.innerHTML = '<div class="dataTables_sizing">' + V[t] + "</div>", e.childNodes[0].style.height = "0", e.childNodes[0].style.overflow = "hidden", e.style.width = N[t];
 }, a), E.outerWidth() < d ? (u = S.scrollHeight > S.offsetHeight || "scroll" == $.css("overflow-y") ? d + b : d, L && (S.scrollHeight > S.offsetHeight || "scroll" == $.css("overflow-y")) && (M.width = ye(u - b)), "" !== g && "" === m || Ee(t, 1, "Possible column misalignment", 6)) : u = "100%", k.width = ye(u), w.width = ye(u), I && (t.nScrollFoot.style.width = ye(u)), v || L && (k.height = ye(F.offsetHeight + b));
 var z = E.outerWidth();
 C[0].style.width = ye(z), x.width = ye(z);
@@ -23761,8 +23763,8 @@ for (var o in n) n.hasOwnProperty(o) && (r = n[o], e.isPlainObject(r) ? (e.isPla
 return t;
 }
 function Ie(t, n, i) {
-e(t).on("click.DT", n, function(e) {
-t.blur(), i(e);
+e(t).on("click.DT", n, function(n) {
+e(t).blur(), i(n);
 }).on("keypress.DT", n, function(e) {
 13 === e.which && (e.preventDefault(), i(e));
 }).on("selectstart.DT", function() {
@@ -23900,7 +23902,7 @@ s(x), l(x.column), o(x, x, !0), o(x.column, x.column, !0), o(x, e.extend(g, C.da
 var S = qe.settings;
 for (m = 0, f = S.length; m < f; m++) {
 var k = S[m];
-if (k.nTable == this || k.nTHead.parentNode == this || k.nTFoot && k.nTFoot.parentNode == this) {
+if (k.nTable == this || k.nTHead && k.nTHead.parentNode == this || k.nTFoot && k.nTFoot.parentNode == this) {
 var A = g.bRetrieve !== i ? g.bRetrieve : x.bRetrieve, T = g.bDestroy !== i ? g.bDestroy : x.bDestroy;
 if (r || A) return k.oInstance;
 if (T) {
@@ -23920,7 +23922,7 @@ sDestroyWidth: C[0].style.width,
 sInstance: v,
 sTableId: v
 });
-D.nTable = this, D.oApi = n.internal, D.oInit = g, S.push(D), D.oInstance = 1 === n.length ? n : C.dataTable(), s(g), g.oLanguage && a(g.oLanguage), g.aLengthMenu && !g.iDisplayLength && (g.iDisplayLength = e.isArray(g.aLengthMenu[0]) ? g.aLengthMenu[0][0] : g.aLengthMenu[0]), g = Me(e.extend(!0, {}, x), g), Fe(D.oFeatures, g, [ "bPaginate", "bLengthChange", "bFilter", "bSort", "bSortMulti", "bInfo", "bProcessing", "bAutoWidth", "bSortClasses", "bServerSide", "bDeferRender" ]), Fe(D, g, [ "asStripeClasses", "ajax", "fnServerData", "fnFormatNumber", "sServerMethod", "aaSorting", "aaSortingFixed", "aLengthMenu", "sPaginationType", "sAjaxSource", "sAjaxDataProp", "iStateDuration", "sDom", "bSortCellsTop", "iTabIndex", "fnStateLoadCallback", "fnStateSaveCallback", "renderer", "searchDelay", "rowId", [ "iCookieDuration", "iStateDuration" ], [ "oSearch", "oPreviousSearch" ], [ "aoSearchCols", "aoPreSearchCols" ], [ "iDisplayLength", "_iDisplayLength" ] ]), Fe(D.oScroll, g, [ [ "sScrollX", "sX" ], [ "sScrollXInner", "sXInner" ], [ "sScrollY", "sY" ], [ "bScrollCollapse", "bCollapse" ] ]), 
+D.nTable = this, D.oApi = n.internal, D.oInit = g, S.push(D), D.oInstance = 1 === n.length ? n : C.dataTable(), s(g), a(g.oLanguage), g.aLengthMenu && !g.iDisplayLength && (g.iDisplayLength = e.isArray(g.aLengthMenu[0]) ? g.aLengthMenu[0][0] : g.aLengthMenu[0]), g = Me(e.extend(!0, {}, x), g), Fe(D.oFeatures, g, [ "bPaginate", "bLengthChange", "bFilter", "bSort", "bSortMulti", "bInfo", "bProcessing", "bAutoWidth", "bSortClasses", "bServerSide", "bDeferRender" ]), Fe(D, g, [ "asStripeClasses", "ajax", "fnServerData", "fnFormatNumber", "sServerMethod", "aaSorting", "aaSortingFixed", "aLengthMenu", "sPaginationType", "sAjaxSource", "sAjaxDataProp", "iStateDuration", "sDom", "bSortCellsTop", "iTabIndex", "fnStateLoadCallback", "fnStateSaveCallback", "renderer", "searchDelay", "rowId", [ "iCookieDuration", "iStateDuration" ], [ "oSearch", "oPreviousSearch" ], [ "aoSearchCols", "aoPreSearchCols" ], [ "iDisplayLength", "_iDisplayLength" ] ]), Fe(D.oScroll, g, [ [ "sScrollX", "sX" ], [ "sScrollXInner", "sXInner" ], [ "sScrollY", "sY" ], [ "bScrollCollapse", "bCollapse" ] ]), 
 Fe(D.oLanguage, g, "fnInfoCallback"), Pe(D, "aoDrawCallback", g.fnDrawCallback, "user"), Pe(D, "aoServerParams", g.fnServerParams, "user"), Pe(D, "aoStateSaveParams", g.fnStateSaveParams, "user"), Pe(D, "aoStateLoadParams", g.fnStateLoadParams, "user"), Pe(D, "aoStateLoaded", g.fnStateLoaded, "user"), Pe(D, "aoRowCallback", g.fnRowCallback, "user"), Pe(D, "aoRowCreatedCallback", g.fnCreatedRow, "user"), Pe(D, "aoHeaderCallback", g.fnHeaderCallback, "user"), Pe(D, "aoFooterCallback", g.fnFooterCallback, "user"), Pe(D, "aoInitComplete", g.fnInitComplete, "user"), Pe(D, "aoPreDrawCallback", g.fnPreDrawCallback, "user"), D.rowIdFn = $(g.rowId), c(D);
 var E = D.oClasses;
 if (e.extend(E, qe.ext.classes, g.oClasses), C.addClass(E.sTable), D.iInitDisplayStart === i && (D.iInitDisplayStart = g.iDisplayStart, D._iDisplayStart = g.iDisplayStart), null !== g.iDeferLoading) {
@@ -23993,7 +23995,7 @@ D.aiDisplay = D.aiDisplayMaster.slice(), D.bInitialised = !0, !1 === b && re(D);
 g.bStateSave ? (V.bStateSave = !0, Pe(D, "aoDrawCallback", Ae, "state_save"), Te(D, 0, H)) : H();
 } else Ee(null, 0, "Non-table node initialisation (" + this.nodeName + ")", 2);
 }), n = null, this;
-}, Ge = {}, Ye = /[\r\n]/g, Ke = /<.*?>/g, Xe = /^\d{2,4}[\.\/\-]\d{1,2}[\.\/\-]\d{1,2}([T ]{1}\d{1,2}[:\.]\d{2}([\.:]\d{2})?)?$/, Qe = new RegExp("(\\" + [ "/", ".", "*", "+", "?", "|", "(", ")", "[", "]", "{", "}", "\\", "$", "^", "-" ].join("|\\") + ")", "g"), Je = /[',$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfk]/gi, Ze = function(e) {
+}, Ge = {}, Ye = /[\r\n]/g, Ke = /<.*?>/g, Xe = /^\d{2,4}[\.\/\-]\d{1,2}[\.\/\-]\d{1,2}([T ]{1}\d{1,2}[:\.]\d{2}([\.:]\d{2})?)?$/, Qe = new RegExp("(\\" + [ "/", ".", "*", "+", "?", "|", "(", ")", "[", "]", "{", "}", "\\", "$", "^", "-" ].join("|\\") + ")", "g"), Je = /[',$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfkɃΞ]/gi, Ze = function(e) {
 return !e || !0 === e || "-" === e;
 }, et = function(e) {
 var t = parseInt(e, 10);
@@ -24309,35 +24311,41 @@ page: "all"
 for (var t = 0, n = e.length; t < n; t++) if (e[t].length > 0) return e[0] = e[t], e[0].length = 1, e.length = 1, e.context = [ e.context[t] ], e;
 return e.length = 0, e;
 }, Tt = function(t, n) {
-var i, r, o, a = [], s = t.aiDisplay, l = t.aiDisplayMaster, c = n.search, u = n.order, d = n.page;
-if ("ssp" == Ne(t)) return "removed" === c ? [] : st(0, l.length);
-if ("current" == d) for (i = t._iDisplayStart, r = t.fnDisplayEnd(); i < r; i++) a.push(s[i]); else if ("current" == u || "applied" == u) a = "none" == c ? l.slice() : "applied" == c ? s.slice() : e.map(l, function(t, n) {
-return -1 === e.inArray(t, s) ? t : null;
-}); else if ("index" == u || "original" == u) for (i = 0, r = t.aoData.length; i < r; i++) "none" == c ? a.push(i) : (-1 === (o = e.inArray(i, s)) && "removed" == c || o >= 0 && "applied" == c) && a.push(i);
-return a;
+var i, r = [], o = t.aiDisplay, a = t.aiDisplayMaster, s = n.search, l = n.order, c = n.page;
+if ("ssp" == Ne(t)) return "removed" === s ? [] : st(0, a.length);
+if ("current" == c) for (d = t._iDisplayStart, h = t.fnDisplayEnd(); d < h; d++) r.push(o[d]); else if ("current" == l || "applied" == l) {
+if ("none" == s) r = a.slice(); else if ("applied" == s) r = o.slice(); else if ("removed" == s) {
+for (var u = {}, d = 0, h = o.length; d < h; d++) u[o[d]] = null;
+r = e.map(a, function(e) {
+return u.hasOwnProperty(e) ? null : e;
+});
+}
+} else if ("index" == l || "original" == l) for (d = 0, h = t.aoData.length; d < h; d++) "none" == s ? r.push(d) : (-1 === (i = e.inArray(d, o)) && "removed" == s || i >= 0 && "applied" == s) && r.push(d);
+return r;
 }, Dt = function(t, n, r) {
 var o;
 return $t("row", n, function(n) {
-var a = et(n);
+var a = et(n), s = t.aoData;
 if (null !== a && !r) return [ a ];
 if (o || (o = Tt(t, r)), null !== a && -1 !== e.inArray(a, o)) return [ a ];
 if (null === n || n === i || "" === n) return o;
 if ("function" == typeof n) return e.map(o, function(e) {
-var i = t.aoData[e];
-return n(e, i._aData, i.nTr) ? e : null;
+var t = s[e];
+return n(e, t._aData, t.nTr) ? e : null;
 });
-var s = lt(at(t.aoData, o, "nTr"));
 if (n.nodeName) {
-if (n._DT_RowIndex !== i) return [ n._DT_RowIndex ];
-if (n._DT_CellIndex) return [ n._DT_CellIndex.row ];
-var l = e(n).closest("*[data-dt-row]");
-return l.length ? [ l.data("dt-row") ] : [];
+var l = n._DT_RowIndex, c = n._DT_CellIndex;
+if (l !== i) return s[l] && s[l].nTr === n ? [ l ] : [];
+if (c) return s[c.row] && s[c.row].nTr === n ? [ c.row ] : [];
+var u = e(n).closest("*[data-dt-row]");
+return u.length ? [ u.data("dt-row") ] : [];
 }
 if ("string" == typeof n && "#" === n.charAt(0)) {
-var c = t.aIds[n.replace(/^#/, "")];
-if (c !== i) return [ c.idx ];
+var d = t.aIds[n.replace(/^#/, "")];
+if (d !== i) return [ d.idx ];
 }
-return e(s).filter(n).map(function() {
+var h = lt(at(t.aoData, o, "nTr"));
+return e(h).filter(n).map(function() {
 return this._DT_RowIndex;
 }).toArray();
 }, t, r);
@@ -24395,9 +24403,11 @@ return o;
 return i.pop(), e.merge(i, n), i;
 }), ze("row()", function(e, t) {
 return At(this.rows(e, t));
-}), ze("row().data()", function(e) {
-var t = this.context;
-return e === i ? t.length && this.length ? t[0].aoData[this[0]]._aData : i : (t[0].aoData[this[0]]._aData = e, E(t[0], this[0], "data"), this);
+}), ze("row().data()", function(t) {
+var n = this.context;
+if (t === i) return n.length && this.length ? n[0].aoData[this[0]]._aData : i;
+var r = n[0].aoData[this[0]];
+return r._aData = t, e.isArray(t) && r.nTr.id && k(n[0].rowId)(t, r.nTr.id), E(n[0], this[0], "data"), this;
 }), ze("row().node()", function() {
 var e = this.context;
 return e.length && this.length ? e[0].aoData[this[0]].nTr || null : null;
@@ -24508,7 +24518,7 @@ if (r) {
 var h = e.inArray(!0, ot(c, "bVisible"), n + 1);
 for (a = 0, s = d.length; a < s; a++) l = d[a].nTr, o = d[a].anCells, l && l.insertBefore(o[n], o[h] || null);
 } else e(ot(t.aoData, "anCells", n)).detach();
-u.bVisible = r, L(t, t.aoHeader), L(t, t.aoFooter), Ae(t);
+u.bVisible = r, L(t, t.aoHeader), L(t, t.aoFooter), t.aiDisplay.length || e(t.nTBody).find("td[colspan]").attr("colspan", m(t)), Ae(t);
 }
 };
 ze("columns()", function(t, n) {
@@ -24575,7 +24585,7 @@ column: c
 }, r ? (d = h[o], n(u, x(t, o, c), d.anCells ? d.anCells[c] : null) && a.push(u)) : a.push(u);
 return a;
 }
-if (e.isPlainObject(n)) return [ n ];
+if (e.isPlainObject(n)) return n.column !== i && n.row !== i && -1 !== e.inArray(n.row, f) ? [ n ] : [];
 var p = g.filter(n).map(function(e, t) {
 return {
 row: t._DT_CellIndex.row,
@@ -24592,13 +24602,14 @@ ze("cells()", function(t, n, r) {
 if (e.isPlainObject(t) && (t.row === i ? (r = t, t = null) : (r = n, n = null)), e.isPlainObject(n) && (r = n, n = null), null === n || n === i) return this.iterator("table", function(e) {
 return Nt(e, t, kt(r));
 });
-var o, a, s, l, c, u = this.columns(n, r), d = this.rows(t, r), h = this.iterator("table", function(e, t) {
+var o, a, s, l, c, u = this.columns(n), d = this.rows(t);
+this.iterator("table", function(e, t) {
 for (o = [], a = 0, s = d[t].length; a < s; a++) for (l = 0, c = u[t].length; l < c; l++) o.push({
 row: d[t][a],
 column: u[t][l]
 });
-return o;
 }, 1);
+var h = this.cells(o, r);
 return e.extend(h.selector, {
 cols: n,
 rows: t,
@@ -24762,7 +24773,7 @@ e.call(r[t](a, "cell" === t ? s : n, "cell" === t ? n : i), a, s, l, c);
 }), ze("i18n()", function(t, n, r) {
 var o = this.context[0], a = $(t)(o.oLanguage);
 return a === i && (a = n), r !== i && e.isPlainObject(a) && (a = a[r] !== i ? a[r] : a._), a.replace("%d", r);
-}), qe.version = "1.10.16", qe.settings = [], qe.models = {}, qe.models.oSearch = {
+}), qe.version = "1.10.19", qe.settings = [], qe.models = {}, qe.models.oSearch = {
 bCaseInsensitive: !0,
 sSearch: "",
 bRegex: !1,
@@ -25226,7 +25237,8 @@ return 0 === e || e && "-" !== e ? (t && (e = tt(e, t)), e.replace && (n && (e =
 };
 e.extend(He.type.order, {
 "date-pre": function(e) {
-return Date.parse(e) || -1 / 0;
+var t = Date.parse(e);
+return isNaN(t) ? -1 / 0 : t;
 },
 "html-pre": function(e) {
 return Ze(e) ? "" : e.replace ? e.replace(/<.*?>/g, "").toLowerCase() : e + "";
@@ -25278,7 +25290,8 @@ return a + (i || "") + l.toString().replace(/\B(?=(\d{3})+(?!\d))/g, e) + c + (r
 },
 text: function() {
 return {
-display: Vt
+display: Vt,
+filter: Vt
 };
 }
 }, e.extend(qe.ext.internal, {
@@ -25374,6 +25387,7 @@ _fnLengthOverflow: Oe,
 _fnRenderer: Re,
 _fnDataSource: Ne,
 _fnRowAttributes: I,
+_fnExtend: Me,
 _fnCalculateEnd: function() {}
 }), e.fn.dataTable = qe, qe.$ = e, e.fn.dataTableSettings = qe.settings, e.fn.dataTableExt = qe.ext, e.fn.DataTable = function(t) {
 return e(this).dataTable(t).api();
@@ -26579,34 +26593,36 @@ var n = t.settings()[0]._select.selector;
 e(t.table().container()).off("mousedown.dtSelect", n).off("mouseup.dtSelect", n).off("click.dtSelect", n), e("body").off("click.dtSelect" + t.table().node().id);
 }
 function a(n) {
-var i = e(n.table().container()), r = n.settings()[0], o = r._select.selector;
-i.on("mousedown.dtSelect", o, function(e) {
-(e.shiftKey || e.metaKey || e.ctrlKey) && i.css("-moz-user-select", "none").one("selectstart.dtSelect", o, function() {
+var i, r = e(n.table().container()), o = n.settings()[0], a = o._select.selector;
+r.on("mousedown.dtSelect", a, function(e) {
+(e.shiftKey || e.metaKey || e.ctrlKey) && r.css("-moz-user-select", "none").one("selectstart.dtSelect", a, function() {
 return !1;
-});
-}).on("mouseup.dtSelect", o, function() {
-i.css("-moz-user-select", "");
-}).on("click.dtSelect", o, function(i) {
-var r, o = n.select.items();
-if (!t.getSelection || !e.trim(t.getSelection().toString())) {
-var a = n.settings()[0];
-if (e(i.target).closest("div.dataTables_wrapper")[0] == n.table().container()) {
-var l = n.cell(e(i.target).closest("td, th"));
-if (l.any()) {
-var c = e.Event("user-select.dt");
-if (s(n, c, [ o, l, i ]), !c.isDefaultPrevented()) {
-var u = l.index();
-"row" === o ? (r = u.row, h(i, n, a, "row", r)) : "column" === o ? (r = l.index().column, h(i, n, a, "column", r)) : "cell" === o && (r = l.index(), h(i, n, a, "cell", r)), a._select_lastCell = u;
+}), t.getSelection && (i = t.getSelection());
+}).on("mouseup.dtSelect", a, function() {
+r.css("-moz-user-select", "");
+}).on("click.dtSelect", a, function(r) {
+var o, a = n.select.items();
+if (t.getSelection) {
+var l = t.getSelection();
+if ((!l.anchorNode || e(l.anchorNode).closest("table")[0] === n.table().node()) && l !== i) return;
 }
+var c = n.settings()[0], u = n.settings()[0].oClasses.sWrapper.replace(/ /g, ".");
+if (e(r.target).closest("div." + u)[0] == n.table().container()) {
+var d = n.cell(e(r.target).closest("td, th"));
+if (d.any()) {
+var f = e.Event("user-select.dt");
+if (s(n, f, [ a, d, r ]), !f.isDefaultPrevented()) {
+var p = d.index();
+"row" === a ? (o = p.row, h(r, n, c, "row", o)) : "column" === a ? (o = d.index().column, h(r, n, c, "column", o)) : "cell" === a && (o = d.index(), h(r, n, c, "cell", o)), c._select_lastCell = p;
 }
 }
 }
 }), e("body").on("click.dtSelect" + n.table().node().id, function(t) {
-if (r._select.blurable) {
+if (o._select.blurable) {
 if (e(t.target).parents().filter(n.table().container()).length) return;
 if (0 === e(t.target).parents("html").length) return;
 if (e(t.target).parents("div.DTE").length) return;
-d(r, !0);
+d(o, !0);
 }
 });
 }
@@ -26639,7 +26655,7 @@ l.length && l.remove(), "" !== s.text() && n.append(s);
 }
 }
 function c(t) {
-var n = new g.Api(t);
+var n = new m.Api(t);
 t.aoRowCreatedCallback.push({
 fn: function(n, i, r) {
 var o, a, s = t.aoData[r];
@@ -26692,7 +26708,7 @@ selected: !0
 }
 function d(e, t) {
 if (t || "single" === e._select.style) {
-var n = new g.Api(e);
+var n = new m.Api(e);
 n.rows({
 selected: !0
 }).deselect(), n.columns({
@@ -26722,9 +26738,18 @@ function p(e) {
 var t = e._eventNamespace;
 return "draw.dt.DT" + t + " select.dt.DT" + t + " deselect.dt.DT" + t;
 }
-var g = e.fn.dataTable;
-g.select = {}, g.select.version = "1.2.3", g.select.init = function(t) {
-var n = t.settings()[0], r = n.oInit.select, o = g.defaults.select, a = r === i ? o : r, s = "row", l = "api", c = !1, u = !0, d = "td, th", h = "selected", f = !1;
+function g(t, n) {
+return !(-1 === e.inArray("rows", n.limitTo) || !t.rows({
+selected: !0
+}).any()) || (!(-1 === e.inArray("columns", n.limitTo) || !t.columns({
+selected: !0
+}).any()) || !(-1 === e.inArray("cells", n.limitTo) || !t.cells({
+selected: !0
+}).any()));
+}
+var m = e.fn.dataTable;
+m.select = {}, m.select.version = "1.2.7", m.select.init = function(t) {
+var n = t.settings()[0], r = n.oInit.select, o = m.defaults.select, a = r === i ? o : r, s = "row", l = "api", c = !1, u = !0, d = "td, th", h = "selected", f = !1;
 n._select = {}, !0 === a ? (l = "os", f = !0) : "string" == typeof a ? (l = a, f = !0) : e.isPlainObject(a) && (a.blurable !== i && (c = a.blurable), a.info !== i && (u = a.info), a.items !== i && (s = a.items), a.style !== i && (l = a.style, f = !0), a.selector !== i && (d = a.selector), a.className !== i && (h = a.className)), t.select.selector(d), t.select.items(s), t.select.style(l), t.select.blurable(c), t.select.info(u), n._select.className = h, e.fn.dataTable.ext.order["select-checkbox"] = function(t, n) {
 return this.api().column(n, {
 order: "index"
@@ -26739,62 +26764,62 @@ prop: "aoData"
 type: "column",
 prop: "aoColumns"
 } ], function(e, t) {
-g.ext.selector[t.type].push(function(e, n, r) {
-var o, a = n.selected, s = [];
-if (a === i) return r;
-for (var l = 0, c = r.length; l < c; l++) o = e[t.prop][r[l]], (!0 === a && !0 === o._select_selected || !1 === a && !o._select_selected) && s.push(r[l]);
-return s;
+m.ext.selector[t.type].push(function(e, n, i) {
+var r, o = n.selected, a = [];
+if (!0 !== o && !1 !== o) return i;
+for (var s = 0, l = i.length; s < l; s++) r = e[t.prop][i[s]], (!0 === o && !0 === r._select_selected || !1 === o && !r._select_selected) && a.push(i[s]);
+return a;
 });
-}), g.ext.selector.cell.push(function(e, t, n) {
+}), m.ext.selector.cell.push(function(e, t, n) {
 var r, o = t.selected, a = [];
 if (o === i) return n;
 for (var s = 0, l = n.length; s < l; s++) r = e.aoData[n[s].row], (!0 === o && r._selected_cells && !0 === r._selected_cells[n[s].column] || !1 === o && (!r._selected_cells || !r._selected_cells[n[s].column])) && a.push(n[s]);
 return a;
 });
-var m = g.Api.register, v = g.Api.registerPlural;
-m("select()", function() {
+var v = m.Api.register, b = m.Api.registerPlural;
+v("select()", function() {
 return this.iterator("table", function(e) {
-g.select.init(new g.Api(e));
+m.select.init(new m.Api(e));
 });
-}), m("select.blurable()", function(e) {
+}), v("select.blurable()", function(e) {
 return e === i ? this.context[0]._select.blurable : this.iterator("table", function(t) {
 t._select.blurable = e;
 });
-}), m("select.info()", function(e) {
+}), v("select.info()", function(e) {
 return l === i ? this.context[0]._select.info : this.iterator("table", function(t) {
 t._select.info = e;
 });
-}), m("select.items()", function(e) {
+}), v("select.items()", function(e) {
 return e === i ? this.context[0]._select.items : this.iterator("table", function(t) {
-t._select.items = e, s(new g.Api(t), "selectItems", [ e ]);
+t._select.items = e, s(new m.Api(t), "selectItems", [ e ]);
 });
-}), m("select.style()", function(e) {
+}), v("select.style()", function(e) {
 return e === i ? this.context[0]._select.style : this.iterator("table", function(t) {
 t._select.style = e, t._select_init || c(t);
-var n = new g.Api(t);
-o(n), "api" !== e && a(n), s(new g.Api(t), "selectStyle", [ e ]);
+var n = new m.Api(t);
+o(n), "api" !== e && a(n), s(new m.Api(t), "selectStyle", [ e ]);
 });
-}), m("select.selector()", function(e) {
+}), v("select.selector()", function(e) {
 return e === i ? this.context[0]._select.selector : this.iterator("table", function(t) {
-o(new g.Api(t)), t._select.selector = e, "api" !== t._select.style && a(new g.Api(t));
+o(new m.Api(t)), t._select.selector = e, "api" !== t._select.style && a(new m.Api(t));
 });
-}), v("rows().select()", "row().select()", function(t) {
+}), b("rows().select()", "row().select()", function(t) {
 var n = this;
 return !1 === t ? this.deselect() : (this.iterator("row", function(t, n) {
 d(t), t.aoData[n]._select_selected = !0, e(t.aoData[n].nTr).addClass(t._select.className);
 }), this.iterator("table", function(e, t) {
 s(n, "select", [ "row", n[t] ], !0);
 }), this);
-}), v("columns().select()", "column().select()", function(t) {
+}), b("columns().select()", "column().select()", function(t) {
 var n = this;
 return !1 === t ? this.deselect() : (this.iterator("column", function(t, n) {
 d(t), t.aoColumns[n]._select_selected = !0;
-var i = new g.Api(t).column(n);
+var i = new m.Api(t).column(n);
 e(i.header()).addClass(t._select.className), e(i.footer()).addClass(t._select.className), i.nodes().to$().addClass(t._select.className);
 }), this.iterator("table", function(e, t) {
 s(n, "select", [ "column", n[t] ], !0);
 }), this);
-}), v("cells().select()", "cell().select()", function(t) {
+}), b("cells().select()", "cell().select()", function(t) {
 var n = this;
 return !1 === t ? this.deselect() : (this.iterator("cell", function(t, n, r) {
 d(t);
@@ -26803,18 +26828,18 @@ o._selected_cells === i && (o._selected_cells = []), o._selected_cells[r] = !0, 
 }), this.iterator("table", function(e, t) {
 s(n, "select", [ "cell", n[t] ], !0);
 }), this);
-}), v("rows().deselect()", "row().deselect()", function() {
+}), b("rows().deselect()", "row().deselect()", function() {
 var t = this;
 return this.iterator("row", function(t, n) {
 t.aoData[n]._select_selected = !1, e(t.aoData[n].nTr).removeClass(t._select.className);
 }), this.iterator("table", function(e, n) {
 s(t, "deselect", [ "row", t[n] ], !0);
 }), this;
-}), v("columns().deselect()", "column().deselect()", function() {
+}), b("columns().deselect()", "column().deselect()", function() {
 var t = this;
 return this.iterator("column", function(t, n) {
 t.aoColumns[n]._select_selected = !1;
-var i = new g.Api(t), r = i.column(n);
+var i = new m.Api(t), r = i.column(n);
 e(r.header()).removeClass(t._select.className), e(r.footer()).removeClass(t._select.className), i.cells(null, n).indexes().each(function(n) {
 var i = t.aoData[n.row], r = i._selected_cells;
 !i.anCells || r && r[n.column] || e(i.anCells[n.column]).removeClass(t._select.className);
@@ -26822,7 +26847,7 @@ var i = t.aoData[n.row], r = i._selected_cells;
 }), this.iterator("table", function(e, n) {
 s(t, "deselect", [ "column", t[n] ], !0);
 }), this;
-}), v("cells().deselect()", "cell().deselect()", function() {
+}), b("cells().deselect()", "cell().deselect()", function() {
 var t = this;
 return this.iterator("cell", function(t, n, i) {
 var r = t.aoData[n];
@@ -26831,22 +26856,16 @@ r._selected_cells[i] = !1, r.anCells && !t.aoColumns[i]._select_selected && e(r.
 s(t, "deselect", [ "cell", t[n] ], !0);
 }), this;
 });
-var b = 0;
-return e.extend(g.ext.buttons, {
+var y = 0;
+return e.extend(m.ext.buttons, {
 selected: {
 text: f("selected", "Selected"),
 className: "buttons-selected",
+limitTo: [ "rows", "columns", "cells" ],
 init: function(e, t, n) {
 var i = this;
-n._eventNamespace = ".select" + b++, e.on(p(n), function() {
-var e = i.rows({
-selected: !0
-}).any() || i.columns({
-selected: !0
-}).any() || i.cells({
-selected: !0
-}).any();
-i.enable(e);
+n._eventNamespace = ".select" + y++, e.on(p(n), function() {
+i.enable(g(e, n));
 }), this.disable();
 },
 destroy: function(e, t, n) {
@@ -26858,7 +26877,7 @@ text: f("selectedSingle", "Selected single"),
 className: "buttons-selected-single",
 init: function(e, t, n) {
 var i = this;
-n._eventNamespace = ".select" + b++, e.on(p(n), function() {
+n._eventNamespace = ".select" + y++, e.on(p(n), function() {
 var t = e.rows({
 selected: !0
 }).flatten().length + e.columns({
@@ -26888,7 +26907,7 @@ d(this.settings()[0], !0);
 },
 init: function(e, t, n) {
 var i = this;
-n._eventNamespace = ".select" + b++, e.on(p(n), function() {
+n._eventNamespace = ".select" + y++, e.on(p(n), function() {
 var t = e.rows({
 selected: !0
 }).flatten().length + e.columns({
@@ -26905,7 +26924,7 @@ e.off(n._eventNamespace);
 }
 }), e.each([ "Row", "Column", "Cell" ], function(e, t) {
 var n = t.toLowerCase();
-g.ext.buttons["select" + t + "s"] = {
+m.ext.buttons["select" + t + "s"] = {
 text: f("select" + t + "s", "Select " + n + "s"),
 className: "buttons-select-" + n + "s",
 action: function() {
@@ -26919,8 +26938,8 @@ t.active(r === n);
 }
 };
 }), e(n).on("preInit.dt.dtSelect", function(e, t) {
-"dt" === e.namespace && g.select.init(new g.Api(t));
-}), g.select;
+"dt" === e.namespace && m.select.init(new m.Api(t));
+}), m.select;
 }), function() {
 function e(e, t) {
 return e.set(t[0], t[1]), e;
@@ -43439,10 +43458,13 @@ e.each(n, function(r, l) {
 });
 }
 function a(e) {
-var t = qe.defaults.oLanguage, n = e.sZeroRecords;
-!e.sEmptyTable && n && "No data available in table" === t.sEmptyTable && Fe(e, e, "sZeroRecords", "sEmptyTable"), !e.sLoadingRecords && n && "Loading..." === t.sLoadingRecords && Fe(e, e, "sZeroRecords", "sLoadingRecords"), e.sInfoThousands && (e.sThousands = e.sInfoThousands);
-var i = e.sDecimal;
-i && je(i);
+var t = qe.defaults.oLanguage, n = t.sDecimal;
+if (n && je(n), e) {
+var i = e.sZeroRecords;
+!e.sEmptyTable && i && "No data available in table" === t.sEmptyTable && Fe(e, e, "sZeroRecords", "sEmptyTable"), !e.sLoadingRecords && i && "Loading..." === t.sLoadingRecords && Fe(e, e, "sZeroRecords", "sLoadingRecords"), e.sInfoThousands && (e.sThousands = e.sInfoThousands);
+var r = e.sDecimal;
+r && n !== r && je(r);
+}
 }
 function s(e) {
 ht(e, "ordering", "bSort"), ht(e, "orderMulti", "bSortMulti"), ht(e, "orderClasses", "bSortClasses"), ht(e, "orderCellsTop", "bSortCellsTop"), ht(e, "order", "aaSorting"), ht(e, "orderFixed", "aaSortingFixed"), ht(e, "paging", "bPaginate"), ht(e, "pagingType", "sPaginationType"), ht(e, "pageLength", "iDisplayLength"), ht(e, "searching", "bFilter"), "boolean" == typeof e.sScrollX && (e.sScrollX = e.sScrollX ? "100%" : ""), "boolean" == typeof e.scrollX && (e.scrollX = e.scrollX ? "100%" : "");
@@ -43731,7 +43753,7 @@ for (a = r || n.createElement("tr"), d.nTr = a, d.anCells = f, a._DT_RowIndex = 
 row: i,
 column: c
 }, f.push(s), r && !l.mRender && l.mData === c || e.isPlainObject(l.mData) && l.mData._ === c + ".display" || (s.innerHTML = x(t, i, c, "display")), l.sClass && (s.className += " " + l.sClass), l.bVisible && !r ? a.appendChild(s) : !l.bVisible && r && s.parentNode.removeChild(s), l.fnCreatedCell && l.fnCreatedCell.call(t.oInstance, s, x(t, i, c), h, i, c);
-Le(t, "aoRowCreatedCallback", null, [ a, h, i ]);
+Le(t, "aoRowCreatedCallback", null, [ a, h, i, f ]);
 }
 d.nTr.setAttribute("role", "row");
 }
@@ -43791,7 +43813,7 @@ if (0 !== s) {
 var _ = a[o % s];
 y._sRowStripe != _ && (e(w).removeClass(y._sRowStripe).addClass(_), y._sRowStripe = _);
 }
-Le(t, "aoRowCallback", null, [ w, y._aData, o, v ]), r.push(w), o++;
+Le(t, "aoRowCallback", null, [ w, y._aData, o, v, b ]), r.push(w), o++;
 } else {
 var x = l.sZeroRecords;
 1 == t.iDraw && "ajax" == Ne(t) ? x = l.sLoadingRecords : l.sEmptyTable && 0 === t.fnRecordsTotal() && (x = l.sEmptyTable), r[0] = e("<tr/>", {
@@ -43874,9 +43896,8 @@ var a, s = t.ajax, l = t.oInstance, c = function(e) {
 Le(t, null, "xhr", [ t, e, t.jqXHR ]), i(e);
 };
 if (e.isPlainObject(s) && s.data) {
-a = s.data;
-var u = e.isFunction(a) ? a(n, t) : a;
-n = e.isFunction(a) && u ? u : e.extend(!0, n, u), delete s.data;
+var u = "function" == typeof (a = s.data) ? a(n, t) : a;
+n = "function" == typeof a && u ? u : e.extend(!0, n, u), delete s.data;
 }
 var d = {
 data: n,
@@ -43899,7 +43920,7 @@ value: e
 };
 }), c, t) : t.sAjaxSource || "string" == typeof s ? t.jqXHR = e.ajax(e.extend(d, {
 url: s || t.sAjaxSource
-})) : e.isFunction(s) ? t.jqXHR = s.call(l, n, c, t) : (t.jqXHR = e.ajax(e.extend(d, s)), s.data = a);
+})) : "function" == typeof s ? t.jqXHR = s.call(l, n, c, t) : (t.jqXHR = e.ajax(e.extend(d, s)), s.data = a);
 }
 function H(e) {
 return !e.bAjaxDataGet || (e.iDraw++, de(e, !0), V(e, U(e), function(t) {
@@ -44203,9 +44224,9 @@ V.push(t.innerHTML), N.push(ye(e(t).css("width")));
 }, a), pe(function(e, t) {
 e.style.width = N[t];
 }, r), e(a).height(0)), pe(function(e, t) {
-e.innerHTML = '<div class="dataTables_sizing" style="height:0;overflow:hidden;">' + B[t] + "</div>", e.style.width = R[t];
+e.innerHTML = '<div class="dataTables_sizing">' + B[t] + "</div>", e.childNodes[0].style.height = "0", e.childNodes[0].style.overflow = "hidden", e.style.width = R[t];
 }, o), I && pe(function(e, t) {
-e.innerHTML = '<div class="dataTables_sizing" style="height:0;overflow:hidden;">' + V[t] + "</div>", e.style.width = N[t];
+e.innerHTML = '<div class="dataTables_sizing">' + V[t] + "</div>", e.childNodes[0].style.height = "0", e.childNodes[0].style.overflow = "hidden", e.style.width = N[t];
 }, a), E.outerWidth() < d ? (u = S.scrollHeight > S.offsetHeight || "scroll" == $.css("overflow-y") ? d + b : d, L && (S.scrollHeight > S.offsetHeight || "scroll" == $.css("overflow-y")) && (M.width = ye(u - b)), "" !== g && "" === m || Ee(t, 1, "Possible column misalignment", 6)) : u = "100%", k.width = ye(u), w.width = ye(u), I && (t.nScrollFoot.style.width = ye(u)), v || L && (k.height = ye(F.offsetHeight + b));
 var z = E.outerWidth();
 C[0].style.width = ye(z), x.width = ye(z);
@@ -44414,8 +44435,8 @@ for (var o in n) n.hasOwnProperty(o) && (r = n[o], e.isPlainObject(r) ? (e.isPla
 return t;
 }
 function Ie(t, n, i) {
-e(t).on("click.DT", n, function(e) {
-t.blur(), i(e);
+e(t).on("click.DT", n, function(n) {
+e(t).blur(), i(n);
 }).on("keypress.DT", n, function(e) {
 13 === e.which && (e.preventDefault(), i(e));
 }).on("selectstart.DT", function() {
@@ -44553,7 +44574,7 @@ s(x), l(x.column), o(x, x, !0), o(x.column, x.column, !0), o(x, e.extend(g, C.da
 var S = qe.settings;
 for (m = 0, f = S.length; m < f; m++) {
 var k = S[m];
-if (k.nTable == this || k.nTHead.parentNode == this || k.nTFoot && k.nTFoot.parentNode == this) {
+if (k.nTable == this || k.nTHead && k.nTHead.parentNode == this || k.nTFoot && k.nTFoot.parentNode == this) {
 var A = g.bRetrieve !== i ? g.bRetrieve : x.bRetrieve, T = g.bDestroy !== i ? g.bDestroy : x.bDestroy;
 if (r || A) return k.oInstance;
 if (T) {
@@ -44573,7 +44594,7 @@ sDestroyWidth: C[0].style.width,
 sInstance: v,
 sTableId: v
 });
-D.nTable = this, D.oApi = n.internal, D.oInit = g, S.push(D), D.oInstance = 1 === n.length ? n : C.dataTable(), s(g), g.oLanguage && a(g.oLanguage), g.aLengthMenu && !g.iDisplayLength && (g.iDisplayLength = e.isArray(g.aLengthMenu[0]) ? g.aLengthMenu[0][0] : g.aLengthMenu[0]), g = Me(e.extend(!0, {}, x), g), Fe(D.oFeatures, g, [ "bPaginate", "bLengthChange", "bFilter", "bSort", "bSortMulti", "bInfo", "bProcessing", "bAutoWidth", "bSortClasses", "bServerSide", "bDeferRender" ]), Fe(D, g, [ "asStripeClasses", "ajax", "fnServerData", "fnFormatNumber", "sServerMethod", "aaSorting", "aaSortingFixed", "aLengthMenu", "sPaginationType", "sAjaxSource", "sAjaxDataProp", "iStateDuration", "sDom", "bSortCellsTop", "iTabIndex", "fnStateLoadCallback", "fnStateSaveCallback", "renderer", "searchDelay", "rowId", [ "iCookieDuration", "iStateDuration" ], [ "oSearch", "oPreviousSearch" ], [ "aoSearchCols", "aoPreSearchCols" ], [ "iDisplayLength", "_iDisplayLength" ] ]), Fe(D.oScroll, g, [ [ "sScrollX", "sX" ], [ "sScrollXInner", "sXInner" ], [ "sScrollY", "sY" ], [ "bScrollCollapse", "bCollapse" ] ]), 
+D.nTable = this, D.oApi = n.internal, D.oInit = g, S.push(D), D.oInstance = 1 === n.length ? n : C.dataTable(), s(g), a(g.oLanguage), g.aLengthMenu && !g.iDisplayLength && (g.iDisplayLength = e.isArray(g.aLengthMenu[0]) ? g.aLengthMenu[0][0] : g.aLengthMenu[0]), g = Me(e.extend(!0, {}, x), g), Fe(D.oFeatures, g, [ "bPaginate", "bLengthChange", "bFilter", "bSort", "bSortMulti", "bInfo", "bProcessing", "bAutoWidth", "bSortClasses", "bServerSide", "bDeferRender" ]), Fe(D, g, [ "asStripeClasses", "ajax", "fnServerData", "fnFormatNumber", "sServerMethod", "aaSorting", "aaSortingFixed", "aLengthMenu", "sPaginationType", "sAjaxSource", "sAjaxDataProp", "iStateDuration", "sDom", "bSortCellsTop", "iTabIndex", "fnStateLoadCallback", "fnStateSaveCallback", "renderer", "searchDelay", "rowId", [ "iCookieDuration", "iStateDuration" ], [ "oSearch", "oPreviousSearch" ], [ "aoSearchCols", "aoPreSearchCols" ], [ "iDisplayLength", "_iDisplayLength" ] ]), Fe(D.oScroll, g, [ [ "sScrollX", "sX" ], [ "sScrollXInner", "sXInner" ], [ "sScrollY", "sY" ], [ "bScrollCollapse", "bCollapse" ] ]), 
 Fe(D.oLanguage, g, "fnInfoCallback"), Pe(D, "aoDrawCallback", g.fnDrawCallback, "user"), Pe(D, "aoServerParams", g.fnServerParams, "user"), Pe(D, "aoStateSaveParams", g.fnStateSaveParams, "user"), Pe(D, "aoStateLoadParams", g.fnStateLoadParams, "user"), Pe(D, "aoStateLoaded", g.fnStateLoaded, "user"), Pe(D, "aoRowCallback", g.fnRowCallback, "user"), Pe(D, "aoRowCreatedCallback", g.fnCreatedRow, "user"), Pe(D, "aoHeaderCallback", g.fnHeaderCallback, "user"), Pe(D, "aoFooterCallback", g.fnFooterCallback, "user"), Pe(D, "aoInitComplete", g.fnInitComplete, "user"), Pe(D, "aoPreDrawCallback", g.fnPreDrawCallback, "user"), D.rowIdFn = $(g.rowId), c(D);
 var E = D.oClasses;
 if (e.extend(E, qe.ext.classes, g.oClasses), C.addClass(E.sTable), D.iInitDisplayStart === i && (D.iInitDisplayStart = g.iDisplayStart, D._iDisplayStart = g.iDisplayStart), null !== g.iDeferLoading) {
@@ -44646,7 +44667,7 @@ D.aiDisplay = D.aiDisplayMaster.slice(), D.bInitialised = !0, !1 === b && re(D);
 g.bStateSave ? (V.bStateSave = !0, Pe(D, "aoDrawCallback", Ae, "state_save"), Te(D, 0, H)) : H();
 } else Ee(null, 0, "Non-table node initialisation (" + this.nodeName + ")", 2);
 }), n = null, this;
-}, Ge = {}, Ye = /[\r\n]/g, Ke = /<.*?>/g, Xe = /^\d{2,4}[\.\/\-]\d{1,2}[\.\/\-]\d{1,2}([T ]{1}\d{1,2}[:\.]\d{2}([\.:]\d{2})?)?$/, Qe = new RegExp("(\\" + [ "/", ".", "*", "+", "?", "|", "(", ")", "[", "]", "{", "}", "\\", "$", "^", "-" ].join("|\\") + ")", "g"), Je = /[',$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfk]/gi, Ze = function(e) {
+}, Ge = {}, Ye = /[\r\n]/g, Ke = /<.*?>/g, Xe = /^\d{2,4}[\.\/\-]\d{1,2}[\.\/\-]\d{1,2}([T ]{1}\d{1,2}[:\.]\d{2}([\.:]\d{2})?)?$/, Qe = new RegExp("(\\" + [ "/", ".", "*", "+", "?", "|", "(", ")", "[", "]", "{", "}", "\\", "$", "^", "-" ].join("|\\") + ")", "g"), Je = /[',$£€¥%\u2009\u202F\u20BD\u20a9\u20BArfkɃΞ]/gi, Ze = function(e) {
 return !e || !0 === e || "-" === e;
 }, et = function(e) {
 var t = parseInt(e, 10);
@@ -44962,35 +44983,41 @@ page: "all"
 for (var t = 0, n = e.length; t < n; t++) if (e[t].length > 0) return e[0] = e[t], e[0].length = 1, e.length = 1, e.context = [ e.context[t] ], e;
 return e.length = 0, e;
 }, Tt = function(t, n) {
-var i, r, o, a = [], s = t.aiDisplay, l = t.aiDisplayMaster, c = n.search, u = n.order, d = n.page;
-if ("ssp" == Ne(t)) return "removed" === c ? [] : st(0, l.length);
-if ("current" == d) for (i = t._iDisplayStart, r = t.fnDisplayEnd(); i < r; i++) a.push(s[i]); else if ("current" == u || "applied" == u) a = "none" == c ? l.slice() : "applied" == c ? s.slice() : e.map(l, function(t, n) {
-return -1 === e.inArray(t, s) ? t : null;
-}); else if ("index" == u || "original" == u) for (i = 0, r = t.aoData.length; i < r; i++) "none" == c ? a.push(i) : (-1 === (o = e.inArray(i, s)) && "removed" == c || o >= 0 && "applied" == c) && a.push(i);
-return a;
+var i, r = [], o = t.aiDisplay, a = t.aiDisplayMaster, s = n.search, l = n.order, c = n.page;
+if ("ssp" == Ne(t)) return "removed" === s ? [] : st(0, a.length);
+if ("current" == c) for (d = t._iDisplayStart, h = t.fnDisplayEnd(); d < h; d++) r.push(o[d]); else if ("current" == l || "applied" == l) {
+if ("none" == s) r = a.slice(); else if ("applied" == s) r = o.slice(); else if ("removed" == s) {
+for (var u = {}, d = 0, h = o.length; d < h; d++) u[o[d]] = null;
+r = e.map(a, function(e) {
+return u.hasOwnProperty(e) ? null : e;
+});
+}
+} else if ("index" == l || "original" == l) for (d = 0, h = t.aoData.length; d < h; d++) "none" == s ? r.push(d) : (-1 === (i = e.inArray(d, o)) && "removed" == s || i >= 0 && "applied" == s) && r.push(d);
+return r;
 }, Dt = function(t, n, r) {
 var o;
 return $t("row", n, function(n) {
-var a = et(n);
+var a = et(n), s = t.aoData;
 if (null !== a && !r) return [ a ];
 if (o || (o = Tt(t, r)), null !== a && -1 !== e.inArray(a, o)) return [ a ];
 if (null === n || n === i || "" === n) return o;
 if ("function" == typeof n) return e.map(o, function(e) {
-var i = t.aoData[e];
-return n(e, i._aData, i.nTr) ? e : null;
+var t = s[e];
+return n(e, t._aData, t.nTr) ? e : null;
 });
-var s = lt(at(t.aoData, o, "nTr"));
 if (n.nodeName) {
-if (n._DT_RowIndex !== i) return [ n._DT_RowIndex ];
-if (n._DT_CellIndex) return [ n._DT_CellIndex.row ];
-var l = e(n).closest("*[data-dt-row]");
-return l.length ? [ l.data("dt-row") ] : [];
+var l = n._DT_RowIndex, c = n._DT_CellIndex;
+if (l !== i) return s[l] && s[l].nTr === n ? [ l ] : [];
+if (c) return s[c.row] && s[c.row].nTr === n ? [ c.row ] : [];
+var u = e(n).closest("*[data-dt-row]");
+return u.length ? [ u.data("dt-row") ] : [];
 }
 if ("string" == typeof n && "#" === n.charAt(0)) {
-var c = t.aIds[n.replace(/^#/, "")];
-if (c !== i) return [ c.idx ];
+var d = t.aIds[n.replace(/^#/, "")];
+if (d !== i) return [ d.idx ];
 }
-return e(s).filter(n).map(function() {
+var h = lt(at(t.aoData, o, "nTr"));
+return e(h).filter(n).map(function() {
 return this._DT_RowIndex;
 }).toArray();
 }, t, r);
@@ -45048,9 +45075,11 @@ return o;
 return i.pop(), e.merge(i, n), i;
 }), ze("row()", function(e, t) {
 return At(this.rows(e, t));
-}), ze("row().data()", function(e) {
-var t = this.context;
-return e === i ? t.length && this.length ? t[0].aoData[this[0]]._aData : i : (t[0].aoData[this[0]]._aData = e, E(t[0], this[0], "data"), this);
+}), ze("row().data()", function(t) {
+var n = this.context;
+if (t === i) return n.length && this.length ? n[0].aoData[this[0]]._aData : i;
+var r = n[0].aoData[this[0]];
+return r._aData = t, e.isArray(t) && r.nTr.id && k(n[0].rowId)(t, r.nTr.id), E(n[0], this[0], "data"), this;
 }), ze("row().node()", function() {
 var e = this.context;
 return e.length && this.length ? e[0].aoData[this[0]].nTr || null : null;
@@ -45161,7 +45190,7 @@ if (r) {
 var h = e.inArray(!0, ot(c, "bVisible"), n + 1);
 for (a = 0, s = d.length; a < s; a++) l = d[a].nTr, o = d[a].anCells, l && l.insertBefore(o[n], o[h] || null);
 } else e(ot(t.aoData, "anCells", n)).detach();
-u.bVisible = r, L(t, t.aoHeader), L(t, t.aoFooter), Ae(t);
+u.bVisible = r, L(t, t.aoHeader), L(t, t.aoFooter), t.aiDisplay.length || e(t.nTBody).find("td[colspan]").attr("colspan", m(t)), Ae(t);
 }
 };
 ze("columns()", function(t, n) {
@@ -45228,7 +45257,7 @@ column: c
 }, r ? (d = h[o], n(u, x(t, o, c), d.anCells ? d.anCells[c] : null) && a.push(u)) : a.push(u);
 return a;
 }
-if (e.isPlainObject(n)) return [ n ];
+if (e.isPlainObject(n)) return n.column !== i && n.row !== i && -1 !== e.inArray(n.row, f) ? [ n ] : [];
 var p = g.filter(n).map(function(e, t) {
 return {
 row: t._DT_CellIndex.row,
@@ -45245,13 +45274,14 @@ ze("cells()", function(t, n, r) {
 if (e.isPlainObject(t) && (t.row === i ? (r = t, t = null) : (r = n, n = null)), e.isPlainObject(n) && (r = n, n = null), null === n || n === i) return this.iterator("table", function(e) {
 return Nt(e, t, kt(r));
 });
-var o, a, s, l, c, u = this.columns(n, r), d = this.rows(t, r), h = this.iterator("table", function(e, t) {
+var o, a, s, l, c, u = this.columns(n), d = this.rows(t);
+this.iterator("table", function(e, t) {
 for (o = [], a = 0, s = d[t].length; a < s; a++) for (l = 0, c = u[t].length; l < c; l++) o.push({
 row: d[t][a],
 column: u[t][l]
 });
-return o;
 }, 1);
+var h = this.cells(o, r);
 return e.extend(h.selector, {
 cols: n,
 rows: t,
@@ -45415,7 +45445,7 @@ e.call(r[t](a, "cell" === t ? s : n, "cell" === t ? n : i), a, s, l, c);
 }), ze("i18n()", function(t, n, r) {
 var o = this.context[0], a = $(t)(o.oLanguage);
 return a === i && (a = n), r !== i && e.isPlainObject(a) && (a = a[r] !== i ? a[r] : a._), a.replace("%d", r);
-}), qe.version = "1.10.16", qe.settings = [], qe.models = {}, qe.models.oSearch = {
+}), qe.version = "1.10.19", qe.settings = [], qe.models = {}, qe.models.oSearch = {
 bCaseInsensitive: !0,
 sSearch: "",
 bRegex: !1,
@@ -45879,7 +45909,8 @@ return 0 === e || e && "-" !== e ? (t && (e = tt(e, t)), e.replace && (n && (e =
 };
 e.extend(He.type.order, {
 "date-pre": function(e) {
-return Date.parse(e) || -1 / 0;
+var t = Date.parse(e);
+return isNaN(t) ? -1 / 0 : t;
 },
 "html-pre": function(e) {
 return Ze(e) ? "" : e.replace ? e.replace(/<.*?>/g, "").toLowerCase() : e + "";
@@ -45931,7 +45962,8 @@ return a + (i || "") + l.toString().replace(/\B(?=(\d{3})+(?!\d))/g, e) + c + (r
 },
 text: function() {
 return {
-display: Vt
+display: Vt,
+filter: Vt
 };
 }
 }, e.extend(qe.ext.internal, {
@@ -46027,6 +46059,7 @@ _fnLengthOverflow: Oe,
 _fnRenderer: Re,
 _fnDataSource: Ne,
 _fnRowAttributes: I,
+_fnExtend: Me,
 _fnCalculateEnd: function() {}
 }), e.fn.dataTable = qe, qe.$ = e, e.fn.dataTableSettings = qe.settings, e.fn.dataTableExt = qe.ext, e.fn.DataTable = function(t) {
 return e(this).dataTable(t).api();
@@ -46091,7 +46124,7 @@ if (S) for (o(S, n, s), h = 0, p = S.length; h < p; h++) S[h] && S[h]._DT_CellIn
 }
 for (u = 0, d = t.aoHeader.length; u < d; u++) o(t.aoHeader[u], n, s);
 if (null !== t.aoFooter) for (u = 0, d = t.aoFooter.length; u < d; u++) o(t.aoFooter[u], n, s);
-for ((c || c === i) && e.fn.dataTable.Api(t).rows().invalidate(), u = 0, d = v; u < d; u++) e(t.aoColumns[u].nTh).off("click.DT"), this.oApi._fnSortAttachListener(t, t.aoColumns[u].nTh, u);
+for ((c || c === i) && e.fn.dataTable.Api(t).rows().invalidate(), u = 0, d = v; u < d; u++) e(t.aoColumns[u].nTh).off(".DT"), this.oApi._fnSortAttachListener(t, t.aoColumns[u].nTh, u);
 e(t.oInstance).trigger("column-reorder.dt", [ t, {
 from: n,
 to: s,
@@ -46110,6 +46143,7 @@ if (i._colReorder) return i._colReorder;
 var r = e.fn.dataTable.camelToHungarian;
 return r && (r(l.defaults, l.defaults, !0), r(l.defaults, n || {})), this.s = {
 dt: null,
+enable: null,
 init: e.extend(!0, {}, l.defaults, n),
 fixed: 0,
 fixedRight: 0,
@@ -46127,9 +46161,16 @@ aoTargets: []
 }, this.dom = {
 drag: null,
 pointer: null
-}, this.s.dt = i, this.s.dt._colReorder = this, this._fnConstruct(), this;
+}, this.s.enable = this.s.init.bEnable, this.s.dt = i, this.s.dt._colReorder = this, this._fnConstruct(), this;
 };
 return e.extend(l.prototype, {
+fnEnable: function(e) {
+if (!1 === e) return fnDisable();
+this.s.enable = !0;
+},
+fnDisable: function() {
+this.s.enable = !1;
+},
 fnReset: function() {
 return this._fnOrderColumns(this.fnOrder()), this;
 },
@@ -46179,8 +46220,8 @@ n._fnOrderColumns.call(n, e);
 });
 } else this._fnSetColumnIndexes();
 e(o).on("destroy.dt.colReorder", function() {
-e(o).off("destroy.dt.colReorder draw.dt.colReorder"), e(n.s.dt.nTHead).find("*").off(".ColReorder"), e.each(n.s.dt.aoColumns, function(t, n) {
-e(n.nTh).removeAttr("data-column-index");
+e(o).off("destroy.dt.colReorder draw.dt.colReorder"), e.each(n.s.dt.aoColumns, function(t, n) {
+e(n.nTh).off(".ColReorder"), e(n.nTh).removeAttr("data-column-index");
 }), n.s.dt._colReorder = null, n.s = null;
 });
 },
@@ -46191,7 +46232,7 @@ for (var i = 0, r = t.length; i < r; i++) {
 var a = e.inArray(i, t);
 i != a && (o(t, a, i), this.s.dt.oInstance.fnColReorder(a, i, !0, !1), n = !0);
 }
-e.fn.dataTable.Api(this.s.dt).rows().invalidate(), this._fnSetColumnIndexes(), n && ("" === this.s.dt.oScroll.sX && "" === this.s.dt.oScroll.sY || this.s.dt.oInstance.fnAdjustColumnSizing(!1), this.s.dt.oInstance.oApi._fnSaveState(this.s.dt), null !== this.s.reorderCallback && this.s.reorderCallback.call(this));
+this._fnSetColumnIndexes(), n && (e.fn.dataTable.Api(this.s.dt).rows().invalidate(), "" === this.s.dt.oScroll.sX && "" === this.s.dt.oScroll.sY || this.s.dt.oInstance.fnAdjustColumnSizing(!1), this.s.dt.oInstance.oApi._fnSaveState(this.s.dt), null !== this.s.reorderCallback && this.s.reorderCallback.call(this));
 } else this.s.dt.oInstance.oApi._fnLog(this.s.dt, 1, "ColReorder - array reorder does not match known number of columns. Skipping.");
 },
 _fnStateSave: function(t) {
@@ -46209,9 +46250,9 @@ for (n = 0, i = o.length; n < i; n++) r = o[n]._ColReorder_iOrigCol, t.columns[r
 _fnMouseListener: function(t, n) {
 var i = this;
 e(n).on("mousedown.ColReorder", function(e) {
-i._fnMouseDown.call(i, e, n);
+i.s.enable && i._fnMouseDown.call(i, e, n);
 }).on("touchstart.ColReorder", function(e) {
-i._fnMouseDown.call(i, e, n);
+i.s.enable && i._fnMouseDown.call(i, e, n);
 });
 },
 _fnMouseDown: function(t, r) {
@@ -46235,7 +46276,7 @@ for (var t = !1, n = this.s.mouse.toIndex, i = 1, r = this.s.aoTargets.length; i
 this.dom.pointer.css("left", this.s.aoTargets[i - 1].x), this.s.mouse.toIndex = this.s.aoTargets[i - 1].to, t = !0;
 break;
 }
-t || (this.dom.pointer.css("left", this.s.aoTargets[this.s.aoTargets.length - 1].x), this.s.mouse.toIndex = this.s.aoTargets[this.s.aoTargets.length - 1].to), this.s.init.bRealtime && n !== this.s.mouse.toIndex && (this.s.dt.oInstance.fnColReorder(this.s.mouse.fromIndex, this.s.mouse.toIndex, !1), this.s.mouse.fromIndex = this.s.mouse.toIndex, this._fnRegions());
+t || (this.dom.pointer.css("left", this.s.aoTargets[this.s.aoTargets.length - 1].x), this.s.mouse.toIndex = this.s.aoTargets[this.s.aoTargets.length - 1].to), this.s.init.bRealtime && n !== this.s.mouse.toIndex && (this.s.dt.oInstance.fnColReorder(this.s.mouse.fromIndex, this.s.mouse.toIndex), this.s.mouse.fromIndex = this.s.mouse.toIndex, "" === this.s.dt.oScroll.sX && "" === this.s.dt.oScroll.sY || this.s.dt.oInstance.fnAdjustColumnSizing(!1), this._fnRegions());
 },
 _fnMouseUp: function(t) {
 e(n).off(".ColReorder"), null !== this.dom.drag && (this.dom.drag.remove(), this.dom.pointer.remove(), this.dom.drag = null, this.dom.pointer = null, this.s.dt.oInstance.fnColReorder(this.s.mouse.fromIndex, this.s.mouse.toIndex, !0), this._fnSetColumnIndexes(), "" === this.s.dt.oScroll.sX && "" === this.s.dt.oScroll.sY || this.s.dt.oInstance.fnAdjustColumnSizing(!1), this.s.dt.oInstance.oApi._fnSaveState(this.s.dt), null !== this.s.reorderCallback && this.s.reorderCallback.call(this));
@@ -46276,11 +46317,12 @@ return -1 !== e.type.indexOf("touch") ? e.originalEvent.touches[0][t] : e[t];
 }
 }), l.defaults = {
 aiOrder: null,
+bEnable: !0,
 bRealtime: !0,
 iFixedColumnsLeft: 0,
 iFixedColumnsRight: 0,
 fnReorderCallback: null
-}, l.version = "1.4.1", e.fn.dataTable.ColReorder = l, e.fn.DataTable.ColReorder = l, "function" == typeof e.fn.dataTable && "function" == typeof e.fn.dataTableExt.fnVersionCheck && e.fn.dataTableExt.fnVersionCheck("1.10.8") ? e.fn.dataTableExt.aoFeatures.push({
+}, l.version = "1.5.1", e.fn.dataTable.ColReorder = l, e.fn.DataTable.ColReorder = l, "function" == typeof e.fn.dataTable && "function" == typeof e.fn.dataTableExt.fnVersionCheck && e.fn.dataTableExt.fnVersionCheck("1.10.8") ? e.fn.dataTableExt.aoFeatures.push({
 fnInit: function(e) {
 var t = e.oInstance;
 if (e._colReorder) t.oApi._fnLog(e, 1, "ColReorder attempted to initialise twice. Ignoring second"); else {
@@ -46311,6 +46353,14 @@ n._colReorder.fnOrder(e, t);
 return this.context.length && this.context[0]._colReorder ? this.context[0]._colReorder.fnTranspose(e, t) : e;
 }), e.fn.dataTable.Api.register("colReorder.move()", function(e, t, n, i) {
 return this.context.length && this.context[0]._colReorder.s.dt.oInstance.fnColReorder(e, t, n, i), this;
+}), e.fn.dataTable.Api.register("colReorder.enable()", function(e) {
+return this.iterator("table", function(t) {
+t._colReorder && t._colReorder.fnEnable(e);
+});
+}), e.fn.dataTable.Api.register("colReorder.disable()", function() {
+return this.iterator("table", function(e) {
+e._colReorder && e._colReorder.fnDisable();
+});
 }), l;
 }), function(e, t, n) {
 var i = function(e, n) {
@@ -51604,41 +51654,41 @@ noNotificationsText: "@",
 customScope: "=?"
 },
 templateUrl: "notification/notification-drawer.html",
-controller: [ "$window", "$timeout", "$element", function(e, t, n) {
+controller: [ "$window", "$timeout", "$element", "gettext", "gettextCatalog", function(e, t, n, i, r) {
 "use strict";
-var i = this, r = function() {
+var o = this, a = function() {
 var e = !1;
-angular.isDefined(_.get(i.notificationGroups, "notifications")) && (i.notificationGroups = [ i.notificationGroups ]), i.singleGroup = _.size(i.notificationGroups) < 2, angular.forEach(i.notificationGroups, function(e) {
+angular.isDefined(_.get(o.notificationGroups, "notifications")) && (o.notificationGroups = [ o.notificationGroups ]), o.singleGroup = _.size(o.notificationGroups) < 2, angular.forEach(o.notificationGroups, function(e) {
 e.emptyStateConfig = {
 icon: "pficon-info",
-title: e.noNotificationsText || i.noNotificationsText || "没有通知"
+title: e.noNotificationsText || o.noNotificationsText || r.getString(i("There are no notifications to display."))
 };
-}), angular.forEach(i.notificationGroups, function(t) {
+}), angular.forEach(o.notificationGroups, function(t) {
 t.open && (e ? t.open = !1 : e = !0);
 });
-}, o = function() {
+}, s = function() {
 t(function() {
 angular.element(e).triggerHandler("resize");
 }, 100);
 };
-i.toggleCollapse = function(e) {
-e.open ? e.open = !1 : (angular.forEach(i.notificationGroups, function(e) {
+o.toggleCollapse = function(e) {
+e.open ? e.open = !1 : (angular.forEach(o.notificationGroups, function(e) {
 e.open = !1;
-}), e.open = !0, o());
-}, i.toggleExpandDrawer = function() {
-i.drawerExpanded = !i.drawerExpanded;
-}, i.$onInit = function() {
-i.allowExpand && !angular.isUndefined(i.drawerExpanded) || (i.drawerExpanded = !1), i.emptyStateConfig = {
+}), e.open = !0, s());
+}, o.toggleExpandDrawer = function() {
+o.drawerExpanded = !o.drawerExpanded;
+}, o.$onInit = function() {
+o.allowExpand && !angular.isUndefined(o.drawerExpanded) || (o.drawerExpanded = !1), o.emptyStateConfig = {
 icon: "pficon-info",
-title: i.noNotificationsText || "没有通知"
-}, r();
-}, i.$onChanges = function(e) {
-e.notificationGroups && (r(), o()), !i.drawerHidden && (e.drawerHidden || e.showMarkAllRead || e.showClearAll || e.actionButtonTitle || e.titleInclude || e.headingInclude || e.subheadingInclude || e.notificationBodyInclude || e.notificationFooterInclude) && o();
-}, i.$postLink = function() {
-i.groupHeight && n.find(".panel-group").css("height", i.groupHeight), i.groupClass && n.find(".panel-group").addClass(i.groupClass);
-}, i.hasNotifications = function(e) {
+title: o.noNotificationsText || r.getString(i("There are no notifications to display."))
+}, a();
+}, o.$onChanges = function(e) {
+e.notificationGroups && (a(), s()), !o.drawerHidden && (e.drawerHidden || e.showMarkAllRead || e.showClearAll || e.actionButtonTitle || e.titleInclude || e.headingInclude || e.subheadingInclude || e.notificationBodyInclude || e.notificationFooterInclude) && s();
+}, o.$postLink = function() {
+o.groupHeight && n.find(".panel-group").css("height", o.groupHeight), o.groupClass && n.find(".panel-group").addClass(o.groupClass);
+}, o.hasNotifications = function(e) {
 return _.size(_.get(e, "notifications")) > 0;
-}, i.hasUnread = function(e) {
+}, o.hasUnread = function(e) {
 return _.size(_.filter(_.get(e, "notifications"), {
 unread: !0
 })) > 0;
@@ -52753,7 +52803,7 @@ n = !0, i.steps = [], i.context = {}, i.hideHeader = "true" === i.hideHeader, i.
 height: i.contentHeight,
 "max-height": i.contentHeight,
 "overflow-y": "auto"
-}), angular.isUndefined(i.wizardReady) && (i.wizardReady = !0), i.cancelTitle || (i.cancelTitle = "Cancel"), i.backTitle || (i.backTitle = "< 返回"), i.nextTitle || (i.nextTitle = "下一步 >");
+}), angular.isUndefined(i.wizardReady) && (i.wizardReady = !0), i.cancelTitle || (i.cancelTitle = "Cancel"), i.backTitle || (i.backTitle = "< Back"), i.nextTitle || (i.nextTitle = "Next >");
 }, i.$onChanges = function(e) {
 var t;
 if (e.hideHeader && (i.hideHeader = "true" === i.hideHeader), e.hideSidebar && (i.hideSidebar = "true" === i.hideSidebar), e.hideBackButton && (i.hideBackButton = "true" === i.hideBackButton), e.wizardReady && e.wizardReady.currentValue && i.goTo(i.getEnabledSteps()[0]), e.currentStep) {
@@ -52850,7 +52900,7 @@ e.put("charts/utilization-trend/utilization-trend-chart.html", '<div class=utili
 } ]), angular.module("patternfly.filters").run([ "$templateCache", function(e) {
 "use strict";
 e.put("filters/filter-panel/filter-panel-results.html", '<div class=filter-pf><div class=toolbar-pf-results><h5>{{$ctrl.config.resultsCount}} <span ng-if=$ctrl.config.appliedFilters.length>of {{$ctrl.config.totalCount}}</span> {{$ctrl.config.resultsLabel === undefined ? "Results" : $ctrl.config.resultsLabel}}</h5><p class=filter-pf-active-label ng-if=$ctrl.config.appliedFilters.length>Active filters:</p><ul class=list-inline ng-if=$ctrl.config.appliedFilters.length><li ng-repeat="filter in $ctrl.config.appliedFilters" class=filter-pf-category-item><span class="label pf-filter-category-label" ng-class="{\'label-info\': filter.values.length === 1, \'multiples\': filter.values.length > 1}">{{filter.title}}:<ul class="list-inline filter-pf-category-values"><li ng-repeat="value in filter.values"><span class="label label-info">{{value}} <a href=javascript:void(0);><span ng-click="$ctrl.clearFilter(filter, value)" class="pficon pficon-close"></span></a></span></li></ul></span></li></ul><p><a href=javascript:void(0); ng-click=$ctrl.clearAllFilters() ng-if="$ctrl.config.appliedFilters.length > 0">Clear All Filters</a></p></div></div>'), 
-e.put("filters/filter-panel/filter-panel.html", '<div class="filter-pf inline-filter-pf"><span class="dropdown primary-action" uib-dropdown><button class="btn btn-default dropdown-toggle" uib-dropdown-toggle type=button>Filter <span class=caret></span></button><div ng-transclude class=dropdown-menu ng-click=$event.stopPropagation()></div></span><pf-filter-panel-results config=$ctrl.config></pf-filter-panel-results></div>'), e.put("filters/simple-filter/filter-fields.html", '<div class="filter-pf filter-fields"><div class="input-group form-group"><div uib-dropdown class=input-group-btn><button ng-if="$ctrl.config.fields.length > 1" uib-dropdown-toggle type=button class="btn btn-default filter-fields" uib-tooltip="Filter by" tooltip-placement=top tooltip-append-to-body=true>{{$ctrl.currentField.title}} <span class=caret></span></button><ul uib-dropdown-menu><li ng-repeat="item in $ctrl.config.fields" ng-class="{\'selected\': item === $ctrl.currentField}"><a class=filter-field role=menuitem tabindex=-1 ng-click=$ctrl.selectField(item)>{{item.title}}</a></li></ul></div><div ng-if="$ctrl.currentField.filterType !== \'select\' && $ctrl.currentField.filterType !== \'complex-select\'"><input class=form-control type={{$ctrl.currentField.filterType}} ng-model=$ctrl.currentValue placeholder={{$ctrl.currentField.placeholder}} ng-keypress="$ctrl.onValueKeyPress($event)"></div><div ng-if="$ctrl.currentField.filterType === \'select\'"><div class="btn-group bootstrap-select form-control filter-select" uib-dropdown><button type=button uib-dropdown-toggle class="btn btn-default dropdown-toggle"><span class="filter-option pull-left">{{$ctrl.currentValue.title || $ctrl.currentValue || $ctrl.currentField.placeholder}}</span> <span class=caret></span></button><ul uib-dropdown-menu class=dropdown-menu-right role=menu><li ng-if=$ctrl.currentField.placeholder><a role=menuitem tabindex=-1 ng-click=$ctrl.selectValue()>{{$ctrl.currentField.placeholder}}</a></li><li ng-repeat="filterValue in $ctrl.currentField.filterValues" ng-class="{\'selected\': (filterValue === $ctrl.currentValue)}"><a role=menuitem tabindex=-1 ng-click=$ctrl.selectValue(filterValue)>{{filterValue.title || filterValue}}</a></li></ul></div></div><div ng-if="$ctrl.currentField.filterType === \'complex-select\'" class=category-select><div class="btn-group bootstrap-select form-control filter-select" uib-dropdown><button type=button uib-dropdown-toggle class="btn btn-default dropdown-toggle"><span class="filter-option pull-left">{{$ctrl.filterCategory.title || $ctrl.filterCategory || $ctrl.currentField.placeholder}}</span> <span class=caret></span></button><ul uib-dropdown-menu class=dropdown-menu-right role=menu><li ng-if=$ctrl.currentField.placeholder><a role=menuitem tabindex=-1 ng-click=$ctrl.selectValue()>{{$ctrl.currentField.placeholder}}</a></li><li ng-repeat="filterCategory in $ctrl.currentField.filterValues" ng-class="{\'selected\': (filterCategory == $ctrl.filterCategory)}"><a role=menuitem tabindex=-1 ng-click="$ctrl.selectValue(filterCategory, \'filter-category\')">{{filterCategory.title ||filterCategory}}</a></li></ul></div><div class="btn-group bootstrap-select form-control filter-select" uib-dropdown><button type=button uib-dropdown-toggle class="btn btn-default dropdown-toggle category-select-value"><span class="filter-option pull-left">{{$ctrl.filterValue.title || $ctrl.filterValue || $ctrl.currentField.filterCategoriesPlaceholder}}</span> <span class=caret></span></button><ul uib-dropdown-menu class=dropdown-menu-right role=menu><li ng-if=$ctrl.currentField.placeholder><a role=menuitem tabindex=-1 ng-click=$ctrl.selectValue()>{{$ctrl.currentField.filterCategoriesPlaceholder}}</a></li><li ng-repeat="filterValue in $ctrl.currentField.filterCategories[$ctrl.filterCategory.id.toLowerCase() || $ctrl.filterCategory.toLowerCase() ].filterValues" ng-class="{\'selected\': filterValue === $ctrl.filterValue}"><a role=menuitem tabindex=-1 ng-click="$ctrl.selectValue(filterValue, \'filter-value\')">{{filterValue.title || filterValue}}</a></li></ul></div></div></div></div>'), 
+e.put("filters/filter-panel/filter-panel.html", '<div class="filter-pf inline-filter-pf"><span class="dropdown primary-action" uib-dropdown><button class="btn btn-default dropdown-toggle" uib-dropdown-toggle type=button><translate>Filter</translate> <span class=caret></span></button><div ng-transclude class=dropdown-menu ng-click=$event.stopPropagation()></div></span><pf-filter-panel-results config=$ctrl.config></pf-filter-panel-results></div>'), e.put("filters/simple-filter/filter-fields.html", '<div class="filter-pf filter-fields"><div class="input-group form-group"><div uib-dropdown class=input-group-btn><button ng-if="$ctrl.config.fields.length > 1" uib-dropdown-toggle type=button class="btn btn-default filter-fields" uib-tooltip="Filter by" tooltip-placement=top tooltip-append-to-body=true>{{$ctrl.currentField.title}} <span class=caret></span></button><ul uib-dropdown-menu><li ng-repeat="item in $ctrl.config.fields" ng-class="{\'selected\': item === $ctrl.currentField}"><a class=filter-field role=menuitem tabindex=-1 ng-click=$ctrl.selectField(item)>{{item.title}}</a></li></ul></div><div ng-if="$ctrl.currentField.filterType !== \'select\' && $ctrl.currentField.filterType !== \'complex-select\'"><input class=form-control type={{$ctrl.currentField.filterType}} ng-model=$ctrl.currentValue placeholder={{$ctrl.currentField.placeholder}} ng-keypress="$ctrl.onValueKeyPress($event)"></div><div ng-if="$ctrl.currentField.filterType === \'select\'"><div class="btn-group bootstrap-select form-control filter-select" uib-dropdown><button type=button uib-dropdown-toggle class="btn btn-default dropdown-toggle"><span class="filter-option pull-left">{{$ctrl.currentValue.title || $ctrl.currentValue || $ctrl.currentField.placeholder}}</span> <span class=caret></span></button><ul uib-dropdown-menu class=dropdown-menu-right role=menu><li ng-if=$ctrl.currentField.placeholder><a role=menuitem tabindex=-1 ng-click=$ctrl.selectValue()>{{$ctrl.currentField.placeholder}}</a></li><li ng-repeat="filterValue in $ctrl.currentField.filterValues" ng-class="{\'selected\': (filterValue === $ctrl.currentValue)}"><a role=menuitem tabindex=-1 ng-click=$ctrl.selectValue(filterValue)>{{filterValue.title || filterValue}}</a></li></ul></div></div><div ng-if="$ctrl.currentField.filterType === \'complex-select\'" class=category-select><div class="btn-group bootstrap-select form-control filter-select" uib-dropdown><button type=button uib-dropdown-toggle class="btn btn-default dropdown-toggle"><span class="filter-option pull-left">{{$ctrl.filterCategory.title || $ctrl.filterCategory || $ctrl.currentField.placeholder}}</span> <span class=caret></span></button><ul uib-dropdown-menu class=dropdown-menu-right role=menu><li ng-if=$ctrl.currentField.placeholder><a role=menuitem tabindex=-1 ng-click=$ctrl.selectValue()>{{$ctrl.currentField.placeholder}}</a></li><li ng-repeat="filterCategory in $ctrl.currentField.filterValues" ng-class="{\'selected\': (filterCategory == $ctrl.filterCategory)}"><a role=menuitem tabindex=-1 ng-click="$ctrl.selectValue(filterCategory, \'filter-category\')">{{filterCategory.title ||filterCategory}}</a></li></ul></div><div class="btn-group bootstrap-select form-control filter-select" uib-dropdown><button type=button uib-dropdown-toggle class="btn btn-default dropdown-toggle category-select-value"><span class="filter-option pull-left">{{$ctrl.filterValue.title || $ctrl.filterValue || $ctrl.currentField.filterCategoriesPlaceholder}}</span> <span class=caret></span></button><ul uib-dropdown-menu class=dropdown-menu-right role=menu><li ng-if=$ctrl.currentField.placeholder><a role=menuitem tabindex=-1 ng-click=$ctrl.selectValue()>{{$ctrl.currentField.filterCategoriesPlaceholder}}</a></li><li ng-repeat="filterValue in $ctrl.currentField.filterCategories[$ctrl.filterCategory.id.toLowerCase() || $ctrl.filterCategory.toLowerCase() ].filterValues" ng-class="{\'selected\': filterValue === $ctrl.filterValue}"><a role=menuitem tabindex=-1 ng-click="$ctrl.selectValue(filterValue, \'filter-value\')">{{filterValue.title || filterValue}}</a></li></ul></div></div></div></div>'), 
 e.put("filters/simple-filter/filter-results.html", '<div class=filter-pf><div class=toolbar-pf-results><span ng-if="$ctrl.config.showTotalCountResults !== true || $ctrl.config.totalCount === undefined || $ctrl.config.appliedFilters.length === 0"><h5 ng-if="$ctrl.config.resultsCount === 1">{{$ctrl.config.resultsCount}} {{$ctrl.config.itemsLabel}}</h5><h5 ng-if="$ctrl.config.resultsCount !== 1">{{$ctrl.config.resultsCount}} {{$ctrl.config.itemsLabelPlural}}</h5></span> <span ng-if="$ctrl.config.showTotalCountResults === true && $ctrl.config.totalCount !== undefined && $ctrl.config.appliedFilters.length > 0"><h5 ng-if="$ctrl.config.totalCount === 1">{{$ctrl.config.resultsCount}} of {{$ctrl.config.totalCount}} {{$ctrl.config.itemsLabel}}</h5><h5 ng-if="$ctrl.config.totalCount !== 1">{{$ctrl.config.resultsCount}} of {{$ctrl.config.totalCount}} {{$ctrl.config.itemsLabelPlural}}</h5></span><p class=filter-pf-active-label ng-if="$ctrl.config.appliedFilters.length > 0">Active Filters:</p><ul class=list-inline ng-if="$ctrl.config.appliedFilters.length > 0"><li ng-repeat="filter in $ctrl.config.appliedFilters"><span class="active-filter label label-info">{{filter.title}}: {{((filter.value.filterCategory.title || filter.value.filterCategory) + filter.value.filterDelimiter + (filter.value.filterValue.title || filter.value.filterValue)) || filter.value.title || filter.value}} <a href=javascript:void(0);><span class="pficon pficon-close" ng-click=$ctrl.clearFilter(filter)></span></a></span></li></ul><p><a href=javascript:void(0); class=clear-filters ng-click=$ctrl.clearAllFilters() ng-if="$ctrl.config.appliedFilters.length > 0">Clear All Filters</a></p><div ng-if="$ctrl.config.selectedCount !== undefined && $ctrl.config.totalCount !== undefined" class=pf-table-view-selected-label><strong>{{$ctrl.config.selectedCount}}</strong> of <strong>{{$ctrl.config.totalCount}}</strong> selected</div></div></div>'), 
 e.put("filters/simple-filter/filter.html", "<div class=filter-pf ng-class=\"{'inline-filter-pf': $ctrl.config.inlineResults === true}\"><pf-filter-fields config=$ctrl.config add-filter-fn=$ctrl.addFilter></pf-filter-fields><pf-filter-results config=$ctrl.config></pf-filter-results></div>");
 } ]), angular.module("patternfly.form").run([ "$templateCache", function(e) {
@@ -52865,7 +52915,7 @@ e.put("navigation/application-launcher.html", '<div><div class="applauncher-pf d
 e.put("navigation/vertical-navigation.html", "<div><nav class=\"navbar navbar-pf-vertical\"><div class=navbar-header><button type=button class=navbar-toggle ng-click=$ctrl.handleNavBarToggleClick()><span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span></button> <span class=navbar-brand><img class=navbar-brand-icon ng-if=$ctrl.brandSrc ng-src={{$ctrl.brandSrc}} alt=\"{{$ctrl.brandAlt}}\"> <span class=navbar-brand-txt ng-if=!$ctrl.brandSrc>{{$ctrl.brandAlt}}</span></span></div><nav class=\"collapse navbar-collapse\" ng-transclude></nav><div class=nav-pf-vertical ng-class=\"{'nav-pf-persistent-secondary': $ctrl.persistentSecondary,\n                    'nav-pf-vertical-collapsible-menus': $ctrl.pinnableMenus,\n                    'hidden-icons-pf': $ctrl.hiddenIcons,\n                    'nav-pf-vertical-with-badges': $ctrl.showBadges,\n                    'secondary-visible-pf': $ctrl.activeSecondary,\n                    'show-mobile-secondary': $ctrl.showMobileSecondary,\n                    'show-mobile-tertiary': $ctrl.showMobileTertiary,\n                    'hover-secondary-nav-pf': $ctrl.hoverSecondaryNav,\n                    'hover-tertiary-nav-pf': $ctrl.hoverTertiaryNav,\n                    'collapsed-secondary-nav-pf': $ctrl.collapsedSecondaryNav,\n                    'collapsed-tertiary-nav-pf': $ctrl.collapsedTertiaryNav,\n                    'hidden': $ctrl.inMobileState,\n                    'collapsed': $ctrl.navCollapsed,\n                    'force-hide-secondary-nav-pf': $ctrl.forceHidden,\n                    'show-mobile-nav': $ctrl.showMobileNav}\"><ul class=list-group><li ng-repeat=\"item in $ctrl.items\" class=list-group-item ng-class=\"{'secondary-nav-item-pf': item.children && item.children.length > 0,\n                       'active': item.isActive,\n                       'is-hover': item.isHover,\n                       'mobile-nav-item-pf': item.isMobileItem && $ctrl.showMobileSecondary,\n" + '                       \'mobile-secondary-item-pf\': item.isMobileItem && $ctrl.showMobileTertiary}" ng-mouseenter=$ctrl.handlePrimaryHover(item) ng-mouseleave=$ctrl.handlePrimaryUnHover(item)><a ng-click="$ctrl.handlePrimaryClick(item, $event)"><span class={{item.iconClass}} ng-if=item.iconClass ng-class="{hidden: $ctrl.hiddenIcons}" uib-tooltip={{item.title}} tooltip-append-to-body=true tooltip-enable={{$ctrl.navCollapsed}} tooltip-placement=bottom tooltip-class=nav-pf-vertical-tooltip></span> <span class=list-group-item-value>{{item.title}}</span><div ng-if="$ctrl.showBadges && item.badges" class=badge-container-pf><div class="badge {{badge.badgeClass}}" ng-repeat="badge in item.badges" uib-tooltip={{badge.tooltip}} tooltip-append-to-body=true tooltip-placement=right><span ng-if="badge.count && badge.iconClass" class={{badge.iconClass}}></span> <span ng-if=badge.count>{{badge.count}}</span></div></div></a><div ng-if="item.children && item.children.length > 0" class=nav-pf-secondary-nav><div class=nav-item-pf-header><a class=secondary-collapse-toggle-pf ng-click="$ctrl.collapseSecondaryNav(item, $event)" ng-class="{\'collapsed\': item.secondaryCollapsed}"></a> <span>{{item.title}}</span></div><ul class=list-group><li ng-repeat="secondaryItem in item.children" class=list-group-item ng-class="{\'tertiary-nav-item-pf\': secondaryItem.children && secondaryItem.children.length > 0,\n                             \'active\': secondaryItem.isActive,\n                             \'is-hover\': secondaryItem.isHover,\n                             \'mobile-nav-item-pf\': secondaryItem.isMobileItem}" ng-mouseenter=$ctrl.handleSecondaryHover(secondaryItem) ng-mouseleave=$ctrl.handleSecondaryUnHover(secondaryItem)><a ng-click="$ctrl.handleSecondaryClick(item, secondaryItem, $event)"><span class=list-group-item-value>{{secondaryItem.title}}</span><div ng-if="$ctrl.showBadges && secondaryItem.badges" class=badge-container-pf><div class="badge {{badge.badgeClass}}" ng-repeat="badge in secondaryItem.badges" uib-tooltip={{badge.tooltip}} tooltip-append-to-body=true tooltip-placement=right><span ng-if="badge.count && badge.iconClass" class={{badge.iconClass}}></span> <span ng-if=badge.count>{{badge.count}}</span></div></div></a><div ng-if="secondaryItem.children && secondaryItem.children.length > 0" class=nav-pf-tertiary-nav><div class=nav-item-pf-header><a class=tertiary-collapse-toggle-pf ng-click="$ctrl.collapseTertiaryNav(secondaryItem, $event)" ng-class="{\'collapsed\': secondaryItem.tertiaryCollapsed}"></a> <span>{{secondaryItem.title}}</span></div><ul class=list-group><li ng-repeat="tertiaryItem in secondaryItem.children" class=list-group-item ng-class="{\'active\': tertiaryItem.isActive}"><a ng-click="$ctrl.handleTertiaryClick(item, secondaryItem, tertiaryItem, $event)"><span class=list-group-item-value>{{tertiaryItem.title}}</span><div ng-if="$ctrl.showBadges && tertiaryItem.badges" class=badge-container-pf><div class="badge {{badge.badgeClass}}" ng-repeat="badge in tertiaryItem.badges" uib-tooltip={{badge.tooltip}} tooltip-append-to-body=true tooltip-placement=right><span ng-if="badge.count && badge.iconClass" class={{badge.iconClass}}></span> <span ng-if=badge.count>{{badge.count}}</span></div></div></a></li></ul></div></li></ul></div></li></ul></div></nav></div>');
 } ]), angular.module("patternfly.notification").run([ "$templateCache", function(e) {
 "use strict";
-e.put("notification/inline-notification.html", '<div class="alert alert-{{$ctrl.pfNotificationType}}" ng-class="{\'alert-dismissable\': $ctrl.pfNotificationPersistent === true}"><button ng-show=$ctrl.pfNotificationPersistent ng-click=$ctrl.pfNotificationRemove() type=button class=close data-dismiss=alert aria-hidden=true><span class="pficon pficon-close"></span></button> <span class="pficon pficon-ok" ng-show="$ctrl.pfNotificationType === \'success\'"></span> <span class="pficon pficon-info" ng-show="$ctrl.pfNotificationType === \'info\'"></span> <span class="pficon pficon-error-circle-o" ng-show="$ctrl.pfNotificationType === \'danger\'"></span> <span class="pficon pficon-warning-triangle-o" ng-show="$ctrl.pfNotificationType === \'warning\'"></span> <strong>{{$ctrl.pfNotificationHeader}}</strong> {{$ctrl.pfNotificationMessage}}</div>'), e.put("notification/notification-drawer.html", '<div class=drawer-pf ng-class="{\'hide\': $ctrl.drawerHidden, \'drawer-pf-expanded\': $ctrl.drawerExpanded}"><div ng-if=$ctrl.drawerTitle class=drawer-pf-title><a href="" ng-if=$ctrl.allowExpand class="drawer-pf-toggle-expand fa fa-angle-double-left hidden-xs" ng-click=$ctrl.toggleExpandDrawer()></a> <a href="" ng-if=$ctrl.onClose class="drawer-pf-close pficon pficon-close" ng-click=$ctrl.onClose()></a><h3 class=text-center>{{$ctrl.drawerTitle}}</h3></div><div ng-if=$ctrl.titleInclude class=drawer-pf-title ng-include src=$ctrl.titleInclude></div><div ng-if=!$ctrl.notificationGroups class=apf-blank-notification-groups><pf-empty-state config=$ctrl.emptyStateConfig></pf-empty-state></div><div ng-if=$ctrl.notificationGroups pf-fixed-accordion scroll-selector=.panel-body><div class=panel-group><div class="panel panel-default" ng-repeat="notificationGroup in $ctrl.notificationGroups track by $index"><div class=panel-heading><h4 class=panel-title><a ng-if=!$ctrl.singleGroup ng-click=$ctrl.toggleCollapse(notificationGroup) ng-class="{collapsed: !notificationGroup.open}" ng-include src=$ctrl.headingInclude></a> <span ng-if=$ctrl.singleGroup ng-include src=$ctrl.headingInclude></span></h4><span class=panel-counter ng-include src=$ctrl.subheadingInclude></span></div><div class="panel-collapse collapse" ng-class="{in: notificationGroup.open || $ctrl.notificationGroups.length === 1}"><div ng-if=$ctrl.hasNotifications(notificationGroup) class=panel-body><div class=drawer-pf-notification ng-class="{unread: notification.unread, \'expanded-notification\': $ctrl.drawerExpanded}" ng-repeat="notification in notificationGroup.notifications track by $ctrl.notificationTrackField ? notification[$ctrl.notificationTrackField] || $index : $index" ng-include src=$ctrl.notificationBodyInclude></div><div ng-if=notificationGroup.isLoading class="drawer-pf-loading text-center"><span class="spinner spinner-xs spinner-inline"></span> Loading More</div></div><div ng-if="($ctrl.showClearAll || $ctrl.showMarkAllRead) && $ctrl.hasNotifications(notificationGroup)" class=drawer-pf-action><span class=drawer-pf-action-link ng-if="$ctrl.showMarkAllRead && $ctrl.hasUnread(notificationGroup)"><button class="btn btn-link" ng-click=$ctrl.onMarkAllRead(notificationGroup)>Mark All Read</button></span> <span class=drawer-pf-action-link><button class="btn btn-link" ng-if=$ctrl.showClearAll ng-click=$ctrl.onClearAll(notificationGroup)><span class="pficon pficon-close"></span> Clear All</button></span></div><div ng-if="$ctrl.actionButtonTitle && $ctrl.hasNotifications(notificationGroup)" class=drawer-pf-action><a class="btn btn-link btn-block" ng-click=$ctrl.actionButtonCallback(notificationGroup)>{{$ctrl.actionButtonTitle}}</a></div><div ng-if=!$ctrl.hasNotifications(notificationGroup)><div class=panel-body><pf-empty-state config=notificationGroup.emptyStateConfig></pf-empty-state></div></div><div ng-if=$ctrl.notificationFooterInclude ng-include src=$ctrl.notificationFooterInclude></div></div></div></div></div></div>'), 
+e.put("notification/inline-notification.html", '<div class="alert alert-{{$ctrl.pfNotificationType}}" ng-class="{\'alert-dismissable\': $ctrl.pfNotificationPersistent === true}"><button ng-show=$ctrl.pfNotificationPersistent ng-click=$ctrl.pfNotificationRemove() type=button class=close data-dismiss=alert aria-hidden=true><span class="pficon pficon-close"></span></button> <span class="pficon pficon-ok" ng-show="$ctrl.pfNotificationType === \'success\'"></span> <span class="pficon pficon-info" ng-show="$ctrl.pfNotificationType === \'info\'"></span> <span class="pficon pficon-error-circle-o" ng-show="$ctrl.pfNotificationType === \'danger\'"></span> <span class="pficon pficon-warning-triangle-o" ng-show="$ctrl.pfNotificationType === \'warning\'"></span> <strong>{{$ctrl.pfNotificationHeader}}</strong> {{$ctrl.pfNotificationMessage}}</div>'), e.put("notification/notification-drawer.html", '<div class=drawer-pf ng-class="{\'hide\': $ctrl.drawerHidden, \'drawer-pf-expanded\': $ctrl.drawerExpanded}"><div ng-if=$ctrl.drawerTitle class=drawer-pf-title><a href="" ng-if=$ctrl.allowExpand class="drawer-pf-toggle-expand fa fa-angle-double-left hidden-xs" ng-click=$ctrl.toggleExpandDrawer()></a> <a href="" ng-if=$ctrl.onClose class="drawer-pf-close pficon pficon-close" ng-click=$ctrl.onClose()></a><h3 class=text-center>{{$ctrl.drawerTitle}}</h3></div><div ng-if=$ctrl.titleInclude class=drawer-pf-title ng-include src=$ctrl.titleInclude></div><div ng-if=!$ctrl.notificationGroups class=apf-blank-notification-groups><pf-empty-state config=$ctrl.emptyStateConfig></pf-empty-state></div><div ng-if=$ctrl.notificationGroups pf-fixed-accordion scroll-selector=.panel-body><div class=panel-group><div class="panel panel-default" ng-repeat="notificationGroup in $ctrl.notificationGroups track by $index"><div class=panel-heading><h4 class=panel-title><a ng-if=!$ctrl.singleGroup ng-click=$ctrl.toggleCollapse(notificationGroup) ng-class="{collapsed: !notificationGroup.open}" ng-include src=$ctrl.headingInclude></a> <span ng-if=$ctrl.singleGroup ng-include src=$ctrl.headingInclude></span></h4><span class=panel-counter ng-include src=$ctrl.subheadingInclude></span></div><div class="panel-collapse collapse" ng-class="{in: notificationGroup.open || $ctrl.notificationGroups.length === 1}"><div ng-if=$ctrl.hasNotifications(notificationGroup) class=panel-body><div class=drawer-pf-notification ng-class="{unread: notification.unread, \'expanded-notification\': $ctrl.drawerExpanded}" ng-repeat="notification in notificationGroup.notifications track by $ctrl.notificationTrackField ? notification[$ctrl.notificationTrackField] || $index : $index" ng-include src=$ctrl.notificationBodyInclude></div><div ng-if=notificationGroup.isLoading class="drawer-pf-loading text-center"><span class="spinner spinner-xs spinner-inline"></span> Loading More</div></div><div ng-if="($ctrl.showClearAll || $ctrl.showMarkAllRead) && $ctrl.hasNotifications(notificationGroup)" class=drawer-pf-action><span class=drawer-pf-action-link ng-if="$ctrl.showMarkAllRead && $ctrl.hasUnread(notificationGroup)"><button class="btn btn-link" ng-click=$ctrl.onMarkAllRead(notificationGroup) translate>Mark All Read</button></span> <span class=drawer-pf-action-link><button class="btn btn-link" ng-if=$ctrl.showClearAll ng-click=$ctrl.onClearAll(notificationGroup)><span class="pficon pficon-close"></span> <translate>Clear All</translate></button></span></div><div ng-if="$ctrl.actionButtonTitle && $ctrl.hasNotifications(notificationGroup)" class=drawer-pf-action><a class="btn btn-link btn-block" ng-click=$ctrl.actionButtonCallback(notificationGroup)>{{$ctrl.actionButtonTitle}}</a></div><div ng-if=!$ctrl.hasNotifications(notificationGroup)><div class=panel-body><pf-empty-state config=notificationGroup.emptyStateConfig></pf-empty-state></div></div><div ng-if=$ctrl.notificationFooterInclude ng-include src=$ctrl.notificationFooterInclude></div></div></div></div></div></div>'), 
 e.put("notification/notification-list.html", '<div data-ng-show="$ctrl.notifications.data.length > 0"><div ng-repeat="notification in $ctrl.notifications.data"><pf-inline-notification pf-notification-type=notification.type pf-notification-header=notification.header pf-notification-message=notification.message pf-notification-persistent=notification.isPersistent pf-notification-index=$index></pf-inline-notification></div></div>'), e.put("notification/toast-notification-list.html", '<div class=toast-notifications-list-pf data-ng-show="$ctrl.notifications.length > 0"><div ng-repeat="notification in $ctrl.notifications"><pf-toast-notification notification-type={{notification.type}} header={{notification.header}} message={{notification.message}} show-close="{{($ctrl.showClose || notification.isPersistent === true) && !(notification.menuActions && notification.menuActions.length > 0)}}" html-content=$ctrl.htmlContent close-callback=$ctrl.handleClose action-title={{notification.actionTitle}} action-callback=notification.actionCallback menu-actions=notification.menuActions update-viewing=$ctrl.handleViewingChange data=notification></pf-toast-notification></div></div>'), 
 e.put("notification/toast-notification.html", '<div class="toast-pf alert alert-{{$ctrl.notificationType}}" ng-class="{\'alert-dismissable\': $ctrl.showCloseButton}" ng-mouseenter=$ctrl.handleEnter() ng-mouseleave=$ctrl.handleLeave()><div uib-dropdown class="pull-right dropdown-kebab-pf" ng-if="$ctrl.menuActions && $ctrl.menuActions.length > 0"><button uib-dropdown-toggle class="btn btn-link" type=button id=dropdownKebabRight><span class="fa fa-ellipsis-v"></span></button><ul uib-dropdown-menu class=dropdown-menu-right aria-labelledby=dropdownKebabRight><li ng-repeat="menuAction in $ctrl.menuActions" role="{{menuAction.isSeparator === true ? \'separator\' : \'menuitem\'}}" ng-class="{\'divider\': menuAction.isSeparator === true, \'disabled\': menuAction.isDisabled === true}"><a ng-if="menuAction.isSeparator !== true" class=secondary-action title={{menuAction.title}} ng-click=$ctrl.handleMenuAction(menuAction)>{{menuAction.name}}</a></li></ul></div><button ng-if=$ctrl.showCloseButton type=button class=close aria-hidden=true ng-click=$ctrl.handleClose()><span class="pficon pficon-close"></span></button><div class="pull-right toast-pf-action" ng-if=$ctrl.actionTitle><a ng-click=$ctrl.handleAction()>{{$ctrl.actionTitle}}</a></div><span class="pficon pficon-ok" ng-if="$ctrl.notificationType === \'success\'"></span> <span class="pficon pficon-info" ng-if="$ctrl.notificationType === \'info\'"></span> <span class="pficon pficon-error-circle-o" ng-if="$ctrl.notificationType === \'danger\'"></span> <span class="pficon pficon-warning-triangle-o" ng-if="$ctrl.notificationType === \'warning\'"></span> <span ng-if=!$ctrl.htmlContent><strong ng-if=$ctrl.header ng-bind=$ctrl.header></strong> <span ng-bind=$ctrl.message></span></span> <span ng-if=$ctrl.htmlContent><strong ng-if=$ctrl.header ng-bind-html=$ctrl.trustAsHtml($ctrl.header)></strong> <span ng-bind-html=$ctrl.trustAsHtml($ctrl.message)></span></span></div>');
 } ]), angular.module("patternfly.pagination").run([ "$templateCache", function(e) {
@@ -52896,7 +52946,7 @@ e.put("views/listview/list-view.html", '<span><div class="list-group list-view-p
 "use strict";
 e.put("wizard/wizard-review-page.html", '<div class=wizard-pf-review-page><div class=wizard-pf-review-steps><ul class=list-group><li class=list-group-item ng-repeat="reviewStep in $ctrl.reviewSteps track by $index"><a class=apf-form-collapse ng-class="{\'collapsed\': !reviewStep.showReviewDetails}" ng-click=$ctrl.toggleShowReviewDetails(reviewStep)>{{reviewStep.stepTitle}}</a><div class=wizard-pf-review-substeps ng-class="{\'collapse\': !reviewStep.showReviewDetails}"><ul class=list-group ng-if=reviewStep.substeps><li class=list-group-item ng-repeat="substep in reviewStep.getReviewSteps()"><a class=apf-form-collapse ng-class="{\'collapsed\': !substep.showReviewDetails}" ng-click=$ctrl.toggleShowReviewDetails(substep)><span class=wizard-pf-substep-number>{{$ctrl.getSubStepNumber(reviewStep, substep)}}</span> <span class=wizard-pf-substep-title>{{substep.stepTitle}}</span></a><div class=wizard-pf-review-content ng-class="{\'collapse\': !substep.showReviewDetails}"><div ng-include=substep.reviewTemplate></div></div></li></ul><div class=wizard-pf-review-content ng-if=reviewStep.reviewTemplate ng-class="{\'collapse\': !reviewStep.showReviewDetails}"><div ng-include=reviewStep.reviewTemplate></div></div></div></li></ul></div></div>'), 
 e.put("wizard/wizard-step.html", '<section ng-show=$ctrl.selected class=wizard-pf-row ng-class="{current: $ctrl.selected, done: $ctrl.completed}" style="height: inherit"><div ng-if=!$ctrl.wizard.hideSidebar class=wizard-pf-sidebar ng-style=$ctrl.contentStyle ng-class=$ctrl.wizard.sidebarClass ng-if="$ctrl.substeps === true"><ul class=list-group><li class=list-group-item ng-class="{active: step.selected}" ng-repeat="step in $ctrl.getEnabledSteps()"><a ng-click=$ctrl.stepClick(step)><span class=wizard-pf-substep-number>{{$ctrl.getStepDisplayNumber(step)}}</span> <span class=wizard-pf-substep-title>{{step.title}}</span></a></li></ul></div><div class="wizard-pf-main {{$ctrl.wizard.stepClass}}" ng-class="{\'wizard-pf-singlestep\': !$ctrl.substeps || $ctrl.wizard.hideSidebar}" ng-style=$ctrl.contentStyle><div class=wizard-pf-contents ng-transclude></div></div></section>'), e.put("wizard/wizard-substep.html", '<subsection ng-show=$ctrl.selected ng-class="{current: $ctrl.selected, done: $ctrl.completed}" class=wizard-pf-step ng-transclude></subsection>'), 
-e.put("wizard/wizard.html", '<div><div class=modal-header ng-if=!$ctrl.hideHeader><button type=button class="close wizard-pf-dismiss" aria-hidden=true aria-label=Close ng-click=$ctrl.onCancel() ng-if=!$ctrl.embedInPage><span class="pficon pficon-close"></span></button><h4 class=modal-title>{{$ctrl.wizardTitle}}</h4></div><div class="modal-body wizard-pf-body clearfix">\x3c!-- step area --\x3e<div class=wizard-pf-steps ng-class="{\'invisible\': !$ctrl.wizardReady}"><ul class=wizard-pf-steps-indicator ng-if=!$ctrl.hideIndicators ng-class="{\'invisible\': !$ctrl.wizardReady}"><li class=wizard-pf-step ng-class="{active: step.selected}" ng-repeat="step in $ctrl.getEnabledSteps()" data-tabgroup="{{$index }}"><a ng-click=$ctrl.stepClick(step) ng-class="{\'disabled\': !$ctrl.allowStepIndicatorClick(step)}"><span class=wizard-pf-step-number>{{$index + 1}}</span> <span ng-if="!$ctrl.activeStepTitleOnly || step.selected" class=wizard-pf-step-title>{{step.title}}</span> <span class=wizard-pf-step-title-substep ng-repeat="substep in step.steps track by $index" ng-class="{\'active\': substep.selected}">{{substep.title}}</span></a></li></ul></div>\x3c!-- loading wizard placeholder --\x3e<div ng-if=!$ctrl.wizardReady class=wizard-pf-main style="margin-left: 0px"><div class="wizard-pf-loading blank-slate-pf"><div class="spinner spinner-lg blank-slate-pf-icon"></div><h3 class=blank-slate-pf-main-action>{{$ctrl.loadingWizardTitle}}</h3><p class=blank-slate-pf-secondary-action>{{$ctrl.loadingSecondaryInformation}}</p></div></div><div class=wizard-pf-position-override ng-transclude></div></div><div class="modal-footer wizard-pf-footer wizard-pf-position-override" ng-class="{\'wizard-pf-footer-inline\': $ctrl.embedInPage}"><button ng-if=!$ctrl.embedInPage class="btn btn-default btn-cancel wizard-pf-cancel" ng-class="{\'wizard-pf-cancel-no-back\': $ctrl.hideBackButton}" ng-disabled=$ctrl.wizardDone ng-click=$ctrl.onCancel()>取消</button> <button id=backButton class="btn btn-default" ng-if=!$ctrl.hideBackButton tooltip-append-to-body=true uib-tooltip={{$ctrl.prevTooltip}} tooltip-placement=left ng-disabled="!$ctrl.wizardReady || $ctrl.wizardDone || !$ctrl.selectedStep.isPrevEnabled() || $ctrl.firstStep" ng-click=$ctrl.previous()>{{$ctrl.backTitle}}</button> <button id=nextButton class="btn btn-primary wizard-pf-next" uib-tooltip={{$ctrl.nextTooltip}} tooltip-append-to-body=true tooltip-placement=left ng-disabled="!$ctrl.wizardReady || !$ctrl.selectedStep.isNextEnabled()" ng-click=$ctrl.next()>{{$ctrl.nextTitle}}</button> <button ng-if=$ctrl.embedInPage class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-cancel-inline" ng-disabled=$ctrl.wizardDone ng-click=$ctrl.onCancel()>{{$ctrl.cancelTitle}}</button></div></div>');
+e.put("wizard/wizard.html", '<div><div class=modal-header ng-if=!$ctrl.hideHeader><button type=button class="close wizard-pf-dismiss" aria-hidden=true aria-label=Close ng-click=$ctrl.onCancel() ng-if=!$ctrl.embedInPage><span class="pficon pficon-close"></span></button><h4 class=modal-title>{{$ctrl.wizardTitle}}</h4></div><div class="modal-body wizard-pf-body clearfix">\x3c!-- step area --\x3e<div class=wizard-pf-steps ng-class="{\'invisible\': !$ctrl.wizardReady}"><ul class=wizard-pf-steps-indicator ng-if=!$ctrl.hideIndicators ng-class="{\'invisible\': !$ctrl.wizardReady}"><li class=wizard-pf-step ng-class="{active: step.selected}" ng-repeat="step in $ctrl.getEnabledSteps()" data-tabgroup="{{$index }}"><a ng-click=$ctrl.stepClick(step) ng-class="{\'disabled\': !$ctrl.allowStepIndicatorClick(step)}"><span class=wizard-pf-step-number>{{$index + 1}}</span> <span ng-if="!$ctrl.activeStepTitleOnly || step.selected" class=wizard-pf-step-title>{{step.title}}</span> <span class=wizard-pf-step-title-substep ng-repeat="substep in step.steps track by $index" ng-class="{\'active\': substep.selected}">{{substep.title}}</span></a></li></ul></div>\x3c!-- loading wizard placeholder --\x3e<div ng-if=!$ctrl.wizardReady class=wizard-pf-main style="margin-left: 0px"><div class="wizard-pf-loading blank-slate-pf"><div class="spinner spinner-lg blank-slate-pf-icon"></div><h3 class=blank-slate-pf-main-action>{{$ctrl.loadingWizardTitle}}</h3><p class=blank-slate-pf-secondary-action>{{$ctrl.loadingSecondaryInformation}}</p></div></div><div class=wizard-pf-position-override ng-transclude></div></div><div class="modal-footer wizard-pf-footer wizard-pf-position-override" ng-class="{\'wizard-pf-footer-inline\': $ctrl.embedInPage}"><button ng-if=!$ctrl.embedInPage class="btn btn-default btn-cancel wizard-pf-cancel" ng-class="{\'wizard-pf-cancel-no-back\': $ctrl.hideBackButton}" ng-disabled=$ctrl.wizardDone ng-click=$ctrl.onCancel()>{{$ctrl.cancelTitle | translate}}</button> <button id=backButton class="btn btn-default" ng-if=!$ctrl.hideBackButton tooltip-append-to-body=true uib-tooltip={{$ctrl.prevTooltip}} tooltip-placement=left ng-disabled="!$ctrl.wizardReady || $ctrl.wizardDone || !$ctrl.selectedStep.isPrevEnabled() || $ctrl.firstStep" ng-click=$ctrl.previous()>{{$ctrl.backTitle | translate}}</button> <button id=nextButton class="btn btn-primary wizard-pf-next" uib-tooltip={{$ctrl.nextTooltip}} tooltip-append-to-body=true tooltip-placement=left ng-disabled="!$ctrl.wizardReady || !$ctrl.selectedStep.isNextEnabled()" ng-click=$ctrl.next()>{{$ctrl.nextTitle | translate}}</button> <button ng-if=$ctrl.embedInPage class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-cancel-inline" ng-disabled=$ctrl.wizardDone ng-click=$ctrl.onCancel()>{{$ctrl.cancelTitle}}</button></div></div>');
 } ]), angular.module("gettext", []), angular.module("gettext").constant("gettext", function(e) {
 return e;
 }), angular.module("gettext").factory("gettextCatalog", [ "gettextPlurals", "gettextFallbackLanguage", "$http", "$cacheFactory", "$interpolate", "$rootScope", function(e, t, n, i, r, o) {
@@ -55849,7 +55899,7 @@ this._onActiveFiltersChangedCallbacks.add(e);
 var o = this, r = r || {};
 this._labelFilterRootElement = e, this._labelFilterActiveFiltersRootElement = i;
 var a = $("<div>").addClass("label-filter").appendTo(e);
-this._labelFilterKeyInput = $("<select>").addClass("label-filter-key").attr("placeholder", n.getString(t("Filter by label")) + " ").appendTo(a), this._labelFilterOperatorInput = $("<select>").addClass("label-filter-operator").attr("placeholder", "matching(...)").hide().appendTo(a), this._labelFilterValuesInput = $("<select>").addClass("label-filter-values").attr("placeholder", "Value(s)").attr("multiple", !0).hide().appendTo(a), this._labelFilterAddBtn = $("<button>").addClass("label-filter-add btn btn-default disabled").attr("disabled", !0).appendTo(e).append($("<span>").text(r.addButtonText || "Add Filter")), this._labelFilterActiveFiltersElement = $("<span>").addClass("label-filter-active-filters").appendTo(i), this._labelFilterActiveElement = $("<span>").addClass("label-filter-clear").hide().appendTo(this._labelFilterActiveFiltersElement).append($("<a>").addClass("label-filtering-remove-all label label-primary").prop("href", "javascript:;").append($("<i>").addClass("fa fa-filter")).append($("<span>").text("Clear filters"))).click(function() {
+this._labelFilterKeyInput = $("<select>").addClass("label-filter-key").attr("placeholder", n.getString(t("Filter by label")) + " ").appendTo(a), this._labelFilterOperatorInput = $("<select>").addClass("label-filter-operator").attr("placeholder", n.getString(t("matching(...)"))).hide().appendTo(a), this._labelFilterValuesInput = $("<select>").addClass("label-filter-values").attr("placeholder", "Value(s)").attr("multiple", !0).hide().appendTo(a), this._labelFilterAddBtn = $("<button>").addClass("label-filter-add btn btn-default disabled").attr("disabled", !0).appendTo(e).append($("<span>").text(r.addButtonText || "Add Filter")), this._labelFilterActiveFiltersElement = $("<span>").addClass("label-filter-active-filters").appendTo(i), this._labelFilterActiveElement = $("<span>").addClass("label-filter-clear").hide().appendTo(this._labelFilterActiveFiltersElement).append($("<a>").addClass("label-filtering-remove-all label label-primary").prop("href", "javascript:;").append($("<i>").addClass("fa fa-filter")).append($("<span>").text("Clear filters"))).click(function() {
 o.clear();
 }), this._labelFilterKeyInput.selectize({
 dropdownParent: "body",
@@ -58915,9 +58965,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<dt ng-if="annotations" translate>Annotations</dt>\n<dd ng-repeat="(name, value) in annotations">{{name}}: {{value}}</dd>\n', o = "registry-image-widgets/views/annotations.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<dt ng-if="annotations" translate>Annotations</dt> <dd ng-repeat="(name, value) in annotations">{{name}}: {{value}}</dd>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/annotations.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -58926,9 +58976,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<dl class="dl-horizontal left">\n<dt ng-if="labels.name" translate>Name</dt>\n<dd ng-if="labels.name">{{ labels.name }}</dd>\n<dt ng-if="labels.summary" translate>Summary</dt>\n<dd ng-if="labels.summary">{{ labels.summary }}</dd>\n<dt ng-if="labels.description" translate>Description</dt>\n<dd ng-if="labels.description">{{ labels.description }}</dd>\n<dt ng-if="labels.url" translate>Source URL</dt>\n<dd ng-if="labels.url">\n<a href="labels.url"><i class="fa fa-external-link"></i> {{ labels.url }}</a>\n</dd>\n<dt>作者</dt>\n<dd ng-if="config.author">{{config.author}}</dd>\n<dd ng-if="!config.author && image.dockerImageMetadata.Author">{{image.dockerImageMetadata.Author}}</dd>\n<dd ng-if="!config.author && !image.dockerImageMetadata.Author && labels[\'MAINTAINER\']">{{labels[\'MAINTAINER\']}}</dd>\n<dd ng-if="!labels[\'MAINTAINER\'] && !config.author && !image.dockerImageMetadata.Author"><em translate>Unknown</em></dd>\n<dt ng-if="labels[\'build-date\'] || layers[0].v1Compatibility.created || image.dockerImageMetadata.Created" translate>构建时间</dt>\n<dd ng-if="layers[0].v1Compatibility.created" title="{{layers[0].v1Compatibility.created}}">{{ layers[0].v1Compatibility.created | dateRelative}}</dd>\n<dd ng-if="!layers[0].v1Compatibility.created && image.dockerImageMetadata.Created" title="{{image.dockerImageMetadata.Created}}">{{image.dockerImageMetadata.Created | dateRelative}}</dd>\n<dd ng-if="!layers[0].v1Compatibility.created && !image.dockerImageMetadata.Created && labels[\'build-date\']" title="{{labels[\'build-date\']}}">{{ labels[\'build-date\'] | dateRelative}}</dd>\n<dt translate>摘要</dt>\n<dd class="indentifier"><tt>{{ image.metadata.name }}</tt></dd>\n<dt ng-if-start="config.Image" translate>镜像ID</dt>\n<dd class="indentifier" ng-if-end><tt>{{ config.Image }}</tt></dd>\n</dl>\n<dl class="registry-image-tags" ng-if="names">\n<dt translate>Tags</dt>\n<dd><span class="registry-image-tag" ng-repeat="name in names">{{name}}</span>&nbsp;</dd>\n</dl>\n', o = "registry-image-widgets/views/image-body.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<dl class="dl-horizontal left"> <dt ng-if="labels.name" translate>Name</dt> <dd ng-if="labels.name">{{ labels.name }}</dd> <dt ng-if="labels.summary" translate>Summary</dt> <dd ng-if="labels.summary">{{ labels.summary }}</dd> <dt ng-if="labels.description" translate>Description</dt> <dd ng-if="labels.description">{{ labels.description }}</dd> <dt ng-if="labels.url" translate>Source URL</dt> <dd ng-if="labels.url"> <a href="labels.url"><i class="fa fa-external-link"></i> {{ labels.url }}</a> </dd> <dt translate>Author</dt> <dd ng-if="config.author">{{config.author}}</dd> <dd ng-if="!config.author && image.dockerImageMetadata.Author">{{image.dockerImageMetadata.Author}}</dd> <dd ng-if="!config.author && !image.dockerImageMetadata.Author && labels[\'MAINTAINER\']">{{labels[\'MAINTAINER\']}}</dd> <dd ng-if="!labels[\'MAINTAINER\'] && !config.author && !image.dockerImageMetadata.Author"><em translate>Unknown</em></dd> <dt ng-if="labels[\'build-date\'] || layers[0].v1Compatibility.created || image.dockerImageMetadata.Created" translate>Built</dt> <dd ng-if="layers[0].v1Compatibility.created" title="{{layers[0].v1Compatibility.created}}">{{ layers[0].v1Compatibility.created | dateRelative}}</dd> <dd ng-if="!layers[0].v1Compatibility.created && image.dockerImageMetadata.Created" title="{{image.dockerImageMetadata.Created}}">{{image.dockerImageMetadata.Created | dateRelative}}</dd> <dd ng-if="!layers[0].v1Compatibility.created && !image.dockerImageMetadata.Created && labels[\'build-date\']" title="{{labels[\'build-date\']}}">{{ labels[\'build-date\'] | dateRelative}}</dd> <dt translate>Digest</dt> <dd class="indentifier"><tt>{{ image.metadata.name }}</tt></dd> <dt ng-if-start="config.Image" translate>Identifier</dt> <dd class="indentifier" ng-if-end><tt>{{ config.Image }}</tt></dd> </dl> <dl class="registry-image-tags" ng-if="names"> <dt translate>Tags</dt> <dd><span class="registry-image-tag" ng-repeat="name in names">{{name}}</span>&nbsp;</dd> </dl>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/image-body.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -58937,9 +58987,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<dl class="dl-horizontal">\n<dt translate>Command</dt>\n<dd><code>{{ configCommand(config) }}</code></dd>\n</dl>\n<div class="row">\n<dl class="col-xs-12 col-sm-12 col-md-4 dl-horizontal">\n<dt translate>运行用户</dt>\n<dd ng-if="config.User">{{config.User}}</dd>\n<dd ng-if="!config.User"><em translate>Default</em></dd>\n<dt translate>目录</dt>\n<dd ng-if="config.WorkingDir">{{config.WorkingDir}}</dd>\n<dd ng-if="!config.WorkingDir">/</dd>\n<dt ng-if="config.StopSignal" translate>Stop with</dt>\n<dd ng-if="config.StopSignal">{{config.StopSignal}}</dd>\n<dt translate>架构</dt>\n<dd ng-if="config.architecture">{{config.architecture}}</dd>\n<dd ng-if="!config.architecture">{{image.dockerImageMetadata.Architecture}}</dd>\n</dl>\n<dl class="col-xs-12 col-sm-12 col-md-8 dl-horizontal full-width">\n<dt ng-if="config.Env.length" translate>Environment</dt>\n<dd ng-repeat="env in config.Env"><tt>{{env}}</tt></dd>\n</dl>\n</div>\n<div class="row">\n<dl class="col-xs-12 col-sm-12 col-md-4 dl-horizontal">\n<dt translate>Ports</dt>\n<dd ng-repeat="(port, data) in config.ExposedPorts">{{port}}</dd>\n<dd ng-if="!config.ExposedPorts"><em translate>None</em></dd>\n</dl>\n<dl class="col-xs-12 col-sm-12 col-md-8 dl-horizontal full-width">\n<dt ng-if="config.Volumes" translate>Volumes</dt>\n<dd ng-repeat="(volume, data) in config.Volumes">{{volume}}</dd>\n</dl>\n</div>\n', o = "registry-image-widgets/views/image-config.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<dl class="dl-horizontal"> <dt translate>Command</dt> <dd><code>{{ configCommand(config) }}</code></dd> </dl> <div class="row"> <dl class="col-xs-12 col-sm-12 col-md-4 dl-horizontal"> <dt translate>Run as</dt> <dd ng-if="config.User">{{config.User}}</dd> <dd ng-if="!config.User"><em translate>Default</em></dd> <dt translate>Directory</dt> <dd ng-if="config.WorkingDir">{{config.WorkingDir}}</dd> <dd ng-if="!config.WorkingDir">/</dd> <dt ng-if="config.StopSignal" translate>Stop with</dt> <dd ng-if="config.StopSignal">{{config.StopSignal}}</dd> <dt translate>Architecture</dt> <dd ng-if="config.architecture">{{config.architecture}}</dd> <dd ng-if="!config.architecture">{{image.dockerImageMetadata.Architecture}}</dd> </dl> <dl class="col-xs-12 col-sm-12 col-md-8 dl-horizontal full-width"> <dt ng-if="config.Env.length" translate>Environment</dt> <dd ng-repeat="env in config.Env"><tt>{{env}}</tt></dd> </dl> </div> <div class="row"> <dl class="col-xs-12 col-sm-12 col-md-4 dl-horizontal"> <dt translate>Ports</dt> <dd ng-repeat="(port, data) in config.ExposedPorts">{{port}}</dd> <dd ng-if="!config.ExposedPorts"><em translate>None</em></dd> </dl> <dl class="col-xs-12 col-sm-12 col-md-8 dl-horizontal full-width"> <dt ng-if="config.Volumes" translate>Volumes</dt> <dd ng-repeat="(volume, data) in config.Volumes">{{volume}}</dd> </dl> </div>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/image-config.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -58948,9 +58998,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<ul class="registry-image-layers">\n<li ng-repeat="layer in layers" class="hint-{{ layer.hint }}">\n<span title="{{ layer.size }}">{{ formatSize(layer.size) }}</span>\n<p>{{ layer.label}}</p>\n</li>\n</ul>\n', o = "registry-image-widgets/views/image-layers.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<ul class="registry-image-layers"> <li ng-repeat="layer in layers" class="hint-{{ layer.hint }}"> <span title="{{ layer.size }}">{{ formatSize(layer.size) }}</span> <p>{{ layer.label}}</p> </li> </ul>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/image-layers.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -58959,9 +59009,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<table class="listing-ct">\n<thead>\n<tr>\n<th class="listing-ct-toggle"></th>\n<th translate="yes" width="20%">标签</th>\n<th translate="yes">镜像</th>\n<th translate="yes">镜像ID</th>\n<th translate="yes">上次更新时间</th>\n</tr>\n</thead>\n<tbody ng-repeat="tag in imagestreamTags(imagestream) | orderBy : \'tag.name\'" ng-if="imagestream" data-id="{{ imagestream.metadata.namespace + \'/\' + imagestream.metadata.name + \':\' + tag.name }}" ng-class="{open: imagestreamExpanded(imagestream, tag), last: $last, first: $first}">\n<tr ng-click="imagestreamActivate(imagestream, tag, $event)" class="listing-ct-item registry-listing">\n<td ng-click="imagestreamToggle(imagestream, tag, $event)" class="listing-ct-toggle">\n<i class="fa fa-fw"></i>\n</td>\n<th>\n<a class="registry-image-tag" ng-href="{{ imagestreamPath(imagestream, tag) }}" title="{{tag.name }}">{{ tag.name }}</a>\n</th>\n<td ng-init="name = imagestreamTagFromName(imagestream, tag.spec.from)">\n<div ng-if="!name || !tag.spec.from"><em>pushed image</em></div>\n<div ng-if="name" title="{{tag.spec.from.name}}">\n<span ng-if="!name[0]">{{tag.spec.from.name}}</span>\n<span ng-if="name[0]">\n<span ng-if="name[0] === imagestream.metadata.name">{{name.qualified}}</span>\n<span ng-if="name[0] !== imagestream.metadata.name">\n<a ng-click="imagestreamActivate({ metadata: { namespace: tag.spec.from.namespace, name: name[0] }}, name[1], $event)">{{tag.spec.from.name}}</a>\n</span>\n</span>\n</div>\n</td>\n<td class="image-identifier">\n<div class="row" ng-init="annotations = imagestream.metadata.annotations">\n<div class="col col-xs-12" ng-if="!tag.status">\n<div ng-if="annotations[\'openshift.io/image.dockerRepositoryCheck\']">\n<span class="pficon pficon-warning-triangle-o" style="margin-right: 5px;" ng-attr-title="{{annotations[\'openshift.io/image.dockerRepositoryCheck\']}}"></span>\n<span translate="yes">Unable to resolve</span>\n</div>\n<div ng-if="!annotations[\'openshift.io/image.dockerRepositoryCheck\']">\n<span ng-if="!tag.spec.from" translate="yes">Not yet synced</span>\n<span ng-if="tag.spec.from" translate="yes">Unresolved</span>\n</div>\n</div>\n<div class="col col-xs-12" ng-if="tag.status">\n<span ng-if="tag.status.items.length &amp;&amp; tag.status.items[0].image">\n<tt title="{{tag.status.items[0].image}}">{{tag.status.items[0].image}}</tt>\n</span>\n<span ng-if="!tag.status.items.length"><em translate="yes">none</em></span>\n</div>\n</div>\n</td>\n<td>\n<div title="{{ tag.items[0].created }}">\n<span ng-if="tag.status.items.length &amp;&amp; tag.status.items[0].image" title="{{ tag.items[0].created }}">\n{{ tag.status.items[0].created | dateRelative }}\n</span>\n</div>\n</td>\n</tr>\n<tr class="listing-ct-panel" ng-if="imagestreamExpanded(imagestream, tag)" ng-repeat-end="">\n<td colspan="5">\n<registry-image-panel ng-init="tag = tag.status"></registry-image-panel>\n</td>\n</tr>\n</tbody>\n<thead class="listing-ct-empty" ng-if="!quiet">\n<tr>\n<td colspan="5" ng-if="!failure && !imagestreamTags(imagestream).length" translate="yes">No tags are present.</td>\n<td colspan="5" ng-if="failure">{{failure}}</td>\n</tr>\n</thead>\n</table>\n', o = "registry-image-widgets/views/image-listing.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<table class="listing-ct"> <thead> <tr> <th class="listing-ct-toggle"></th> <th translate="yes" width="20%">Tag</th> <th translate="yes">From</th> <th translate="yes">Identifier</th> <th translate="yes">Last Updated</th> </tr> </thead> <tbody ng-repeat="tag in imagestreamTags(imagestream) | orderBy : \'tag.name\'" ng-if="imagestream" data-id="{{ imagestream.metadata.namespace + \'/\' + imagestream.metadata.name + \':\' + tag.name }}" ng-class="{open: imagestreamExpanded(imagestream, tag), last: $last, first: $first}"> <tr ng-click="imagestreamActivate(imagestream, tag, $event)" class="listing-ct-item registry-listing"> <td ng-click="imagestreamToggle(imagestream, tag, $event)" class="listing-ct-toggle"> <i class="fa fa-fw"></i> </td> <th> <a class="registry-image-tag" ng-href="{{ imagestreamPath(imagestream, tag) }}" title="{{tag.name }}">{{ tag.name }}</a> </th> <td ng-init="name = imagestreamTagFromName(imagestream, tag.spec.from)"> <div ng-if="!name || !tag.spec.from"><em>pushed image</em></div> <div ng-if="name" title="{{tag.spec.from.name}}"> <span ng-if="!name[0]">{{tag.spec.from.name}}</span>\n<span ng-if="name[0]"> <span ng-if="name[0] === imagestream.metadata.name">{{name.qualified}}</span>\n<span ng-if="name[0] !== imagestream.metadata.name"> <a ng-click="imagestreamActivate({ metadata: { namespace: tag.spec.from.namespace, name: name[0] }}, name[1], $event)">{{tag.spec.from.name}}</a> </span> </span> </div> </td> <td class="image-identifier"> <div class="row" ng-init="annotations = imagestream.metadata.annotations"> <div class="col col-xs-12" ng-if="!tag.status"> <div ng-if="annotations[\'openshift.io/image.dockerRepositoryCheck\']"> <span class="pficon pficon-warning-triangle-o" style="margin-right: 5px" ng-attr-title="{{annotations[\'openshift.io/image.dockerRepositoryCheck\']}}"></span>\n<span translate="yes">Unable to resolve</span> </div> <div ng-if="!annotations[\'openshift.io/image.dockerRepositoryCheck\']"> <span ng-if="!tag.spec.from" translate="yes">Not yet synced</span> \n<span ng-if="tag.spec.from" translate="yes">Unresolved</span> </div> </div> <div class="col col-xs-12" ng-if="tag.status"> <span ng-if="tag.status.items.length &amp;&amp; tag.status.items[0].image"> <tt title="{{tag.status.items[0].image}}">{{tag.status.items[0].image}}</tt> </span>\n<span ng-if="!tag.status.items.length"><em translate="yes">none</em></span> </div> </div> </td> <td> <div title="{{ tag.items[0].created }}"> <span ng-if="tag.status.items.length &amp;&amp; tag.status.items[0].image" title="{{ tag.items[0].created }}"> {{ tag.status.items[0].created | dateRelative }} </span> </div> </td> </tr> <tr class="listing-ct-panel" ng-if="imagestreamExpanded(imagestream, tag)" ng-repeat-end=""> <td colspan="5"> <registry-image-panel ng-init="tag = tag.status"></registry-image-panel> </td> </tr> </tbody> <thead class="listing-ct-empty" ng-if="!quiet"> <tr> <td colspan="5" ng-if="!failure && !imagestreamTags(imagestream).length" translate="yes">No tags are present.</td> <td colspan="5" ng-if="failure">{{failure}}</td> </tr> </thead> </table>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/image-listing.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -58970,9 +59020,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<div>\n<dl class="dl-horizontal left">\n<dt ng-if="labels" translate>Labels</dt>\n<dd ng-repeat="(name, value) in labels" ng-show="name != \'description\' && name != \'name\'">\n<tt>{{name}}={{value}}</tt>\n</dd>\n<dt ng-if="config.OnBuild.length" translate>On Build</dt>\n<dd ng-repeat="line in config.OnBuild"><tt>{{line}}</tt></dd>\n<registry-annotations annotations="image.metadata.annotations"></registry-annotations>\n<dt translate>Docker Version</dt>\n<dd>{{image.dockerImageMetadata.DockerVersion}}</dd>\n</dl>\n</div>\n', o = "registry-image-widgets/views/image-meta.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<div> <dl class="dl-horizontal left"> <dt ng-if="labels" translate>Labels</dt> <dd ng-repeat="(name, value) in labels" ng-show="name != \'description\' && name != \'name\'"> <tt>{{name}}={{value}}</tt> </dd> <dt ng-if="config.OnBuild.length" translate>On Build</dt> <dd ng-repeat="line in config.OnBuild"><tt>{{line}}</tt></dd> <registry-annotations annotations="image.metadata.annotations"></registry-annotations> <dt translate>Docker Version</dt> <dd>{{image.dockerImageMetadata.DockerVersion}}</dd> </dl> </div>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/image-meta.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -58981,9 +59031,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<div>\n<div class="listing-ct-head">\n<div ng-if="actions.deleteTag" class="listing-ct-actions">\n<button class="btn btn-danger btn-delete pficon pficon-delete" ng-click="actions.deleteTag(imagestream, tag)"></button>\n</div>\n<ul class="nav nav-tabs nav-tabs-pf">\n<li ng-class="{active: tab(\'main\')}">\n<a ng-click="tab(\'main\', $event)" translate>Image</a>\n</li>\n<li ng-class="{active: tab(\'config\')}">\n<a ng-click="tab(\'config\', $event)" translate>Container</a>\n</li>\n<li ng-class="{active: tab(\'meta\')}">\n<a ng-click="tab(\'meta\', $event)" translate>Metadata</a>\n</li>\n</ul>\n</div>\n<div class="listing-ct-body" ng-show="tab(\'main\')">\n<registry-image-body image="image" names="names">\n</registry-image-body>\n<registry-image-pull settings="settings" names="names">\n</registry-image-pull>\n</div>\n<div class="listing-ct-body" ng-show="tab(\'config\')">\n<registry-image-config image="image">\n</registry-image-config>\n</div>\n<div class="listing-ct-body" ng-if="tab(\'meta\')">\n<registry-image-meta image="image">\n</registry-image-meta>\n<registry-image-layers image="image" layers="layers">\n</registry-image-layers>\n</div>\n</div>\n', o = "registry-image-widgets/views/image-panel.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<div> <div class="listing-ct-head"> <div ng-if="actions.deleteTag" class="listing-ct-actions"> <button class="btn btn-danger btn-delete pficon pficon-delete" ng-click="actions.deleteTag(imagestream, tag)"></button> </div> <ul class="nav nav-tabs nav-tabs-pf"> <li ng-class="{active: tab(\'main\')}"> <a ng-click="tab(\'main\', $event)" translate>Image</a> </li> <li ng-class="{active: tab(\'config\')}"> <a ng-click="tab(\'config\', $event)" translate>Container</a> </li> <li ng-class="{active: tab(\'meta\')}"> <a ng-click="tab(\'meta\', $event)" translate>Metadata</a> </li> </ul> </div> <div class="listing-ct-body" ng-show="tab(\'main\')"> <registry-image-body image="image" names="names"> </registry-image-body> <registry-image-pull settings="settings" names="names"> </registry-image-pull> </div> <div class="listing-ct-body" ng-show="tab(\'config\')"> <registry-image-config image="image"> </registry-image-config> </div> <div class="listing-ct-body" ng-if="tab(\'meta\')"> <registry-image-meta image="image"> </registry-image-meta> <registry-image-layers image="image" layers="layers"> </registry-image-layers> </div> </div>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/image-panel.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -58992,9 +59042,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<div ng-if="names" class="registry-image-pull">\n<p>\n<i class="fa fa-info-circle"></i>\n<span>拉取该镜像:</span>\n</p>\n<code ng-if="imagestream.status.publicDockerImageRepository">$ sudo docker pull <span>{{imagestream.status.publicDockerImageRepository}}</span>/{{names[0]}}</code>\n<code ng-if="!settings.registry.host && !imagestream.status.publicDockerImageRepository">$ sudo docker pull <span class="placeholder">registry</span>/{{names[0]}}</code>\n<code ng-if="settings.registry.host && !imagestream.status.publicDockerImageRepository">$ sudo docker pull <span>{{settings.registry.host}}</span>/{{names[0]}}</code>\n</div>\n', o = "registry-image-widgets/views/image-pull.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<div ng-if="names" class="registry-image-pull"> <p> <i class="fa fa-info-circle"></i>\n<span translate>To pull this image:</span> </p> <code ng-if="imagestream.status.publicDockerImageRepository">$ sudo docker pull <span>{{imagestream.status.publicDockerImageRepository}}</span>/{{names[0]}}</code>\n<code ng-if="!settings.registry.host && !imagestream.status.publicDockerImageRepository">$ sudo docker pull <span class="placeholder">registry</span>/{{names[0]}}</code>\n<code ng-if="settings.registry.host && !imagestream.status.publicDockerImageRepository">$ sudo docker pull <span>{{settings.registry.host}}</span>/{{names[0]}}</code> </div>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/image-pull.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -59003,9 +59053,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<div ng-repeat="statustags in imagestream.status.tags">\n<div ng-repeat="condition in statustags.conditions" ng-if="condition.type == \'ImportSuccess\' && condition.status == \'False\'" class="alert alert-danger">\n<span class="pficon pficon-error-circle-o"></span>\n<span translate>{{ condition.message }}. Timestamp: {{ condition.lastTransitionTime }} Error count: {{ condition.generation }}</span>\n<a translate ng-if="imagestreamModify" ng-click="imagestreamModify(imagestream)" class="alert-link">Edit image stream</a>\n</div>\n</div>\n<dl class="dl-horizontal left">\n<dt translate ng-if="projectSharing">Access Policy</dt>\n<dd ng-if="projectSharing" ng-switch="projectSharing(imagestream.metadata.namespace)">\n<div ng-switch-when="anonymous">\n<a translate ng-if="projectModify" ng-click="projectModify(imagestream.metadata.namespace)">Images may be pulled by anonymous users</a>\n<span translate ng-if="!projectModify">Images may be pulled by anonymous users</span>\n<i title="Images accessible to anonymous users" class="fa fa-unlock registry-imagestream-lock"></i>\n</div>\n<div ng-switch-when="shared">\n<a translate ng-if="projectModify" ng-click="projectModify(imagestream.metadata.namespace)">Images may be pulled by any authenticated user or group</a>\n<span translate ng-if="!projectModify">Images may be pulled by any authenticated user or group</span>\n<i title="Images accessible to authenticated users" class="fa fa-lock registry-imagestream-lock"></i>\n</div>\n<div ng-switch-when="private">\n<a translate ng-if="projectModify" ng-click="projectModify(imagestream.metadata.namespace)">Images may only be pulled by specific users or groups</a>\n<span translate ng-if="!projectModify">Images may only be pulled by specific users or groups</span>\n<i title="Images only accessible to members" class="fa fa-lock registry-imagestream-lock"></i>\n</div>\n<div ng-switch-default>\n<a translate ng-if="projectModify" ng-click="projectModify(imagestream.metadata.namespace)">Unknown</a>\n<span translate ng-if="!projectModify">Unknown</span>\n<i title="Unknown or invalid image access policy" class="fa fa-lock registry-imagestream-lock"></i>\n</div>\n</dd>\n<dt translate ng-if-start="imagestream.spec.dockerImageRepository">Follows docker repo</dt>\n<dd ng-if-end><tt>{{imagestream.spec.dockerImageRepository}}</tt></dd>\n<dt>拉取仓库地址</dt>\n<dd><tt>{{imagestream.status.dockerImageRepository}}</tt></dd>\n<dt translate ng-if-start="imagestream.status.publicDockerImageRepository">Public pulling repo</dt>\n<dd ng-if-end><tt>{{imagestream.status.publicDockerImageRepository}}</tt></dd>\n<dt>镜像数</dt>\n<dd ng-if="imagestream.status.tags.length">{{imagestream.status.tags.length}}</dd>\n<dd ng-if="!imagestream.status.tags.length">0</dd>\n</dl>\n', o = "registry-image-widgets/views/imagestream-body.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<div ng-repeat="statustags in imagestream.status.tags"> <div ng-repeat="condition in statustags.conditions" ng-if="condition.type == \'ImportSuccess\' && condition.status == \'False\'" class="alert alert-danger"> <span class="pficon pficon-error-circle-o"></span>\n<span translate>{{ condition.message }}. Timestamp: {{ condition.lastTransitionTime }} Error count: {{ condition.generation }}</span>\n<a translate ng-if="imagestreamModify" ng-click="imagestreamModify(imagestream)" class="alert-link">Edit image stream</a> </div> </div> <dl class="dl-horizontal left"> <dt translate ng-if="projectSharing">Access Policy</dt> <dd ng-if="projectSharing" ng-switch="projectSharing(imagestream.metadata.namespace)"> <div ng-switch-when="anonymous"> <a translate ng-if="projectModify" ng-click="projectModify(imagestream.metadata.namespace)">Images may be pulled by anonymous users</a>\n<span translate ng-if="!projectModify">Images may be pulled by anonymous users</span>\n<i title="Images accessible to anonymous users" class="fa fa-unlock registry-imagestream-lock"></i> </div> <div ng-switch-when="shared"> <a translate ng-if="projectModify" ng-click="projectModify(imagestream.metadata.namespace)">Images may be pulled by any authenticated user or group</a>\n<span translate ng-if="!projectModify">Images may be pulled by any authenticated user or group</span>\n<i title="Images accessible to authenticated users" class="fa fa-lock registry-imagestream-lock"></i> </div> <div ng-switch-when="private"> <a translate ng-if="projectModify" ng-click="projectModify(imagestream.metadata.namespace)">Images may only be pulled by specific users or groups</a>\n<span translate ng-if="!projectModify">Images may only be pulled by specific users or groups</span>\n<i title="Images only accessible to members" class="fa fa-lock registry-imagestream-lock"></i> </div> <div ng-switch-default> <a translate ng-if="projectModify" ng-click="projectModify(imagestream.metadata.namespace)">Unknown</a>\n<span translate ng-if="!projectModify">Unknown</span>\n<i title="Unknown or invalid image access policy" class="fa fa-lock registry-imagestream-lock"></i> </div> </dd> <dt translate ng-if-start="imagestream.spec.dockerImageRepository">Follows docker repo</dt> <dd ng-if-end><tt>{{imagestream.spec.dockerImageRepository}}</tt></dd> <dt>Pulling repository</dt> <dd><tt>{{imagestream.status.dockerImageRepository}}</tt></dd> <dt translate ng-if-start="imagestream.status.publicDockerImageRepository">Public pulling repo</dt> <dd ng-if-end><tt>{{imagestream.status.publicDockerImageRepository}}</tt></dd> <dt translate>Image count</dt> <dd ng-if="imagestream.status.tags.length">{{imagestream.status.tags.length}}</dd> <dd ng-if="!imagestream.status.tags.length">0</dd> </dl>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/imagestream-body.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -59014,9 +59064,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<table class="listing-ct">\n<thead>\n<tr>\n<th class="listing-ct-toggle"></th>\n<th translate="yes" width="20%">Name</th>\n<th translate="yes">Tags</th>\n<th translate="yes">Repository</th>\n</tr>\n</thead>\n<tbody ng-repeat="(link, imagestream) in imagestreams track by link | orderBy : \'link\'" ng-if="imagestreams" data-id="{{ imagestream.metadata.namespace + \'/\' + imagestream.metadata.name }}" class="active" ng-class="{open: imagestreamExpanded(imagestream)}">\n<tr ng-click="imagestreamActivate(imagestream, null, $event)" class="listing-ct-item imagestream-item">\n<td ng-click="imagestreamToggle(imagestream, null, $event)" class="listing-ct-toggle">\n<i class="fa fa-fw"></i>\n</td>\n<th>\n{{ imagestream.metadata.namespace + \'/\' + imagestream.metadata.name }}\n<div ng-repeat="statustags in imagestream.status.tags">\n<span ng-repeat="condition in statustags.conditions" ng-if="condition.type == \'ImportSuccess\' &amp;&amp; condition.status == \'False\'" class="pficon pficon-warning-triangle-o"></span>\n</div>\n</th>\n<td ng-init="tag_count = imagestreamTags(imagestream).length">\n<a ng-repeat="tag in imagestreamTags(imagestream) | orderBy : \'tag.name\' | limitTo: 4" class="registry-image-tag" ng-click="imagestreamActivate(imagestream, tag, $event)" title="{{tag.name }}">{{ tag.name }}</a>\n<span ng-if="tag_count > 4" translate-n="tag_count - 4" translate translate-plural="and {{ $count }} others">and {{ $count }} other</span>\n</td>\n<td>\n<span ng-if="!imagestream.status.dockerImageRepository && !imagestream.spec.dockerImageRepository"><em translate>unknown</em></span>\n<span ng-if="imagestream.status.dockerImageRepository || imagestream.spec.dockerImageRepository">{{imagestream.status.dockerImageRepository || imagestream.spec.dockerImageRepository}}</span>\n</td>\n</tr>\n<tr class="listing-ct-panel" ng-if="imagestreamExpanded(imagestream)">\n<td colspan="4">\n<registry-imagestream-panel></registry-imagestream-panel>\n</td>\n</tr>\n</tbody>\n<thead class="listing-ct-empty" ng-if="!quiet">\n<tr>\n<td colspan="4" ng-if="!failure && (!imagestreams || !imagestreams.length)" translate="yes">No image streams are present.</td>\n<td colspan="4" ng-if="failure">{{failure}}</td>\n</tr>\n</thead>\n</table>\n', o = "registry-image-widgets/views/imagestream-listing.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<table class="listing-ct"> <thead> <tr> <th class="listing-ct-toggle"></th> <th translate="yes" width="20%">Name</th> <th translate="yes">Tags</th> <th translate="yes">Repository</th> </tr> </thead> <tbody ng-repeat="(link, imagestream) in imagestreams track by link | orderBy : \'link\'" ng-if="imagestreams" data-id="{{ imagestream.metadata.namespace + \'/\' + imagestream.metadata.name }}" class="active" ng-class="{open: imagestreamExpanded(imagestream)}"> <tr ng-click="imagestreamActivate(imagestream, null, $event)" class="listing-ct-item imagestream-item"> <td ng-click="imagestreamToggle(imagestream, null, $event)" class="listing-ct-toggle"> <i class="fa fa-fw"></i> </td> <th> {{ imagestream.metadata.namespace + \'/\' + imagestream.metadata.name }} <div ng-repeat="statustags in imagestream.status.tags"> <span ng-repeat="condition in statustags.conditions" ng-if="condition.type == \'ImportSuccess\' &amp;&amp; condition.status == \'False\'" class="pficon pficon-warning-triangle-o"></span> </div> </th> <td ng-init="tag_count = imagestreamTags(imagestream).length"> <a ng-repeat="tag in imagestreamTags(imagestream) | orderBy : \'tag.name\' | limitTo: 4" class="registry-image-tag" ng-click="imagestreamActivate(imagestream, tag, $event)" title="{{tag.name }}">{{ tag.name }}</a>\n<span ng-if="tag_count > 4" translate-n="tag_count - 4" translate translate-plural="and {{ $count }} others">and {{ $count }} other</span> </td> <td> <span ng-if="!imagestream.status.dockerImageRepository && !imagestream.spec.dockerImageRepository"><em translate>unknown</em></span>\n<span ng-if="imagestream.status.dockerImageRepository || imagestream.spec.dockerImageRepository">{{imagestream.status.dockerImageRepository || imagestream.spec.dockerImageRepository}}</span> </td> </tr> <tr class="listing-ct-panel" ng-if="imagestreamExpanded(imagestream)"> <td colspan="4"> <registry-imagestream-panel></registry-imagestream-panel> </td> </tr> </tbody> <thead class="listing-ct-empty" ng-if="!quiet"> <tr> <td colspan="4" ng-if="!failure && (!imagestreams || !imagestreams.length)" translate="yes">No image streams are present.</td> <td colspan="4" ng-if="failure">{{failure}}</td> </tr> </thead> </table>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/imagestream-listing.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -59025,9 +59075,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<dl class="dl-horizontal left">\n<registry-annotations annotations="imagestream.metadata.annotations"></registry-annotations>\n</dl>\n', o = "registry-image-widgets/views/imagestream-meta.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<dl class="dl-horizontal left"> <registry-annotations annotations="imagestream.metadata.annotations"></registry-annotations> </dl>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/imagestream-meta.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -59036,9 +59086,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<div>\n<div class="listing-ct-head">\n<div ng-if="actions" class="listing-ct-actions">\n<button class="btn btn-danger btn-delete pficon pficon-delete" ng-if="actions.deleteImageStream" ng-click="actions.deleteImageStream(imagestream)"></button>\n<button class="btn btn-default pficon pficon-edit" ng-if="actions.modifyImageStream" ng-click="actions.modifyImageStream(imagestream)"></button>\n</div>\n<ul class="nav nav-tabs nav-tabs-pf">\n<li ng-class="{active: tab(\'main\')}"><a ng-click="tab(\'main\', $event)" translate>Image stream</a></li>\n<li ng-class="{active: tab(\'meta\')}" ng-if="imagestream.metadata.annotations">\n<a ng-click="tab(\'meta\', $event)" translate>Metadata</a></li>\n<li ng-class="{active: tab(\'tags\')}">\n<a ng-click="tab(\'tags\', $event)" translate>Tags</a></li>\n</ul>\n</div>\n<div class="listing-ct-body" ng-show="tab(\'main\')">\n<registry-imagestream-body imagestream="imagestream" imagestream-modify="actions.modifyImageStream" project-modify="actions.modifyProject" project-sharing="sharedImages">\n</registry-imagestream-body>\n<registry-imagestream-push imagestream="imagestream" settings="settings">\n</registry-imagestream-push>\n</div>\n<div class="listing-ct-body" ng-if="tab(\'meta\')" ng-if="imagestream.metadata.annotations">\n<registry-imagestream-meta imagestream="imagestream">\n</registry-imagestream-meta>\n</div>\n<div class="listing-ct-body" ng-if="tab(\'tags\')">\n<div class="inline-tabs">\n<registry-image-listing imagestream="imagestream" image-by-tag="imageByTag" settings="settings" shared-images="sharedImages" actions="actions" image-tag-names="imageTagNames">\n</registry-image-listing>\n</div>\n</div>\n</div>\n', o = "registry-image-widgets/views/imagestream-panel.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<div> <div class="listing-ct-head"> <div ng-if="actions" class="listing-ct-actions"> <button class="btn btn-danger btn-delete pficon pficon-delete" ng-if="actions.deleteImageStream" ng-click="actions.deleteImageStream(imagestream)"></button>\n<button class="btn btn-default pficon pficon-edit" ng-if="actions.modifyImageStream" ng-click="actions.modifyImageStream(imagestream)"></button> </div> <ul class="nav nav-tabs nav-tabs-pf"> <li ng-class="{active: tab(\'main\')}"><a ng-click="tab(\'main\', $event)" translate>Image stream</a></li> <li ng-class="{active: tab(\'meta\')}" ng-if="imagestream.metadata.annotations"> <a ng-click="tab(\'meta\', $event)" translate>Metadata</a></li> <li ng-class="{active: tab(\'tags\')}"> <a ng-click="tab(\'tags\', $event)" translate>Tags</a></li> </ul> </div> <div class="listing-ct-body" ng-show="tab(\'main\')"> <registry-imagestream-body imagestream="imagestream" imagestream-modify="actions.modifyImageStream" project-modify="actions.modifyProject" project-sharing="sharedImages"> </registry-imagestream-body> <registry-imagestream-push imagestream="imagestream" settings="settings"> </registry-imagestream-push> </div> <div class="listing-ct-body" ng-if="tab(\'meta\')" ng-if="imagestream.metadata.annotations"> <registry-imagestream-meta imagestream="imagestream"> </registry-imagestream-meta> </div> <div class="listing-ct-body" ng-if="tab(\'tags\')"> <div class="inline-tabs"> <registry-image-listing imagestream="imagestream" image-by-tag="imageByTag" settings="settings" shared-images="sharedImages" actions="actions" image-tag-names="imageTagNames"> </registry-image-listing> </div> </div> </div>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/imagestream-panel.html", r);
 } ]), e.exports = r;
 }, function(e, t) {
 var n, i = window.angular;
@@ -59047,9 +59097,9 @@ n = i.module([ "ng" ]);
 } catch (e) {
 n = i.module("ng", []);
 }
-var r = '<div class="registry-imagestream-push">\n<p>\n<i class="fa fa-info-circle"></i>\n<span>将镜像推到该镜像流:</span>\n</p>\n<code ng-if="imagestream.status.publicDockerImageRepository">$ sudo docker tag <em>myimage</em> <span>{{imagestream.status.publicDockerImageRepository}}</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em>\n$ sudo docker push <span>{{settings.registry.host}}</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em></code>\n<code ng-if="!imagestream.status.publicDockerImageRepository && settings.registry.host">$ sudo docker tag <em>myimage</em> <span>{{settings.registry.host}}</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em>\n$ sudo docker push <span>{{settings.registry.host}}</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em></code>\n<code ng-if="!imagestream.status.publicDockerImageRepository && !settings.registry.host">$ sudo docker tag <em>myimage</em> <span class="placeholder">registry</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em>\n$ sudo docker push <span class="placeholder">registry</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em></code>\n</div>\n', o = "registry-image-widgets/views/imagestream-push.html", a = i.element(window.document).injector();
-a ? a.get("$templateCache").put(o, r) : n.run([ "$templateCache", function(e) {
-e.put(o, r);
+var r = '<div class="registry-imagestream-push"> <p> <i class="fa fa-info-circle"></i>\n<span translate>To push an image to this image stream:</span> </p> <code ng-if="imagestream.status.publicDockerImageRepository">$ sudo docker tag <em>myimage</em> <span>{{imagestream.status.publicDockerImageRepository}}</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em>\n$ sudo docker push <span>{{settings.registry.host}}</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em></code>\n<code ng-if="!imagestream.status.publicDockerImageRepository && settings.registry.host">$ sudo docker tag <em>myimage</em> <span>{{settings.registry.host}}</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em>\n$ sudo docker push <span>{{settings.registry.host}}</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em></code>\n<code ng-if="!imagestream.status.publicDockerImageRepository && !settings.registry.host">$ sudo docker tag <em>myimage</em> <span class="placeholder">registry</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em>\n$ sudo docker push <span class="placeholder">registry</span>/{{ imagestream.metadata.namespace }}/{{ imagestream.metadata.name}}:<em>tag</em></code> </div>';
+n.run([ "$templateCache", function(e) {
+e.put("registry-image-widgets/views/imagestream-push.html", r);
 } ]), e.exports = r;
 }, function(e, t, n) {
 n(4), n(2), n(3), n(5), n(0), n(1), n(6), n(7), n(8), n(11), n(9), n(12), n(13), n(10), n(14), n(15), n(16), n(17), e.exports = n(18);
@@ -73679,34 +73729,38 @@ r += "\n  </div>\n  ", a.showClose && (r += '<button class="hopscotch-bubble-clo
 }), function(e, t) {
 "function" == typeof define && define.amd ? define([], t) : "object" == typeof exports ? module.exports = t() : e.compareVersions = t();
 }(this, function() {
-function e(e) {
-var t = e.replace(/^v/, "").split("."), n = t.splice(0, 2);
-return n.push(t.join(".")), n;
+function e(e, t) {
+return -1 === e.indexOf(t) ? e.length : e.indexOf(t);
 }
-function t(e) {
-return isNaN(Number(e)) ? e : Number(e);
+function t(t) {
+var n = t.replace(/^v/, "").replace(/\+.*$/, ""), i = e(n, "-"), r = n.substring(0, i).split(".");
+return r.push(n.substring(i + 1)), r;
 }
 function n(e) {
+return isNaN(Number(e)) ? e : Number(e);
+}
+function i(e) {
 if ("string" != typeof e) throw new TypeError("Invalid argument expected string");
-if (!i.test(e)) throw new Error("Invalid argument not valid semver");
+if (!r.test(e)) throw new Error("Invalid argument not valid semver");
 }
-var i = /^v?(?:\d+)(\.(?:[x*]|\d+)(\.(?:[x*]|\d+)(?:-[\da-z\-]+(?:\.[\da-z\-]+)*)?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?)?)?$/i, r = /-([0-9A-Za-z-.]+)/;
-return function(i, o) {
-[ i, o ].forEach(n);
-for (var a = e(i), s = e(o), l = 0; l < 3; l++) {
-var c = parseInt(a[l] || 0, 10), u = parseInt(s[l] || 0, 10);
-if (c > u) return 1;
-if (u > c) return -1;
+var r = /^v?(?:\d+)(\.(?:[x*]|\d+)(\.(?:[x*]|\d+)(\.(?:[x*]|\d+))?(?:-[\da-z\-]+(?:\.[\da-z\-]+)*)?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?)?)?$/i;
+return function(e, r) {
+[ e, r ].forEach(i);
+for (var o = t(e), a = t(r), s = 0; s < Math.max(o.length - 1, a.length - 1); s++) {
+var l = parseInt(o[s] || 0, 10), c = parseInt(a[s] || 0, 10);
+if (l > c) return 1;
+if (c > l) return -1;
 }
-if ([ a[2], s[2] ].every(r.test.bind(r))) {
-var d = r.exec(a[2])[1].split(".").map(t), h = r.exec(s[2])[1].split(".").map(t);
-for (l = 0; l < Math.max(d.length, h.length); l++) {
-if (void 0 === d[l] || "string" == typeof h[l] && "number" == typeof d[l]) return -1;
-if (void 0 === h[l] || "string" == typeof d[l] && "number" == typeof h[l]) return 1;
-if (d[l] > h[l]) return 1;
-if (h[l] > d[l]) return -1;
+var u = o[o.length - 1], d = a[a.length - 1];
+if (u && d) {
+var h = u.split(".").map(n), f = d.split(".").map(n);
+for (s = 0; s < Math.max(h.length, f.length); s++) {
+if (void 0 === h[s] || "string" == typeof f[s] && "number" == typeof h[s]) return -1;
+if (void 0 === f[s] || "string" == typeof h[s] && "number" == typeof f[s]) return 1;
+if (h[s] > f[s]) return 1;
+if (f[s] > h[s]) return -1;
 }
-} else if ([ a[2], s[2] ].some(r.test.bind(r))) return r.test(a[2]) ? -1 : 1;
+} else if (u || d) return u ? -1 : 1;
 return 0;
 };
 }), angular.module("openshiftCommonServices", [ "ab-base64" ]).config([ "AuthServiceProvider", function(e) {
@@ -77199,9 +77253,16 @@ var n = /[A-Z]/g, i = function(e, t) {
 return t = t || "_", e.replace(n, function(e, n) {
 return (n ? t : "") + e.toLowerCase();
 });
-}, r = 0, o = {
+}, r = 0;
+"firstElementChild" in document.createDocumentFragment() || Object.defineProperty(DocumentFragment.prototype, "firstElementChild", {
+get: function() {
+for (var e, t = this.childNodes, n = 0, i = t.length; n < i; ++n) if (1 === (e = t[n]).nodeType) return e;
+return null;
+}
+});
+var o = {
 sfField: function(e) {
-e.fieldFrag.firstChild.setAttribute("sf-field", r), e.lookup["f" + r] = e.form, r++;
+e.fieldFrag.firstElementChild.setAttribute("sf-field", r), e.lookup["f" + r] = e.form, r++;
 },
 ngModel: function(e) {
 if (e.form.key) {
@@ -77245,16 +77306,13 @@ if (e.form.key) {
 var i = t.stringify(e.form.key);
 n = "evalExpr(" + e.path + '.condition,{ model: model, "arrayIndex": $index, "modelValue": model' + ("[" === i[0] ? "" : ".") + i + "})";
 }
-for (var r = e.fieldFrag.children || e.fieldFrag.childNodes, o = 0; o < r.length; o++) {
-var a = r[o], s = a.getAttribute("ng-if");
-a.setAttribute("ng-if", s ? "(" + s + ") || (" + n + ")" : n);
-}
+for (var r, o, a = e.fieldFrag.children || e.fieldFrag.childNodes, s = 0; s < a.length; s++) o = !1, (r = a[s]).hasAttribute && r.hasAttribute("ng-if") && (o = r.getAttribute("ng-if")), r.setAttribute && r.setAttribute("ng-if", o ? "(" + o + ") || (" + n + ")" : n);
 }
 },
 array: function(n) {
 var i = n.fieldFrag.querySelector("[schema-form-array-items]");
 if (i) {
-if (state = e.copy(n.state), state.keyRedaction = state.keyRedaction || 0, state.keyRedaction += n.form.key.length + 1, n.form.schema && n.form.schema.items && n.form.schema.items.type && -1 === n.form.schema.items.type.indexOf("object") && -1 === n.form.schema.items.type.indexOf("array")) {
+if (state = e.copy(n.state), state.keyRedaction = 0, state.keyRedaction += n.form.key.length + 1, n.form.schema && n.form.schema.items && n.form.schema.items.type && -1 === n.form.schema.items.type.indexOf("object") && -1 === n.form.schema.items.type.indexOf("array")) {
 t.stringify(n.form.key).replace(/"/g, "&quot;");
 state.modelValue = "modelArray[$index]";
 } else state.modelName = "item";
@@ -77360,7 +77418,7 @@ if (e) return t.$eval(e, n);
 }, t.interp = function(e, t) {
 return e && l(e)(t);
 }, t.hasSuccess = function() {
-return !!t.ngModel && (t.ngModel.$valid && (!t.ngModel.$pristine || !t.ngModel.$isEmpty(t.ngModel.$modelValue)));
+return !!t.ngModel && (t.options && t.options.pristine && !1 === t.options.pristine.success ? t.ngModel.$valid && !t.ngModel.$pristine && !t.ngModel.$isEmpty(t.ngModel.$modelValue) : t.ngModel.$valid && (!t.ngModel.$pristine || !t.ngModel.$isEmpty(t.ngModel.$modelValue)));
 }, t.hasError = function() {
 return !!t.ngModel && (t.ngModel.$invalid && !t.ngModel.$pristine);
 }, t.errorMessage = function(e) {
@@ -77391,8 +77449,8 @@ e.setAttribute("ng-if", t ? "(" + t + ") || (" + a + ")" : a);
 });
 }
 r(f.contents())(t);
-}), l.key && (t.$on("schemaForm.error." + l.key.join("."), function(e, n, i, r) {
-!0 !== i && !1 !== i || (r = i, i = void 0), t.ngModel && n && (t.ngModel.$setDirty ? t.ngModel.$setDirty() : (t.ngModel.$dirty = !0, t.ngModel.$pristine = !1), i && (l.validationMessage || (l.validationMessage = {}), l.validationMessage[n] = i), t.ngModel.$setValidity(n, !0 === r), !0 === r && (t.ngModel.$validate(), t.$broadcast("schemaFormValidate")));
+}), l.key && (t.$on("schemaForm.error." + l.key.join("."), function(e, n, i, r, o) {
+o = r, !0 !== i && !1 !== i || (r = i, i = void 0), void 0 != o && t.ngModel.$$parentForm.$name !== o || t.ngModel && n && (t.ngModel.$setDirty ? t.ngModel.$setDirty() : (t.ngModel.$dirty = !0, t.ngModel.$pristine = !1), i && (l.validationMessage || (l.validationMessage = {}), l.validationMessage[n] = i), t.ngModel.$setValidity(n, !0 === r), !0 === r && (t.ngModel.$validate(), t.$broadcast("schemaFormValidate")));
 }), t.$on("$destroy", function() {
 if (!t.externalDestructionInProgress) {
 var e = l.destroyStrategy || t.options && t.options.destroyStrategy || "remove";
@@ -77410,7 +77468,7 @@ var i = l.schema && l.schema.type || "";
 };
 } ]);
 }, s = function(n, i, r) {
-r = !!e.isDefined(r) && r, t.directive("sf" + e.uppercase(n[0]) + n.substr(1), function() {
+r = !!e.isDefined(r) && r, t.directive("sf" + n[0].toUpperCase() + n.substr(1), function() {
 return {
 restrict: "EAC",
 scope: !0,
@@ -77592,7 +77650,7 @@ return o.key = r.path, o.type = "text", r.lookup[t.stringify(r.path)] = o, o;
 object: [ function(i, r, s) {
 if ("object" === n(r.type)) {
 var l = a(i, r, s);
-return l.type = "fieldset", l.items = [], s.lookup[t.stringify(s.path)] = l, e.forEach(r.properties, function(e, n) {
+return l.type = "fieldset", l.key = s.path, l.items = [], s.lookup[t.stringify(s.path)] = l, e.forEach(r.properties, function(e, n) {
 var i = s.path.slice();
 if (i.push(n), !0 !== s.ignore[t.stringify(i)]) {
 var a = r.required && -1 !== r.required.indexOf(n), c = o(n, e, {
@@ -77908,8 +77966,8 @@ return !!t.ngModel && (t.options && t.options.pristine && !1 === t.options.prist
 return s.interpolate(e && e.code + "" || "default", t.ngModel && t.ngModel.$modelValue || "", t.ngModel && t.ngModel.$viewValue || "", t.form, t.options && t.options.validationMessage);
 };
 var a = t.form;
-a.key && (t.$on("schemaForm.error." + a.key.join("."), function(e, n, i, r) {
-!0 !== i && !1 !== i || (r = i, i = void 0), t.ngModel && n && (t.ngModel.$setDirty ? t.ngModel.$setDirty() : (t.ngModel.$dirty = !0, t.ngModel.$pristine = !1), i && (a.validationMessage || (a.validationMessage = {}), a.validationMessage[n] = i), t.ngModel.$setValidity(n, !0 === r), !0 === r && (t.ngModel.$validate(), t.$broadcast("schemaFormValidate")));
+a.key && (t.$on("schemaForm.error." + a.key.join("."), function(e, n, i, r, o) {
+o = r, !0 !== i && !1 !== i || (r = i, i = void 0), void 0 != o && t.ngModel.$$parentForm.$name !== o || t.ngModel && n && (t.ngModel.$setDirty ? t.ngModel.$setDirty() : (t.ngModel.$dirty = !0, t.ngModel.$pristine = !1), i && (a.validationMessage || (a.validationMessage = {}), a.validationMessage[n] = i), t.ngModel.$setValidity(n, !0 === r), !0 === r && (t.ngModel.$validate(), t.$broadcast("schemaFormValidate")));
 }), t.$on("$destroy", function() {
 if (!t.externalDestructionInProgress) {
 var e = a.destroyStrategy || t.options && t.options.destroyStrategy || "remove";
@@ -77999,9 +78057,10 @@ r.titleMapValues.push(-1 !== t.indexOf(e.value));
 };
 t(r.modelArray), r.$watchCollection("modelArray", t), r.$watchCollection("titleMapValues", function(t, n) {
 if (t && t !== n) {
-for (var i = c(); i.length > 0; ) i.pop();
+var i = c();
 e.titleMap.forEach(function(e, n) {
-t[n] && i.push(e.value);
+var r = i.indexOf(e.value);
+-1 === r && t[n] && i.push(e.value), -1 === r || t[n] || i.splice(r, 1);
 }), r.validateField && r.validateField();
 }
 });
@@ -78173,129 +78232,110 @@ return s;
 }
 };
 } ]), r;
-}), function(e, t) {
-"function" == typeof define && define.amd ? define([ "schemaForm" ], t) : "object" == typeof exports ? module.exports = t(require("schemaForm")) : e.bootstrapDecorator = t(e.schemaForm);
-}(this, function(e) {
-return angular.module("schemaForm").run([ "$templateCache", function(e) {
-e.put("directives/decorators/bootstrap/actions-trcl.html", '<div class="btn-group schema-form-actions {{form.htmlClass}}" ng-transclude=""></div>'), e.put("directives/decorators/bootstrap/actions.html", '<div class="btn-group schema-form-actions {{form.htmlClass}}"><input ng-repeat-start="item in form.items" type="submit" class="btn {{ item.style || \'btn-default\' }} {{form.fieldHtmlClass}}" value="{{item.title}}" ng-if="item.type === \'submit\'"> <button ng-repeat-end="" class="btn {{ item.style || \'btn-default\' }} {{form.fieldHtmlClass}}" type="button" ng-disabled="form.readonly" ng-if="item.type !== \'submit\'" ng-click="buttonClick($event,item)"><span ng-if="item.icon" class="{{item.icon}}"></span>{{item.title}}</button></div>'), e.put("directives/decorators/bootstrap/array.html", '<div sf-array="form" class="schema-form-array {{form.htmlClass}}" ng-model="$$value$$" ng-model-options="form.ngModelOptions"><label class="control-label" ng-show="showTitle()">{{ form.title }}</label><ol class="list-group" ng-model="modelArray" ui-sortable=""><li class="list-group-item {{form.fieldHtmlClass}}" ng-repeat="item in modelArray track by $index"><button ng-hide="form.readonly || form.remove === null" ng-click="deleteFromArray($index)" style="position: relative; z-index: 20;" type="button" class="close pull-right"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><sf-decorator ng-init="arrayIndex = $index" form="copyWithIndex($index)"></sf-decorator></li></ol><div class="clearfix" style="padding: 15px;"><button ng-hide="form.readonly || form.add === null" ng-click="appendToArray()" type="button" class="btn {{ form.style.add || \'btn-default\' }} pull-right"><i class="glyphicon glyphicon-plus"></i> {{ form.add || \'Add\'}}</button></div><div class="help-block" ng-show="(hasError() && errorMessage(schemaError())) || form.description" ng-bind-html="(hasError() && errorMessage(schemaError())) || form.description"></div></div>'), 
-e.put("directives/decorators/bootstrap/checkbox.html", '<div class="checkbox schema-form-checkbox {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="{{form.labelHtmlClass}}"><input type="checkbox" sf-changed="form" ng-disabled="form.readonly" ng-model="$$value$$" ng-model-options="form.ngModelOptions" schema-validate="form" class="{{form.fieldHtmlClass}}" name="{{form.key.slice(-1)[0]}}"> <span ng-bind-html="form.title"></span></label><div class="help-block" sf-message="form.description"></div></div>'), e.put("directives/decorators/bootstrap/checkboxes.html", '<div sf-array="form" ng-model="$$value$$" class="form-group schema-form-checkboxes {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label><div class="checkbox" ng-repeat="val in titleMapValues track by $index"><label><input type="checkbox" ng-disabled="form.readonly" sf-changed="form" class="{{form.fieldHtmlClass}}" ng-model="titleMapValues[$index]" name="{{form.key.slice(-1)[0]}}"> <span ng-bind-html="form.titleMap[$index].name"></span></label></div><div class="help-block" sf-message="form.description"></div></div>'), 
-e.put("directives/decorators/bootstrap/default.html", '<div class="form-group schema-form-{{form.type}} {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess(), \'has-feedback\': form.feedback !== false }"><label class="control-label {{form.labelHtmlClass}}" ng-class="{\'sr-only\': !showTitle()}" for="{{form.key.slice(-1)[0]}}">{{form.title}}</label> <input ng-if="!form.fieldAddonLeft && !form.fieldAddonRight" ng-show="form.key" type="{{form.type}}" step="any" sf-changed="form" placeholder="{{form.placeholder}}" class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" ng-model-options="form.ngModelOptions" ng-model="$$value$$" ng-disabled="form.readonly" schema-validate="form" name="{{form.key.slice(-1)[0]}}" aria-describedby="{{form.key.slice(-1)[0] + \'Status\'}}"><div ng-if="form.fieldAddonLeft || form.fieldAddonRight" ng-class="{\'input-group\': (form.fieldAddonLeft || form.fieldAddonRight)}"><span ng-if="form.fieldAddonLeft" class="input-group-addon" ng-bind-html="form.fieldAddonLeft"></span> <input ng-show="form.key" type="{{form.type}}" step="any" sf-changed="form" placeholder="{{form.placeholder}}" class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" ng-model-options="form.ngModelOptions" ng-model="$$value$$" ng-disabled="form.readonly" schema-validate="form" name="{{form.key.slice(-1)[0]}}" aria-describedby="{{form.key.slice(-1)[0] + \'Status\'}}"> <span ng-if="form.fieldAddonRight" class="input-group-addon" ng-bind-html="form.fieldAddonRight"></span></div><span ng-if="form.feedback !== false" class="form-control-feedback" ng-class="evalInScope(form.feedback) || {\'glyphicon\': true, \'glyphicon-ok\': hasSuccess(), \'glyphicon-remove\': hasError() }" aria-hidden="true"></span> <span ng-if="hasError() || hasSuccess()" id="{{form.key.slice(-1)[0] + \'Status\'}}" class="sr-only">{{ hasSuccess() ? \'(success)\' : \'(error)\' }}</span><div class="help-block" sf-message="form.description"></div></div>'), 
-e.put("directives/decorators/bootstrap/fieldset-trcl.html", '<fieldset ng-disabled="form.readonly" class="schema-form-fieldset {{form.htmlClass}}"><legend ng-class="{\'sr-only\': !showTitle() }">{{ form.title }}</legend><div class="help-block" ng-show="form.description" ng-bind-html="form.description"></div><div ng-transclude=""></div></fieldset>'), e.put("directives/decorators/bootstrap/fieldset.html", '<fieldset ng-disabled="form.readonly" class="schema-form-fieldset {{form.htmlClass}}"><legend ng-class="{\'sr-only\': !showTitle() }">{{ form.title }}</legend><div class="help-block" ng-show="form.description" ng-bind-html="form.description"></div><sf-decorator ng-repeat="item in form.items" form="item"></sf-decorator></fieldset>'), e.put("directives/decorators/bootstrap/help.html", '<div class="helpvalue schema-form-helpvalue {{form.htmlClass}}" ng-bind-html="form.helpvalue"></div>'), e.put("directives/decorators/bootstrap/radio-buttons.html", '<div class="form-group schema-form-radiobuttons {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><div><label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label></div><div class="btn-group"><label class="btn {{ (item.value === $$value$$) ? form.style.selected || \'btn-default\' : form.style.unselected || \'btn-default\'; }}" ng-class="{ active: item.value === $$value$$ }" ng-repeat="item in form.titleMap"><input type="radio" class="{{form.fieldHtmlClass}}" sf-changed="form" style="display: none;" ng-disabled="form.readonly" ng-model="$$value$$" ng-model-options="form.ngModelOptions" schema-validate="form" ng-value="item.value" name="{{form.key.join(\'.\')}}"> <span ng-bind-html="item.name"></span></label></div><div class="help-block" sf-message="form.description"></div></div>'), 
-e.put("directives/decorators/bootstrap/radios-inline.html", '<div class="form-group schema-form-radios-inline {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label ng-model="$$value$$" ng-model-options="form.ngModelOptions" schema-validate="form" class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label><div><label class="radio-inline" ng-repeat="item in form.titleMap"><input type="radio" class="{{form.fieldHtmlClass}}" sf-changed="form" ng-disabled="form.readonly" ng-model="$$value$$" ng-value="item.value" name="{{form.key.join(\'.\')}}"> <span ng-bind-html="item.name"></span></label></div><div class="help-block" sf-message="form.description"></div></div>'), e.put("directives/decorators/bootstrap/radios.html", '<div class="form-group schema-form-radios {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label ng-model="$$value$$" ng-model-options="form.ngModelOptions" schema-validate="form" class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label><div class="radio" ng-repeat="item in form.titleMap"><label><input type="radio" class="{{form.fieldHtmlClass}}" sf-changed="form" ng-disabled="form.readonly" ng-model="$$value$$" ng-value="item.value" name="{{form.key.join(\'.\')}}"> <span ng-bind-html="item.name"></span></label></div><div class="help-block" sf-message="form.description"></div></div>'), 
-e.put("directives/decorators/bootstrap/section.html", '<div class="schema-form-section {{form.htmlClass}}"><sf-decorator ng-repeat="item in form.items" form="item"></sf-decorator></div>'), e.put("directives/decorators/bootstrap/select.html", '<div class="form-group {{form.htmlClass}} schema-form-select" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess(), \'has-feedback\': form.feedback !== false}"><label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label><select ng-model="$$value$$" ng-model-options="form.ngModelOptions" ng-disabled="form.readonly" sf-changed="form" class="form-control {{form.fieldHtmlClass}}" schema-validate="form" ng-options="item.value as item.name group by item.group for item in form.titleMap" name="{{form.key.slice(-1)[0]}}"></select><div class="help-block" sf-message="form.description"></div></div>'), e.put("directives/decorators/bootstrap/submit.html", '<div class="form-group schema-form-submit {{form.htmlClass}}"><input type="submit" class="btn {{ form.style || \'btn-primary\' }} {{form.fieldHtmlClass}}" value="{{form.title}}" ng-disabled="form.readonly" ng-if="form.type === \'submit\'"> <button class="btn {{ form.style || \'btn-default\' }}" type="button" ng-click="buttonClick($event,form)" ng-disabled="form.readonly" ng-if="form.type !== \'submit\'"><span ng-if="form.icon" class="{{form.icon}}"></span> {{form.title}}</button></div>'), 
-e.put("directives/decorators/bootstrap/tabarray.html", '<div sf-array="form" ng-init="selected = { tab: 0 }" class="clearfix schema-form-tabarray schema-form-tabarray-{{form.tabType || \'left\'}} {{form.htmlClass}}"><div ng-if="!form.tabType || form.tabType !== \'right\'" ng-class="{\'col-xs-3\': !form.tabType || form.tabType === \'left\'}"><ul class="nav nav-tabs" ng-class="{ \'tabs-left\': !form.tabType || form.tabType === \'left\'}"><li ng-repeat="item in modelArray track by $index" ng-click="$event.preventDefault() || (selected.tab = $index)" ng-class="{active: selected.tab === $index}"><a href="#">{{interp(form.title,{\'$index\':$index, value: item}) || $index}}</a></li><li ng-hide="form.readonly" ng-click="$event.preventDefault() || (selected.tab = appendToArray().length - 1)"><a href="#"><i class="glyphicon glyphicon-plus"></i> {{ form.add || \'Add\'}}</a></li></ul></div><div ng-class="{\'col-xs-9\': !form.tabType || form.tabType === \'left\' || form.tabType === \'right\'}"><div class="tab-content {{form.fieldHtmlClass}}"><div class="tab-pane clearfix" ng-repeat="item in modelArray track by $index" ng-show="selected.tab === $index" ng-class="{active: selected.tab === $index}"><sf-decorator ng-init="arrayIndex = $index" form="copyWithIndex($index)"></sf-decorator><button ng-hide="form.readonly" ng-click="selected.tab = deleteFromArray($index).length - 1" type="button" class="btn {{ form.style.remove || \'btn-default\' }} pull-right"><i class="glyphicon glyphicon-trash"></i> {{ form.remove || \'Remove\'}}</button></div></div></div><div ng-if="form.tabType === \'right\'" class="col-xs-3"><ul class="nav nav-tabs tabs-right"><li ng-repeat="item in modelArray track by $index" ng-click="$event.preventDefault() || (selected.tab = $index)" ng-class="{active: selected.tab === $index}"><a href="#">{{interp(form.title,{\'$index\':$index, value: item}) || $index}}</a></li><li ng-hide="form.readonly" ng-click="$event.preventDefault() || appendToArray()"><a href="#"><i class="glyphicon glyphicon-plus"></i> {{ form.add || \'Add\'}}</a></li></ul></div></div>'), 
-e.put("directives/decorators/bootstrap/tabs.html", '<div ng-init="selected = { tab: 0 }" class="schema-form-tabs {{form.htmlClass}}"><ul class="nav nav-tabs"><li ng-repeat="tab in form.tabs" ng-disabled="form.readonly" ng-click="$event.preventDefault() || (selected.tab = $index)" ng-class="{active: selected.tab === $index}"><a href="#">{{ tab.title }}</a></li></ul><div class="tab-content {{form.fieldHtmlClass}}"><div class="tab-pane" ng-disabled="form.readonly" ng-repeat="tab in form.tabs" ng-show="selected.tab === $index" ng-class="{active: selected.tab === $index}"><bootstrap-decorator ng-repeat="item in tab.items" form="item"></bootstrap-decorator></div></div></div>'), e.put("directives/decorators/bootstrap/textarea.html", '<div class="form-group has-feedback {{form.htmlClass}} schema-form-textarea" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="{{form.labelHtmlClass}}" ng-class="{\'sr-only\': !showTitle()}" for="{{form.key.slice(-1)[0]}}">{{form.title}}</label> <textarea ng-if="!form.fieldAddonLeft && !form.fieldAddonRight" class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" sf-changed="form" placeholder="{{form.placeholder}}" ng-disabled="form.readonly" ng-model="$$value$$" ng-model-options="form.ngModelOptions" schema-validate="form" name="{{form.key.slice(-1)[0]}}"></textarea><div ng-if="form.fieldAddonLeft || form.fieldAddonRight" ng-class="{\'input-group\': (form.fieldAddonLeft || form.fieldAddonRight)}"><span ng-if="form.fieldAddonLeft" class="input-group-addon" ng-bind-html="form.fieldAddonLeft"></span> <textarea class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" sf-changed="form" placeholder="{{form.placeholder}}" ng-disabled="form.readonly" ng-model="$$value$$" ng-model-options="form.ngModelOptions" schema-validate="form" name="{{form.key.slice(-1)[0]}}"></textarea> <span ng-if="form.fieldAddonRight" class="input-group-addon" ng-bind-html="form.fieldAddonRight"></span></div><span class="help-block" sf-message="form.description"></span></div>');
-} ]), angular.module("schemaForm").config([ "schemaFormDecoratorsProvider", function(e) {
-var t = "directives/decorators/bootstrap/";
+}), angular.module("schemaForm").run([ "$templateCache", function(e) {
+e.put("decorators/bootstrap/actions-trcl.html", '<div class="btn-group schema-form-actions {{form.htmlClass}}" ng-transclude=""></div>'), e.put("decorators/bootstrap/actions.html", '<div class="btn-group schema-form-actions {{form.htmlClass}}"><input ng-repeat-start="item in form.items" type="submit" class="btn {{ item.style || \'btn-default\' }} {{form.fieldHtmlClass}}" value="{{item.title}}" ng-if="item.type === \'submit\'"> <button ng-repeat-end="" class="btn {{ item.style || \'btn-default\' }} {{form.fieldHtmlClass}}" type="button" ng-disabled="form.readonly" ng-if="item.type !== \'submit\'" ng-click="buttonClick($event,item)"><span ng-if="item.icon" class="{{item.icon}}"></span>{{item.title}}</button></div>'), e.put("decorators/bootstrap/array.html", '<div class="schema-form-array {{form.htmlClass}}" sf-field-model="sf-new-array" sf-new-array=""><label class="control-label" ng-show="showTitle()">{{ form.title }}</label><ol class="list-group" sf-field-model="" ui-sortable="form.sortOptions"><li class="list-group-item {{form.fieldHtmlClass}}" schema-form-array-items="" sf-field-model="ng-repeat" ng-repeat="item in $$value$$ track by $index"><button ng-hide="form.readonly || form.remove === null" ng-click="deleteFromArray($index)" ng-disabled="form.schema.minItems >= modelArray.length" style="position: relative; z-index: 20;" type="button" class="close pull-right"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></li></ol><div class="clearfix" style="padding: 15px;" ng-model="modelArray" schema-validate="form"><div class="help-block" ng-show="(hasError() && errorMessage(schemaError())) || form.description" ng-bind-html="(hasError() && errorMessage(schemaError())) || form.description"></div><button ng-hide="form.readonly || form.add === null" ng-click="appendToArray()" ng-disabled="form.schema.maxItems <= modelArray.length" type="button" class="btn {{ form.style.add || \'btn-default\' }} pull-right"><i class="glyphicon glyphicon-plus"></i> {{ form.add || \'Add\'}}</button></div></div>'), 
+e.put("decorators/bootstrap/checkbox.html", '<div class="checkbox schema-form-checkbox {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="{{form.labelHtmlClass}}"><input type="checkbox" sf-changed="form" ng-disabled="form.readonly" sf-field-model="" schema-validate="form" class="{{form.fieldHtmlClass}}" name="{{form.key.slice(-1)[0]}}"> <span ng-bind-html="form.title"></span></label><div class="help-block" sf-message="form.description"></div></div>'), e.put("decorators/bootstrap/checkboxes.html", '<div sf-field-model="sf-new-array" sf-new-array="" class="form-group schema-form-checkboxes {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="control-label {{form.labelHtmlClass}}" sf-field-model="" schema-validate="form" ng-show="showTitle()">{{form.title}}</label><div class="checkbox" ng-repeat="val in titleMapValues track by $index"><label><input type="checkbox" ng-disabled="form.readonly" sf-changed="form" class="{{form.fieldHtmlClass}}" ng-model="titleMapValues[$index]" name="{{form.key.slice(-1)[0]}}"> <span ng-bind-html="form.titleMap[$index].name"></span></label></div><div class="help-block" sf-message="form.description"></div></div>'), 
+e.put("decorators/bootstrap/default.html", '<div class="form-group schema-form-{{form.type}} {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess(), \'has-feedback\': form.feedback !== false }"><label class="control-label {{form.labelHtmlClass}}" ng-class="{\'sr-only\': !showTitle()}" for="{{form.key.slice(-1)[0]}}">{{form.title}}</label> <input ng-if="!form.fieldAddonLeft && !form.fieldAddonRight" ng-show="form.key" type="{{form.type}}" step="any" sf-changed="form" placeholder="{{form.placeholder}}" class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" sf-field-model="" ng-disabled="form.readonly" schema-validate="form" name="{{form.key.slice(-1)[0]}}" aria-describedby="{{form.key.slice(-1)[0] + \'Status\'}}"><div ng-if="form.fieldAddonLeft || form.fieldAddonRight" ng-class="{\'input-group\': (form.fieldAddonLeft || form.fieldAddonRight)}"><span ng-if="form.fieldAddonLeft" class="input-group-addon" ng-bind-html="form.fieldAddonLeft"></span> <input ng-show="form.key" type="{{form.type}}" step="any" sf-changed="form" placeholder="{{form.placeholder}}" class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" sf-field-model="" ng-disabled="form.readonly" schema-validate="form" name="{{form.key.slice(-1)[0]}}" aria-describedby="{{form.key.slice(-1)[0] + \'Status\'}}"> <span ng-if="form.fieldAddonRight" class="input-group-addon" ng-bind-html="form.fieldAddonRight"></span></div><span ng-if="form.feedback !== false" class="form-control-feedback" ng-class="evalInScope(form.feedback) || {\'glyphicon\': true, \'glyphicon-ok\': hasSuccess(), \'glyphicon-remove\': hasError() }" aria-hidden="true"></span> <span ng-if="hasError() || hasSuccess()" id="{{form.key.slice(-1)[0] + \'Status\'}}" class="sr-only">{{ hasSuccess() ? \'(success)\' : \'(error)\' }}</span><div class="help-block" sf-message="form.description"></div></div>'), 
+e.put("decorators/bootstrap/fieldset.html", '<fieldset ng-disabled="form.readonly" class="schema-form-fieldset {{form.htmlClass}}"><legend ng-class="{\'sr-only\': !showTitle() }">{{ form.title }}</legend><div class="help-block" ng-show="form.description" ng-bind-html="form.description"></div></fieldset>'), e.put("decorators/bootstrap/help.html", '<div class="helpvalue schema-form-helpvalue {{form.htmlClass}}" ng-bind-html="form.helpvalue"></div>'), e.put("decorators/bootstrap/radio-buttons.html", '<div class="form-group schema-form-radiobuttons {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><div><label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label></div><div class="btn-group"><label sf-field-model="replaceAll" class="btn {{ (item.value === $$value$$) ? form.style.selected || \'btn-default\' : form.style.unselected || \'btn-default\'; }}" ng-class="{ active: item.value === $$value$$ }" ng-repeat="item in form.titleMap"><input type="radio" class="{{form.fieldHtmlClass}}" sf-changed="form" style="display: none;" ng-disabled="form.readonly" sf-field-model="" schema-validate="form" ng-value="item.value" name="{{form.key.join(\'.\')}}"> <span ng-bind-html="item.name"></span></label></div><div class="help-block" sf-message="form.description"></div></div>'), 
+e.put("decorators/bootstrap/radios-inline.html", '<div class="form-group schema-form-radios-inline {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()" sf-field-model="" schema-validate="form">{{form.title}}</label><div><label class="radio-inline" ng-repeat="item in form.titleMap"><input type="radio" class="{{form.fieldHtmlClass}}" sf-changed="form" ng-disabled="form.readonly" sf-field-model="" ng-value="item.value" name="{{form.key.join(\'.\')}}"> <span ng-bind-html="item.name"></span></label></div><div class="help-block" sf-message="form.description"></div></div>'), e.put("decorators/bootstrap/radios.html", '<div class="form-group schema-form-radios {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="control-label {{form.labelHtmlClass}}" sf-field-model="" schema-validate="form" ng-show="showTitle()">{{form.title}}</label><div class="radio" ng-repeat="item in form.titleMap"><label><input type="radio" class="{{form.fieldHtmlClass}}" sf-changed="form" ng-disabled="form.readonly" sf-field-model="" ng-value="item.value" name="{{form.key.join(\'.\')}}"> <span ng-bind-html="item.name"></span></label></div><div class="help-block" sf-message="form.description"></div></div>'), 
+e.put("decorators/bootstrap/section.html", '<div class="schema-form-section {{form.htmlClass}}"></div>'), e.put("decorators/bootstrap/select.html", '<div class="form-group {{form.htmlClass}} schema-form-select" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess(), \'has-feedback\': form.feedback !== false}"><label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label><select sf-field-model="" ng-disabled="form.readonly" sf-changed="form" class="form-control {{form.fieldHtmlClass}}" schema-validate="form" ng-options="item.value as item.name group by item.group for item in form.titleMap" name="{{form.key.slice(-1)[0]}}"></select><div class="help-block" sf-message="form.description"></div></div>'), e.put("decorators/bootstrap/submit.html", '<div class="form-group schema-form-submit {{form.htmlClass}}"><input type="submit" class="btn {{ form.style || \'btn-primary\' }} {{form.fieldHtmlClass}}" value="{{form.title}}" ng-disabled="form.readonly" ng-if="form.type === \'submit\'"> <button class="btn {{ form.style || \'btn-default\' }}" type="button" ng-click="buttonClick($event,form)" ng-disabled="form.readonly" ng-if="form.type !== \'submit\'"><span ng-if="form.icon" class="{{form.icon}}"></span> {{form.title}}</button></div>'), 
+e.put("decorators/bootstrap/tabarray.html", '<div ng-init="selected = { tab: 0 }" ng-model="modelArray" schema-validate="form" sf-field-model="sf-new-array" sf-new-array="" class="clearfix schema-form-tabarray schema-form-tabarray-{{form.tabType || \'left\'}} {{form.htmlClass}}"><div ng-if="!form.tabType || form.tabType !== \'right\'" ng-class="{\'col-xs-3\': !form.tabType || form.tabType === \'left\'}"><ul class="nav nav-tabs" ng-class="{ \'tabs-left\': !form.tabType || form.tabType === \'left\'}"><li sf-field-model="ng-repeat" ng-repeat="item in $$value$$ track by $index" ng-click="$event.preventDefault() || (selected.tab = $index)" ng-class="{active: selected.tab === $index}"><a href="#">{{interp(form.title,{\'$index\':$index, value: item}) || $index}}</a></li><li ng-hide="form.readonly" ng-disabled="form.schema.maxItems <= modelArray.length" ng-click="$event.preventDefault() || (selected.tab = appendToArray().length - 1)"><a href="#"><i class="glyphicon glyphicon-plus"></i> {{ form.add || \'Add\'}}</a></li></ul></div><div ng-class="{\'col-xs-9\': !form.tabType || form.tabType === \'left\' || form.tabType === \'right\'}"><div class="tab-content {{form.fieldHtmlClass}}"><div class="tab-pane clearfix tab{{selected.tab}} index{{$index}}" sf-field-model="ng-repeat" ng-repeat="item in $$value$$ track by $index" ng-show="selected.tab === $index" ng-class="{active: selected.tab === $index}"><div schema-form-array-items=""></div><button ng-hide="form.readonly" ng-click="selected.tab = deleteFromArray($index).length - 1" ng-disabled="form.schema.minItems >= modelArray.length" type="button" class="btn {{ form.style.remove || \'btn-default\' }} pull-right"><i class="glyphicon glyphicon-trash"></i> {{ form.remove || \'Remove\'}}</button></div><div class="help-block" ng-show="(hasError() && errorMessage(schemaError())) || form.description" ng-bind-html="(hasError() && errorMessage(schemaError())) || form.description"></div></div></div></div><div ng-if="form.tabType === \'right\'" class="col-xs-3"><ul class="nav nav-tabs tabs-right"><li sf-field-model="ng-repeat" ng-repeat="item in $$value$$ track by $index" ng-click="$event.preventDefault() || (selected.tab = $index)" ng-class="{active: selected.tab === $index}"><a href="#">{{interp(form.title,{\'$index\':$index, value: item}) || $index}}</a></li><li ng-hide="form.readonly" ng-disabled="form.schema.maxItems <= modelArray.length" ng-click="$event.preventDefault() || (selected.tab = appendToArray().length - 1)"><a href="#"><i class="glyphicon glyphicon-plus"></i> {{ form.add || \'Add\'}}</a></li></ul></div>'), 
+e.put("decorators/bootstrap/tabs.html", '<div ng-init="selected = { tab: 0 }" class="schema-form-tabs {{form.htmlClass}}"><ul class="nav nav-tabs"><li ng-repeat="tab in form.tabs" ng-disabled="form.readonly" ng-click="$event.preventDefault() || (selected.tab = $index)" ng-class="{active: selected.tab === $index}"><a href="#">{{ tab.title }}</a></li></ul><div class="tab-content {{form.fieldHtmlClass}}"></div></div>'), e.put("decorators/bootstrap/textarea.html", '<div class="form-group has-feedback {{form.htmlClass}} schema-form-textarea" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="control-label {{form.labelHtmlClass}}" ng-class="{\'sr-only\': !showTitle()}" for="{{form.key.slice(-1)[0]}}">{{form.title}}</label> <textarea ng-if="!form.fieldAddonLeft && !form.fieldAddonRight" class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" sf-changed="form" placeholder="{{form.placeholder}}" ng-disabled="form.readonly" sf-field-model="" schema-validate="form" name="{{form.key.slice(-1)[0]}}"></textarea><div ng-if="form.fieldAddonLeft || form.fieldAddonRight" ng-class="{\'input-group\': (form.fieldAddonLeft || form.fieldAddonRight)}"><span ng-if="form.fieldAddonLeft" class="input-group-addon" ng-bind-html="form.fieldAddonLeft"></span> <textarea class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" sf-changed="form" placeholder="{{form.placeholder}}" ng-disabled="form.readonly" sf-field-model="" schema-validate="form" name="{{form.key.slice(-1)[0]}}"></textarea> <span ng-if="form.fieldAddonRight" class="input-group-addon" ng-bind-html="form.fieldAddonRight"></span></div><span class="help-block" sf-message="form.description"></span></div>');
+} ]), angular.module("schemaForm").config([ "schemaFormDecoratorsProvider", "sfBuilderProvider", "sfPathProvider", function(e, t, n) {
+var i = "decorators/bootstrap/", r = t.builders.simpleTransclusion, o = t.builders.ngModelOptions, a = t.builders.ngModel, s = t.builders.sfField, l = t.builders.condition, c = t.builders.array, u = [ s, a, o, l ];
 e.defineDecorator("bootstrapDecorator", {
 textarea: {
-template: t + "textarea.html",
-replace: !1
+template: i + "textarea.html",
+builder: u
 },
 fieldset: {
-template: t + "fieldset.html",
-replace: !1
+template: i + "fieldset.html",
+builder: [ s, r, l ]
 },
 array: {
-template: t + "array.html",
-replace: !1
+template: i + "array.html",
+builder: [ s, o, a, c, l ]
 },
 tabarray: {
-template: t + "tabarray.html",
-replace: !1
+template: i + "tabarray.html",
+builder: [ s, o, a, c, l ]
 },
 tabs: {
-template: t + "tabs.html",
-replace: !1
+template: i + "tabs.html",
+builder: [ s, o, function(e) {
+if (e.form.tabs && e.form.tabs.length > 0) {
+var t = e.fieldFrag.querySelector(".tab-content");
+e.form.tabs.forEach(function(n, i) {
+var r = document.createElement("div");
+r.className = "tab-pane", r.setAttribute("ng-disabled", "form.readonly"), r.setAttribute("ng-show", "selected.tab === " + i), r.setAttribute("ng-class", "{active: selected.tab === " + i + "}");
+var o = e.build(n.items, e.path + ".tabs[" + i + "].items", e.state);
+r.appendChild(o), t.appendChild(r);
+});
+}
+}, l ]
 },
 section: {
-template: t + "section.html",
-replace: !1
+template: i + "section.html",
+builder: [ s, r, l ]
 },
 conditional: {
-template: t + "section.html",
-replace: !1
+template: i + "section.html",
+builder: [ s, r, l ]
 },
 actions: {
-template: t + "actions.html",
-replace: !1
+template: i + "actions.html",
+builder: u
 },
 select: {
-template: t + "select.html",
-replace: !1
+template: i + "select.html",
+builder: u
 },
 checkbox: {
-template: t + "checkbox.html",
-replace: !1
+template: i + "checkbox.html",
+builder: u
 },
 checkboxes: {
-template: t + "checkboxes.html",
-replace: !1
+template: i + "checkboxes.html",
+builder: [ s, o, a, c, l ]
 },
 number: {
-template: t + "default.html",
-replace: !1
+template: i + "default.html",
+builder: u
 },
 password: {
-template: t + "default.html",
-replace: !1
+template: i + "default.html",
+builder: u
 },
 submit: {
-template: t + "submit.html",
-replace: !1
+template: i + "submit.html",
+builder: u
 },
 button: {
-template: t + "submit.html",
-replace: !1
+template: i + "submit.html",
+builder: u
 },
 radios: {
-template: t + "radios.html",
-replace: !1
+template: i + "radios.html",
+builder: u
 },
 "radios-inline": {
-template: t + "radios-inline.html",
-replace: !1
+template: i + "radios-inline.html",
+builder: u
 },
 radiobuttons: {
-template: t + "radio-buttons.html",
-replace: !1
+template: i + "radio-buttons.html",
+builder: u
 },
 help: {
-template: t + "help.html",
-replace: !1
+template: i + "help.html",
+builder: u
 },
 default: {
-template: t + "default.html",
-replace: !1
+template: i + "default.html",
+builder: u
 }
-}, []), e.createDirectives({
-textarea: t + "textarea.html",
-select: t + "select.html",
-checkbox: t + "checkbox.html",
-checkboxes: t + "checkboxes.html",
-number: t + "default.html",
-submit: t + "submit.html",
-button: t + "submit.html",
-text: t + "default.html",
-date: t + "default.html",
-password: t + "default.html",
-datepicker: t + "datepicker.html",
-input: t + "default.html",
-radios: t + "radios.html",
-"radios-inline": t + "radios-inline.html",
-radiobuttons: t + "radio-buttons.html"
-});
-} ]).directive("sfFieldset", function() {
-return {
-transclude: !0,
-scope: !0,
-templateUrl: "directives/decorators/bootstrap/fieldset-trcl.html",
-link: function(e, t, n) {
-e.title = e.$eval(n.title);
-}
-};
-}), e;
-}), angular.module("schemaForm").run([ "$templateCache", function(e) {
+}, []);
+} ]), angular.module("schemaForm").run([ "$templateCache", function(e) {
 e.put("decorators/bootstrap/actions-trcl.html", '<div class="btn-group schema-form-actions {{form.htmlClass}}" ng-transclude=""></div>'), e.put("decorators/bootstrap/actions.html", '<div class="btn-group schema-form-actions {{form.htmlClass}}"><input ng-repeat-start="item in form.items" type="submit" class="btn {{ item.style || \'btn-default\' }} {{form.fieldHtmlClass}}" value="{{item.title}}" ng-if="item.type === \'submit\'"> <button ng-repeat-end="" class="btn {{ item.style || \'btn-default\' }} {{form.fieldHtmlClass}}" type="button" ng-disabled="form.readonly" ng-if="item.type !== \'submit\'" ng-click="buttonClick($event,item)"><span ng-if="item.icon" class="{{item.icon}}"></span>{{item.title}}</button></div>'), e.put("decorators/bootstrap/array.html", '<div class="schema-form-array {{form.htmlClass}}" sf-field-model="sf-new-array" sf-new-array=""><label class="control-label" ng-show="showTitle()">{{ form.title }}</label><ol class="list-group" sf-field-model="" ui-sortable="form.sortOptions"><li class="list-group-item {{form.fieldHtmlClass}}" schema-form-array-items="" sf-field-model="ng-repeat" ng-repeat="item in $$value$$ track by $index"><button ng-hide="form.readonly || form.remove === null" ng-click="deleteFromArray($index)" ng-disabled="form.schema.minItems >= modelArray.length" style="position: relative; z-index: 20;" type="button" class="close pull-right"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></li></ol><div class="clearfix" style="padding: 15px;" ng-model="modelArray" schema-validate="form"><div class="help-block" ng-show="(hasError() && errorMessage(schemaError())) || form.description" ng-bind-html="(hasError() && errorMessage(schemaError())) || form.description"></div><button ng-hide="form.readonly || form.add === null" ng-click="appendToArray()" ng-disabled="form.schema.maxItems <= modelArray.length" type="button" class="btn {{ form.style.add || \'btn-default\' }} pull-right"><i class="glyphicon glyphicon-plus"></i> {{ form.add || \'Add\'}}</button></div></div>'), 
 e.put("decorators/bootstrap/checkbox.html", '<div class="checkbox schema-form-checkbox {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="{{form.labelHtmlClass}}"><input type="checkbox" sf-changed="form" ng-disabled="form.readonly" sf-field-model="" schema-validate="form" class="{{form.fieldHtmlClass}}" name="{{form.key.slice(-1)[0]}}"> <span ng-bind-html="form.title"></span></label><div class="help-block" sf-message="form.description"></div></div>'), e.put("decorators/bootstrap/checkboxes.html", '<div sf-field-model="sf-new-array" sf-new-array="" class="form-group schema-form-checkboxes {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess()}"><label class="control-label {{form.labelHtmlClass}}" sf-field-model="" schema-validate="form" ng-show="showTitle()">{{form.title}}</label><div class="checkbox" ng-repeat="val in titleMapValues track by $index"><label><input type="checkbox" ng-disabled="form.readonly" sf-changed="form" class="{{form.fieldHtmlClass}}" ng-model="titleMapValues[$index]" name="{{form.key.slice(-1)[0]}}"> <span ng-bind-html="form.titleMap[$index].name"></span></label></div><div class="help-block" sf-message="form.description"></div></div>'), 
 e.put("decorators/bootstrap/default.html", '<div class="form-group schema-form-{{form.type}} {{form.htmlClass}}" ng-class="{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess(), \'has-feedback\': form.feedback !== false }"><label class="control-label {{form.labelHtmlClass}}" ng-class="{\'sr-only\': !showTitle()}" for="{{form.key.slice(-1)[0]}}">{{form.title}}</label> <input ng-if="!form.fieldAddonLeft && !form.fieldAddonRight" ng-show="form.key" type="{{form.type}}" step="any" sf-changed="form" placeholder="{{form.placeholder}}" class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" sf-field-model="" ng-disabled="form.readonly" schema-validate="form" name="{{form.key.slice(-1)[0]}}" aria-describedby="{{form.key.slice(-1)[0] + \'Status\'}}"><div ng-if="form.fieldAddonLeft || form.fieldAddonRight" ng-class="{\'input-group\': (form.fieldAddonLeft || form.fieldAddonRight)}"><span ng-if="form.fieldAddonLeft" class="input-group-addon" ng-bind-html="form.fieldAddonLeft"></span> <input ng-show="form.key" type="{{form.type}}" step="any" sf-changed="form" placeholder="{{form.placeholder}}" class="form-control {{form.fieldHtmlClass}}" id="{{form.key.slice(-1)[0]}}" sf-field-model="" ng-disabled="form.readonly" schema-validate="form" name="{{form.key.slice(-1)[0]}}" aria-describedby="{{form.key.slice(-1)[0] + \'Status\'}}"> <span ng-if="form.fieldAddonRight" class="input-group-addon" ng-bind-html="form.fieldAddonRight"></span></div><span ng-if="form.feedback !== false" class="form-control-feedback" ng-class="evalInScope(form.feedback) || {\'glyphicon\': true, \'glyphicon-ok\': hasSuccess(), \'glyphicon-remove\': hasError() }" aria-hidden="true"></span> <span ng-if="hasError() || hasSuccess()" id="{{form.key.slice(-1)[0] + \'Status\'}}" class="sr-only">{{ hasSuccess() ? \'(success)\' : \'(error)\' }}</span><div class="help-block" sf-message="form.description"></div></div>'), 
@@ -78740,34 +78780,6 @@ icon: "fa fa-cubes",
 url: "https://www.redhat.com/en/technologies/management",
 description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.  This is way too long! Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
 } ], a = [ {
-id: "eams",
-label: "数人云微服务治理",
-subCategories: [ {
-id: "octopus",
-label: "Octopus",
-tags: [ "octopus" ],
-icon: "icon-octopus-m"
-}, {
-id: "squid",
-label: "Squid",
-tags: [ "squid" ],
-icon: "icon-squid-m"
-}, {
-id: "hawk",
-label: "Hawk",
-tags: [ "hawk" ],
-icon: "icon-hawk-m"
-} ]
-}, {
-id: "dmos",
-label: "数人云基础服务",
-subCategories: [ {
-id: "monitor",
-label: "Monitor",
-tags: [ "monitor" ],
-iconClass: "font-icon icon-monitor-m"
-} ]
-}, {
 id: "languages",
 label: "Languages",
 subCategories: [ {
@@ -79466,11 +79478,11 @@ localStorage.setItem("catalog-recently-viewed-services", JSON.stringify(e)), thi
 }();
 r.$inject = [ "$rootScope" ], t.RecentlyViewedServiceItems = r;
 }, function(e, t) {
-e.exports = '<pf-filter-panel config="$ctrl.config">\n  <div class="filter-panel-container">\n    <input type="text" ng-model="$ctrl.keywordFilter.value"\n           class="keyword-filter form-control"\n           placeholder="{{$ctrl.keywordFilter.placeholder}}"\n           ng-keypress="$ctrl.onKeywordKeyPress($event)"\n           autocorrect="off"\n           autocapitalize="none"\n           spellcheck="false">\n    <div class="category" ng-repeat="filter in $ctrl.filterPanelModel" ng-if="!$first">\n      {{filter.title}}\n      <span\n        class="pficon pficon-info vendor-info-icon"\n        data-toggle="tooltip"\n        aria-hidden="true"\n\tdata-original-title="{{\'This filter will only apply to items which contain publisher information. Items that do not have a publisher will not be shown in the filter results.\'|translate}}">\n      </span>\n      <ul>\n        <li ng-repeat="value in filter.values">\n          <div class="checkbox">\n            <label class="category-option-label">\n              <input type="checkbox"\n                     ng-model="value.selected"\n                     ng-change="$ctrl.filterChanged()">\n              {{value.title}}\n            </label>\n          </div>\n        </li>\n      </ul>\n    </div>\n  </div>\n</pf-filter-panel>\n';
+e.exports = '<pf-filter-panel config="$ctrl.config">\n  <div class="filter-panel-container">\n    <input type="text" ng-model="$ctrl.keywordFilter.value"\n           class="keyword-filter form-control"\n           placeholder="{{$ctrl.keywordFilter.placeholder}}"\n           ng-keypress="$ctrl.onKeywordKeyPress($event)"\n           autocorrect="off"\n           autocapitalize="none"\n           spellcheck="false">\n    <div class="category" ng-repeat="filter in $ctrl.filterPanelModel" ng-if="!$first">\n      {{filter.title}}\n      <span\n        class="pficon pficon-info vendor-info-icon"\n        data-toggle="tooltip"\n        aria-hidden="true"\n        data-original-title="This filter will only apply to items which contain publisher information. Items that do not have a publisher will not be shown in the filter results.">\n      </span>\n      <ul>\n        <li ng-repeat="value in filter.values">\n          <div class="checkbox">\n            <label class="category-option-label">\n              <input type="checkbox"\n                     ng-model="value.selected"\n                     ng-change="$ctrl.filterChanged()">\n              {{value.title}}\n            </label>\n          </div>\n        </li>\n      </ul>\n    </div>\n  </div>\n</pf-filter-panel>\n';
 }, function(e, t) {
 e.exports = '\x3c!-- Use angular-schema-form to show a form based on the parameter JSON schema. --\x3e\n<ng-form class="catalog-parameters" ng-class="{\'readonly\': $ctrl.readOnly}"\n  sf-model="$ctrl.hideValues ? $ctrl.hiddenModel : $ctrl.model"\n  sf-form="$ctrl.parameterForm"\n  sf-schema="$ctrl.readOnly ? $ctrl.readonlyParameterSchema : $ctrl.parameterSchema"\n  sf-options="$ctrl.parameterFormDefaults">\n</ng-form>\n';
 }, function(e, t) {
-e.exports = '<div class="catalog-search" ng-class="{\'mobile-shown\': $ctrl.mobileSearchInputShown}">\n  <button\n     ng-if="$ctrl.toggleAtMobile"\n     title="Catalog Search"\n     class="catalog-search-toggle visible-xs-inline-block btn btn-link"\n     ng-click="$ctrl.toggleMobileShowSearchInput()">\n    <i class="fa fa-search" aria-hidden="true"></i>\n    <span class="sr-only">Catalog Search</span>\n  </button>\n  <form role="form" class="landing-search-form search-pf has-button" ng-class="{\'hidden-xs\': $ctrl.toggleAtMobile}">\n    <div class="form-group has-clear">\n      <div class="search-pf-input-group">\n        <label for="search-input" class="sr-only" translate>Search Catalog</label>\n        <span class="fa fa-search catalog-search-icon" aria-hidden="true" ng-click="$ctrl.setSearchInputFocus()"></span>\n        <input\n            id="search-input"\n            type="search"\n            autocomplete="off"\n            ng-keypress="$ctrl.onKeyPress($event)"\n            class="form-control catalog-search-input"\n            placeholder="{{\'Search Catalog\'|translate}}"\n            ng-model="$ctrl.searchText"\n            uib-typeahead="item.name for item in $ctrl.search($viewValue)"\n            typeahead-on-select="$ctrl.itemSelected($item)"\n            typeahead-focus-first="false"\n            typeahead-template-url="catalog-search/catalog-search-result.html"\n            autocorrect="off"\n            autocapitalize="off"\n            spellcheck="false">\n        <button\n            type="button"\n            ng-if="$ctrl.searchText"\n            ng-click="$ctrl.searchText = \'\'"\n            class="clear">\n          <span class="sr-only" translate>Clear Search Input</span>\n          <span class="pficon pficon-close" aria-hidden="true"></span>\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n';
+e.exports = '<div class="catalog-search" ng-class="{\'mobile-shown\': $ctrl.mobileSearchInputShown}">\n  <button\n     ng-if="$ctrl.toggleAtMobile"\n     title="Catalog Search"\n     class="catalog-search-toggle visible-xs-inline-block btn btn-link"\n     ng-click="$ctrl.toggleMobileShowSearchInput()">\n    <i class="fa fa-search" aria-hidden="true"></i>\n    <span class="sr-only">Catalog Search</span>\n  </button>\n  <form role="form" class="landing-search-form search-pf has-button" ng-class="{\'hidden-xs\': $ctrl.toggleAtMobile}">\n    <div class="form-group has-clear">\n      <div class="search-pf-input-group">\n        <label for="search-input" class="sr-only">Search Catalog</label>\n        <span class="fa fa-search catalog-search-icon" aria-hidden="true" ng-click="$ctrl.setSearchInputFocus()"></span>\n        <input\n            id="search-input"\n            type="search"\n            autocomplete="off"\n            ng-keypress="$ctrl.onKeyPress($event)"\n            class="form-control catalog-search-input"\n            placeholder="Search Catalog"\n            ng-model="$ctrl.searchText"\n            uib-typeahead="item.name for item in $ctrl.search($viewValue)"\n            typeahead-on-select="$ctrl.itemSelected($item)"\n            typeahead-focus-first="false"\n            typeahead-template-url="catalog-search/catalog-search-result.html"\n            autocorrect="off"\n            autocapitalize="off"\n            spellcheck="false">\n        <button\n            type="button"\n            ng-if="$ctrl.searchText"\n            ng-click="$ctrl.searchText = \'\'"\n            class="clear">\n          <span class="sr-only">Clear Search Input</span>\n          <span class="pficon pficon-close" aria-hidden="true"></span>\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n';
 }, function(e, t) {
 e.exports = '<div class="order-service">\n  <pf-wizard\n       wizard-title="{{$ctrl.imageStream.name}}"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       current-step="$ctrl.currentStep"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by $index"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowClickNav"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div class="order-service-config">\n          <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n        </div>\n      </div>\n    </pf-wizard-step>\n  </pf-wizard>\n</div>\n';
 }, function(e, t) {
@@ -79488,41 +79500,41 @@ e.exports = '<div class="select-plans">\n  <h3 ng-if="$ctrl.availablePlans.lengt
 }, function(e, t) {
 e.exports = '<span ng-if="$ctrl.noProjectsCantCreate" class="no-projects-cant-create">\n  <pf-empty-state config="$ctrl.noProjectsConfig"></pf-empty-state>\n  <p ng-if="!$ctrl.noProjectsCantCreateMessage">\n    A cluster admin can create a project for you by running the command:\n    <div class="code-block">\n      <code>oc adm <span class="command-arg">new-project</span> &lt;projectname&gt; <span class="command-arg">--admin={{$ctrl.user.metadata.name || \'&lt;YourUsername&gt;\'}}</span></code>\n    </div>\n  </p>\n  <div ng-if="$ctrl.noProjectsCantCreateMessage" ng-bind-html="$ctrl.noProjectsCantCreateMessage | linky : \'_blank\'"></div>\n</span>\n\n\x3c!-- Use `ng-show` instead of `ng-if` so that the form exists and the `canI` works when projects load. --\x3e\n<ng-form name="$ctrl.forms.selectProjectForm" ng-show="$ctrl.numProjectChoices >= 1">\n  <div class="form-group" ng-class="{\'has-error\' : $ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject ||\n                                                   ($ctrl.forms.selectProjectForm.selectProject.$touched &&\n                                                    $ctrl.forms.selectProjectForm.selectProject.$invalid)}">\n    <h3 ng-if="$ctrl.canOnlyCreateProject()">Create Project</h3>\n    <label ng-if="!$ctrl.canOnlyCreateProject() && !$ctrl.hideLabel" class="control-label required">Add to Project</label>\n    <ui-select\n        ng-if="!$ctrl.canOnlyCreateProject()"\n        ng-disabled="$ctrl.numProjectChoices === 1"\n        name="selectProject"\n        ng-model="$ctrl.selectedProject"\n        ng-change="$ctrl.onSelectProjectChange()"\n        ng-required="$ctrl.isRequired"\n        search-enabled="$ctrl.searchEnabled"\n        uis-open-close="$ctrl.onOpenClose(isOpen)">\n      <ui-select-match placeholder="{{$ctrl.placeholder}}">\n        {{$select.selected | displayName}}\n      </ui-select-match>\n      \x3c!-- refresh-delay must be set using ng-attr-refresh-delay to work as a dynamic value --\x3e\n      <ui-select-choices\n          repeat="project in $ctrl.getProjectChoices() track by (project | uid)"\n          refresh="$ctrl.refreshChoices($select.search)"\n          ng-attr-refresh-delay="{{$ctrl.refreshDelay}}"\n          group-by="$ctrl.groupChoicesBy">\n        <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>\n        <span ng-if="project | displayName : true" class="small text-muted">\n          <span ng-if="project.metadata.name">&ndash;</span>\n          <span ng-bind-html="project.metadata.name | highlightKeywords : $select.search"></span>\n        </span>\n      </ui-select-choices>\n    </ui-select>\n    <div ng-if="$ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject">\n        <span class="help-block">\n          You are not authorized to add to this project.\n        </span>\n    </div>\n    <div class="has-error" ng-if="$ctrl.forms.selectProjectForm.selectProject.$error.required &&\n                                  $ctrl.forms.selectProjectForm.selectProject.$touched">\n      <span class="help-block">\n        Please select <span ng-if="$ctrl.canCreate && !$ctrl.hideCreateProject">or create</span> a project.\n      </span>\n    </div>\n  </div>\n</ng-form>\n\n<ng-form name="$ctrl.forms.createProjectForm"\n    ng-if="$ctrl.isNewProject()">\n  <div class="form-group">\n    <label for="name" class="control-label required">Project Name</label>\n    <div ng-class="{\'has-error\': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) ||\n                                 $ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique}">\n      <input class="form-control"\n          name="name"\n          id="name"\n          placeholder="my-project"\n          type="text"\n          required\n          take-focus\n          minlength="2"\n          maxlength="63"\n          pattern="[a-z0-9]([-a-z0-9]*[a-z0-9])?"\n          aria-describedby="nameHelp"\n          ng-model="$ctrl.selectedProject.metadata.name"\n          osc-unique="$ctrl.existingProjectNames"\n          ng-model-options="{ updateOn: \'default blur\' }"\n          ng-change="$ctrl.onNewProjectNameChange()"\n          autocorrect="off"\n          autocapitalize="off"\n          spellcheck="false">\n    </div>\n    <div class="help-block">A unique name for the project.</div>\n    <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.minlength && $ctrl.forms.createProjectForm.name.$touched">\n      <span id="nameHelp" class="help-block">\n        Name must have at least two characters.\n      </span>\n    </div>\n    <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched">\n      <span id="nameHelp" class="help-block">\n        Project names may only contain lower-case letters, numbers, and dashes.\n        They may not start or end with a dash.\n      </span>\n    </div>\n    <div class="has-error" ng-if="$ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique">\n      <span class="help-block">\n        This name is already in use. Please choose a different name.\n      </span>\n    </div>\n  </div>\n\n  <div class="form-group">\n    <label for="displayName" class="control-label">Project Display Name</label>\n    <input class="form-control"\n      name="displayName"\n      id="displayName"\n      placeholder="My Project"\n      type="text"\n      ng-model="$ctrl.selectedProject.metadata.annotations[\'new-display-name\']">\n  </div>\n\n  <div class="form-group">\n    <label for="description" class="control-label">Project Description</label>\n    <textarea class="form-control"\n      name="description"\n      id="description"\n      placeholder="A short description."\n      ng-model="$ctrl.selectedProject.metadata.annotations[\'openshift.io/description\']"></textarea>\n  </div>\n</ng-form>\n<div ng-if="!$ctrl.noProjectsCantCreate && $ctrl.showDivider" class="select-project-divider"></div>\n\n';
 }, function(e, t) {
-e.exports = '<div class="services-view" ng-style="$ctrl.viewStyle">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">\n    <div class="add-methods">\n      <h1>{{$ctrl.sectionTitle}}</h1>\n      <div ng-if="$ctrl.onDeployImageSelected || $ctrl.onFromFileSelected || $ctrl.onCreateFromProject">\n        <ul class="add-other hidden-md hidden-lg">\n          <li uib-dropdown="" class="dropdown">\n            <a uib-dropdown-toggle="" class="dropdown-toggle" id="add-methods-dropdown" href="" aria-haspopup="true" aria-expanded="false">\n              Custom Add\n              <span class="caret" aria-hidden="true"></span>\n            </a>\n            <ul class="uib-dropdown-menu dropdown-menu pull-right" aria-labelledby="add-methods-dropdown">\n              \x3c!-- note these are duplicated below --\x3e\n              <li ng-if="$ctrl.onDeployImageSelected">\n                <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>\n              </li>\n              <li ng-if="$ctrl.onFromFileSelected">\n                <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>\n              </li>\n              <li ng-if="$ctrl.onCreateFromProject">\n                <a href="" ng-click="$ctrl.onCreateFromProject()">Select from Project</a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n        <ul class="add-other hidden-xs hidden-sm">\n          \x3c!-- note these are duplicated above --\x3e\n          <li ng-if="$ctrl.onDeployImageSelected">\n            <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>\n          </li>\n          <li ng-if="$ctrl.onFromFileSelected">\n            <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>\n          </li>\n          <li ng-if="$ctrl.onCreateFromProject">\n            <a href="" ng-click="$ctrl.onCreateFromProject()">Select from Project</a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <ul class="nav nav-tabs nav-tabs-pf services-categories">\n      <li ng-repeat="category in $ctrl.categories"\n          ng-if="category.hasItems"\n          ng-class="{ active: $ctrl.currentFilter === category.id }">\n        <a href="" id="{{\'category-\'+category.id}}" class="services-category-heading" ng-click="$ctrl.selectCategory(category.id)">{{category.label|translate}}</a>\n        <a ng-click="$ctrl.mobileView = \'categories\'" class="services-back-link" href="">Back</a>\n      </li>\n    </ul>\n\n    <div class="services-inner-container">\n      \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n      <ul class="services-sub-categories"\n          ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n        <li ng-repeat="subCategory in $ctrl.subCategories track by subCategory.id"\n             ng-if="subCategory.hasItems"\n             ng-attr-id="{{subCategory.id}}"\n             class="services-sub-category"\n             ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">\n          <a href="" id="{{\'services-sub-category-\'+subCategory.id}}"\n             class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n            <div class="services-sub-category-tab-image" ng-if="imageUrl = (subCategory.imageUrl || (subCategory.icon | imageForIconClass))">\n              <img ng-src="{{imageUrl}}" alt="">\n            </div>\n            <div class="services-sub-category-tab-icon {{subCategory.icon | normalizeIconClass}}"\n                ng-if="subCategory.icon && !subCategory.imageUrl && !(subCategory.icon | imageForIconClass)"></div>\n            <div class="services-sub-category-tab-name">{{subCategory.label|translate}}</div>\n          </a>\n         <a ng-click="$ctrl.mobileView = \'subcategories\'" class="services-back-link" href="" translate>Back</a>\n          <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">\n            <catalog-filter class="services-items-filter"\n                            config="$ctrl.filterConfig"\n                            vendors="$ctrl.vendors"\n                            filter-on-keyword="$ctrl.keywordFilterValue"\n                            apply-filters="$ctrl.applyFilters($event)">\n            </catalog-filter>\n            <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">\n              <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>\n            </div>\n            <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">\n              <div ng-if="!item.imageUrl" class="services-item-icon">\n                <span class="{{item.iconClass}}"></span>\n              </div>\n              <div ng-if="item.imageUrl" class="services-item-icon">\n                <img ng-src="{{item.imageUrl}}" alt="">\n              </div>\n              <div class="services-item-name" title="{{item.name}}">\n                {{item.name}}\n              </div>\n            </a>\n          </div>\n        </li>\n      </ul>\n\n      \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n      <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-no-sub-categories">\n        <div class="services-items" ng-class="{\'no-items-available\': $ctrl.isEmpty}">\n          <div ng-if="$ctrl.isEmpty">\n            <div class="pf-empty-state">\n              <pf-empty-state config="$ctrl.noItemsConfig"></pf-empty-state>\n            </div>\n          </div>\n          <catalog-filter ng-if="!$ctrl.isEmpty"\n                          class="services-items-filter"\n                          config="$ctrl.filterConfig"\n                          vendors="$ctrl.vendors"\n                          filter-on-keyword="$ctrl.keywordFilterValue"\n                          apply-filters="$ctrl.applyFilters($event)">\n          </catalog-filter>\n          <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">\n            <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>\n          </div>\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
+e.exports = '<div class="services-view" ng-style="$ctrl.viewStyle">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">\n    <div class="add-methods">\n      <h1>{{$ctrl.sectionTitle}}</h1>\n      <div ng-if="$ctrl.onDeployImageSelected || $ctrl.onFromFileSelected || $ctrl.onCreateFromProject">\n        <ul class="add-other hidden-md hidden-lg">\n          <li uib-dropdown="" class="dropdown">\n            <a uib-dropdown-toggle="" class="dropdown-toggle" id="add-methods-dropdown" href="" aria-haspopup="true" aria-expanded="false">\n              Custom Add\n              <span class="caret" aria-hidden="true"></span>\n            </a>\n            <ul class="uib-dropdown-menu dropdown-menu pull-right" aria-labelledby="add-methods-dropdown">\n              \x3c!-- note these are duplicated below --\x3e\n              <li ng-if="$ctrl.onDeployImageSelected">\n                <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>\n              </li>\n              <li ng-if="$ctrl.onFromFileSelected">\n                <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>\n              </li>\n              <li ng-if="$ctrl.onCreateFromProject">\n                <a href="" ng-click="$ctrl.onCreateFromProject()">Select from Project</a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n        <ul class="add-other hidden-xs hidden-sm">\n          \x3c!-- note these are duplicated above --\x3e\n          <li ng-if="$ctrl.onDeployImageSelected">\n            <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>\n          </li>\n          <li ng-if="$ctrl.onFromFileSelected">\n            <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>\n          </li>\n          <li ng-if="$ctrl.onCreateFromProject">\n            <a href="" ng-click="$ctrl.onCreateFromProject()">Select from Project</a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <ul class="nav nav-tabs nav-tabs-pf services-categories">\n      <li ng-repeat="category in $ctrl.categories"\n          ng-if="category.hasItems"\n          ng-class="{ active: $ctrl.currentFilter === category.id }">\n        <a href="" id="{{\'category-\'+category.id}}" class="services-category-heading" ng-click="$ctrl.selectCategory(category.id)">{{category.label}}</a>\n        <a ng-click="$ctrl.mobileView = \'categories\'" class="services-back-link" href="">Back</a>\n      </li>\n    </ul>\n\n    <div class="services-inner-container">\n      \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n      <ul class="services-sub-categories"\n          ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n        <li ng-repeat="subCategory in $ctrl.subCategories track by subCategory.id"\n             ng-if="subCategory.hasItems"\n             ng-attr-id="{{subCategory.id}}"\n             class="services-sub-category"\n             ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">\n          <a href="" id="{{\'services-sub-category-\'+subCategory.id}}"\n             class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n            <div class="services-sub-category-tab-image" ng-if="imageUrl = (subCategory.imageUrl || (subCategory.icon | imageForIconClass))">\n              <img ng-src="{{imageUrl}}" alt="">\n            </div>\n            <div class="services-sub-category-tab-icon {{subCategory.icon | normalizeIconClass}}"\n                ng-if="subCategory.icon && !subCategory.imageUrl && !(subCategory.icon | imageForIconClass)"></div>\n            <div class="services-sub-category-tab-name">{{subCategory.label}}</div>\n          </a>\n         <a ng-click="$ctrl.mobileView = \'subcategories\'" class="services-back-link" href="">Back</a>\n          <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">\n            <catalog-filter class="services-items-filter"\n                            config="$ctrl.filterConfig"\n                            vendors="$ctrl.vendors"\n                            filter-on-keyword="$ctrl.keywordFilterValue"\n                            apply-filters="$ctrl.applyFilters($event)">\n            </catalog-filter>\n            <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">\n              <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>\n            </div>\n            <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">\n              <div ng-if="!item.imageUrl" class="services-item-icon">\n                <span class="{{item.iconClass}}"></span>\n              </div>\n              <div ng-if="item.imageUrl" class="services-item-icon">\n                <img ng-src="{{item.imageUrl}}" alt="">\n              </div>\n              <div class="services-item-name" title="{{item.name}}">\n                {{item.name}}\n              </div>\n            </a>\n          </div>\n        </li>\n      </ul>\n\n      \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n      <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-no-sub-categories">\n        <div class="services-items" ng-class="{\'no-items-available\': $ctrl.isEmpty}">\n          <div ng-if="$ctrl.isEmpty">\n            <div class="pf-empty-state">\n              <pf-empty-state config="$ctrl.noItemsConfig"></pf-empty-state>\n            </div>\n          </div>\n          <catalog-filter ng-if="!$ctrl.isEmpty"\n                          class="services-items-filter"\n                          config="$ctrl.filterConfig"\n                          vendors="$ctrl.vendors"\n                          filter-on-keyword="$ctrl.keywordFilterValue"\n                          apply-filters="$ctrl.applyFilters($event)">\n          </catalog-filter>\n          <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">\n            <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>\n          </div>\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
 e.exports = '<div class="order-service">\n  <pf-wizard wizard-title="{{$ctrl.displayName}}"\n             hide-sidebar="true"\n             step-class="order-service-wizard-step"\n             wizard-ready="$ctrl.wizardReady"\n             next-title="$ctrl.nextTitle"\n             on-finish="$ctrl.closePanel()"\n             on-cancel="$ctrl.closePanel()"\n             wizard-done="$ctrl.wizardDone"\n             hide-back-button="{{$ctrl.hideBackButton}}">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by step.id"\n                    step-title="{{step.label}}"\n                    wz-disabled="{{step.hidden}}"\n                    allow-click-nav="step.allowClickNav"\n                    next-enabled="step.valid && !$ctrl.updating"\n                    prev-enabled="step.prevEnabled"\n                    on-show="step.onShow"\n                    step-id="{{step.id}}"\n                    step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n      </div>\n    </pf-wizard-step>\n  </pf-wizard>\n</div>\n';
 }, function(e, t, n) {
 "use strict";
 t.__esModule = !0;
 var i = n(1), r = n(0), o = function() {
-function e(e, t, n, o) {
-var a = this;
+function e(e, t, n) {
+var o = this;
 this.ctrl = this, this.onKeywordKeyPress = function(e) {
-if (13 === e.which && a.ctrl.keywordFilter.value.length > 0) {
-var t = a.ctrl.keywordFilter.value;
-a.keywordFilterExists(t) ? a.highlightKeywordFilter(t) : (a.ctrl.keywordFilter.values.push(t), a.constructFiltersFromModel()), delete a.ctrl.keywordFilter.value;
+if (13 === e.which && o.ctrl.keywordFilter.value.length > 0) {
+var t = o.ctrl.keywordFilter.value;
+o.keywordFilterExists(t) ? o.highlightKeywordFilter(t) : (o.ctrl.keywordFilter.values.push(t), o.constructFiltersFromModel()), delete o.ctrl.keywordFilter.value;
 }
 }, this.filterChanged = function() {
-a.constructFiltersFromModel();
+o.constructFiltersFromModel();
 }, this.keywordFilterExists = function(e) {
-return r.some(a.ctrl.keywordFilter.values, function(t) {
+return r.some(o.ctrl.keywordFilter.values, function(t) {
 return e.toLowerCase() === t.toLowerCase();
 });
 }, this.highlightKeywordFilter = function(e) {
 var t = document.querySelectorAll("pf-filter-panel-results .label-info"), n = r.find(t, function(t) {
 return t.innerText.trim() === "Keyword:" + e.toLowerCase();
 });
-n && (a.$timeout(function() {
+n && (o.$timeout(function() {
 n.classList.add("flash-filter-tag");
-}, 100), a.$timeout(function() {
+}, 100), o.$timeout(function() {
 n.classList.remove("flash-filter-tag");
 }, 300));
 }, this.onFilterChange = function(e, t, n) {
-i.isDefined(t) && i.isDefined(n) ? a.updateFilterPanelModel(t, n) : a.resetFilterPanelModel(), a.constructFiltersFromModel();
-}, this.$scope = e, this.$timeout = t, this.Catalog = n, this.gettextCatalog = o, this.ctrl.filterPanelModel = [], this.ctrl.keywordFilter = {
+i.isDefined(t) && i.isDefined(n) ? o.updateFilterPanelModel(t, n) : o.resetFilterPanelModel(), o.constructFiltersFromModel();
+}, this.$scope = e, this.$timeout = t, this.Catalog = n, this.ctrl.filterPanelModel = [], this.ctrl.keywordFilter = {
 id: "keyword",
 title: "Keyword",
-placeholder: this.gettextCatalog.getString("Filter by Keyword"),
+placeholder: "Filter by Keyword",
 filterType: "text",
 values: []
 }, this.ctrl.filterPanelModel.push(this.ctrl.keywordFilter);
@@ -79535,7 +79547,7 @@ e.resetFilterPanelModel(), e.constructFiltersFromModel();
 }, e.prototype.$onChanges = function(e) {
 e.filterOnKeyword && e.filterOnKeyword.currentValue && this.ctrl.keywordFilter && (this.resetFilterPanelModel(), this.ctrl.keywordFilter.values = [ this.ctrl.filterOnKeyword ], this.constructFiltersFromModel()), e.vendors && e.vendors.currentValue && (r.isEmpty(this.ctrl.vendors) || (this.ctrl.VendorFilter ? this.ctrl.VendorFilter.values = this.getVendorValues(this.ctrl.vendors) : (this.ctrl.VendorFilter = {
 id: "vendors",
-title: this.gettextCatalog.getString("Publisher"),
+title: "Publisher",
 filterType: "checkbox",
 values: this.getVendorValues(this.ctrl.vendors)
 }, this.ctrl.filterPanelModel.push(this.ctrl.VendorFilter))));
@@ -79604,7 +79616,7 @@ e.selected = !1;
 });
 }, e;
 }();
-o.$inject = [ "$scope", "$timeout", "Catalog", "gettextCatalog" ], t.CatalogFilterController = o;
+o.$inject = [ "$scope", "$timeout", "Catalog" ], t.CatalogFilterController = o;
 }, function(e, t, n) {
 "use strict";
 t.__esModule = !0;
@@ -79683,13 +79695,13 @@ select: !0
 "use strict";
 t.__esModule = !0;
 var i = n(0), r = n(2), o = function() {
-function e(e, t, n, i, r, o, a) {
-var s = this;
+function e(e, t, n, i, r, o) {
+var a = this;
 this.ctrl = this, this.loaded = !1, this.maxResultsToShow = 5, this.onKeyPress = function(e) {
-13 === e.which && s.ctrl.searchText && (s.$rootScope.$emit("filter-catalog-items", {
-searchText: s.ctrl.searchText
-}), s.ctrl.searchText = "");
-}, this.$rootScope = e, this.$scope = t, this.$timeout = n, this.$q = i, this.Catalog = r, this.KeywordService = o, this.gettextCatalog = a;
+13 === e.which && a.ctrl.searchText && (a.$rootScope.$emit("filter-catalog-items", {
+searchText: a.ctrl.searchText
+}), a.ctrl.searchText = "");
+}, this.$rootScope = e, this.$scope = t, this.$timeout = n, this.$q = i, this.Catalog = r, this.KeywordService = o;
 }
 return e.prototype.$onInit = function() {
 this.ctrl.searchText = "";
@@ -79715,20 +79727,20 @@ t.setSearchInputFocus(e + 1);
 var t = this.KeywordService.generateKeywords(e), n = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t), r = i.size(n), o = i.take(n, this.maxResultsToShow);
 return 0 === r ? o.push({
 id: "viewNone",
-text: this.gettextCatalog.getString("No results found for Keyword:") + "  " + e,
+text: "No results found for Keyword: " + e,
 name: e
 }) : 1 === r ? o.push({
 id: "viewAll",
-text: this.gettextCatalog.getString("View the result for Keyword:") + "  " + e,
+text: "View the result for Keyword: " + e,
 name: e
 }) : r > 1 && o.push({
 id: "viewAll",
-text: this.gettextCatalog.getString("View all") + " " + r + this.gettextCatalog.getString("results for Keyword:") + " " + e,
+text: "View all " + r + " results for Keyword: " + e,
 name: e
 }), o;
 }, e;
 }();
-o.$inject = [ "$rootScope", "$scope", "$timeout", "$q", "Catalog", "KeywordService", "gettextCatalog" ], t.CatalogSearchController = o;
+o.$inject = [ "$rootScope", "$scope", "$timeout", "$q", "Catalog", "KeywordService" ], t.CatalogSearchController = o;
 }, function(e, t, n) {
 "use strict";
 t.__esModule = !0;
@@ -80428,25 +80440,25 @@ o.$inject = [ "$filter", "$scope", "AuthService", "AuthorizationService", "Keywo
 "use strict";
 t.__esModule = !0;
 var i = n(0), r = n(2), o = function() {
-function e(e, t, n, r, o, a, s, l, c, u, d) {
-var h = this;
+function e(e, t, n, r, o, a, s, l, c, u) {
+var d = this;
 this.ctrl = this, this.previousSubCategoryHeight = 0, this.resizeRetries = 0, this.serviceViewItemClicked = function(e, t) {
-h.$scope.$emit("open-overlay-panel", e);
+d.$scope.$emit("open-overlay-panel", e);
 }, this.filterChange = function(e) {
-h.filterByCategory(h.ctrl.currentFilter, h.ctrl.currentSubFilter, !1), i.isEmpty(e) || i.each(e, function(e) {
+d.filterByCategory(d.ctrl.currentFilter, d.ctrl.currentSubFilter, !1), i.isEmpty(e) || i.each(e, function(e) {
 switch (e.id) {
 case "keyword":
-h.ctrl.filteredItems = h.filterForKeywords(e.values[0], h.ctrl.filteredItems);
+d.ctrl.filteredItems = d.filterForKeywords(e.values[0], d.ctrl.filteredItems);
 break;
 
 case "vendors":
-h.ctrl.filteredItems = h.filterForVendors(e.values, h.ctrl.filteredItems);
+d.ctrl.filteredItems = d.filterForVendors(e.values, d.ctrl.filteredItems);
 }
-}), h.ctrl.filterConfig.resultsCount = h.ctrl.filteredItems.length, h.ctrl.keywordFilterValue = null;
+}), d.ctrl.filterConfig.resultsCount = d.ctrl.filteredItems.length, d.ctrl.keywordFilterValue = null;
 }, this.clearAppliedFilters = function() {
-h.$scope.$broadcast("clear-filters");
-}, this.constants = e, this.catalog = t, this.keywordService = n, this.logger = r, this.htmlService = o, this.element = a[0], this.$filter = s, this.$rootScope = l, this.$scope = c, this.$timeout = u, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, this.ctrl.mobileView = "categories", this.gettextCatalog = d, this.ctrl.filterConfig = {
-resultsLabel: this.gettextCatalog.getString("Items"),
+d.$scope.$broadcast("clear-filters");
+}, this.constants = e, this.catalog = t, this.keywordService = n, this.logger = r, this.htmlService = o, this.element = a[0], this.$filter = s, this.$rootScope = l, this.$scope = c, this.$timeout = u, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, this.ctrl.mobileView = "categories", this.ctrl.filterConfig = {
+resultsLabel: "Items",
 appliedFilters: []
 }, this.ctrl.keywordFilterValue = null;
 }
@@ -80459,15 +80471,15 @@ maxWait: 250
 }), r(window).on("resize.services", this.debounceResize), this.ctrl.currentFilter = this.ctrl.currentSubFilter = "all", this.ctrl.sectionTitle = this.ctrl.sectionTitle || "Browse Catalog", this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, n) {
 e.setKeywordFilter(n.searchText);
 }), this.ctrl.emptyFilterConfig = {
-title: this.gettextCatalog.getString("No results match."),
-info: this.gettextCatalog.getString("The active filters are hiding all catalog items."),
+title: "No results match.",
+info: "The active filters are hiding all catalog items.",
 helpLink: {
-urlLabel: this.gettextCatalog.getString("Clear Filters"),
+urlLabel: "Clear Filters",
 urlAction: this.clearAppliedFilters
 }
 }, this.ctrl.noItemsConfig = {
-title: this.gettextCatalog.getString("No items."),
-info: this.gettextCatalog.getString("No catalog items have been loaded."),
+title: "No items.",
+info: "No catalog items have been loaded.",
 helpLink: {
 urlLabel: "See Loading the Default Image Streams and Templates",
 url: "https://docs.openshift.org/latest/install_config/imagestreams_templates.html"
@@ -80544,7 +80556,7 @@ return e.resizeExpansion(!0);
 });
 }, e;
 }();
-o.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout", "gettextCatalog" ], o.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = o;
+o.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], o.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = o;
 }, function(e, t, n) {
 "use strict";
 t.__esModule = !0;
